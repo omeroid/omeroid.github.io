@@ -1,9 +1,14 @@
 .Card img {
-    width: 200px;
+    width: 130px;
     margin: auto;
-    height: 180px;
+    height: 120px;
+    margin-top: 20px;
 }
 
 .Button {
+  color: white;
+}
+
+.Copyright {
   color: white;
 }

@@ -31,6 +31,7 @@ import {
   Footer,
   Copyright,
   Social,
+  Analytics,
 } from '@front10/landing-page-book/dist/components'
 
 // import Helmet from "react-helmet";
@@ -44,7 +45,22 @@ import browsers from '../data/browsers.json'
 
 export default () => (
   <div className="App">
+    <div id="fb-root"></div>
+    <script>{(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/ja_JP/sdk/xfbml.customerchat.js';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'))}</script>
+    <div className={"fb-customerchat"}
+      attribution={'setup_tool'}
+      page_id={"1970520546574914"}
+      logged_in_greeting={"こんにちは！気軽にお問い合わせください！"}
+      logged_out_greeting={"こんにちは！気軽にお問い合わせください！"}>
+    </div>
     <SEO />
+    <Analytics idTracking="UA-132404098-1" urlPath="/"/>
     <Navbar expand="lg">
       <Container>
         <NavbarCollapse>
@@ -56,8 +72,6 @@ export default () => (
             />
           </NavbarBrand>
           <NavbarNav alignItems="right">
-            <NavbarLink>Docs</NavbarLink>
-            <NavbarLink>Contribute</NavbarLink>
             <NavbarLink>Blog</NavbarLink>
             <NavbarLink>
               <Icon icon="fa fa-github" />
@@ -84,32 +98,37 @@ export default () => (
     </Hero>
     <Container>
       <br />
-      <Header borderBottom type="h1">
-        Service
-      </Header>
+      <Header borderBottom type="h1">Service</Header>
       <Features
         shadow
         buttonColor="primary"
-        features={[
-          {
-            image: 'images/features/testing.png',
-            title: 'システムコンサル/開発',
-            subtitle: 'システムをシンプルに',
-            summary:
-              '会社の経営方針に合わせ、<br/>今必要なものをよりシンプルに実現することをサポートします。<br/>今だけでなく、未来を見据えたシステム設計、開発を行なっていきます。',
-            link: 'https://www.omeroid.com',
-          },
-          {
-            image: 'images/features/rocket.png',
-            title: 'サービス事業',
-            subtitle: '日々をシンプルに',
-            summary:
-              '日々の生活の中にある、「あと一歩」をサポートします。<br/>omeroidのサービスは、人々の生活を豊かに、<br/>そしてシンプルにすることを目指しています。',
-            link: 'https://www.omeroid.com',
-          },
-        ]}
+        features={features}
       />
     </Container>
+    <Container>
+      <Header borderBottom type="h1">Team</Header>
+      <Team
+        showBorder={false}
+        members={team}
+        socials={['linkedin', 'twitter']}
+      />
+    </Container>
+    <Footer
+       copyrightTextColor={"light"}
+    >
+      <Row>
+        <Column className="col-sm-12 col-md">
+          <Copyright showAllRightText={false} text="omeroid Inc. All rights reserved" />
+        </Column>
+        <Column className="col-sm-12 col-md mt-3 mt-md-0">
+          <Social type="twitter" url="https://twitter.com/omeroid_inc" />
+          <Social
+            type="facebook"
+            url="fb.me/omeroid"
+          />
+        </Column>
+      </Row>
+    </Footer>
     <Container>
       <Row className="mt-5">
         <Column>
