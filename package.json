@@ -21,6 +21,12 @@
     "react-dom": "^16.6.3",
     "react-helmet": "^5.2.0"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn format",
+      "pre-push": "yarn test"
+    }
+  },
   "keywords": [
     "gatsby"
   ],
@@ -30,7 +36,7 @@
     "develop": "rm -rf public && mkdir public && cp -r assets/* public/ && gatsby develop",
     "deploy": "gatsby build --prefix-paths && echo 'www.omeroid.com' > public/CNAME && gh-pages --branch master -d public",
     "start": "npm run develop",
-    "format": "prettier --write \"src/**/*.js\"",
+    "format": "prettier --write --single-quote \"src/**/*.js\"",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
   },
   "devDependencies": {

@@ -1,11 +1,11 @@
-import path from 'path';
-import React from 'react';
-import Helmet from 'react-helmet';
-import { StaticQuery, graphql } from 'gatsby';
-import PropTypes from 'prop-types';
-import SchemaOrg from './SchemaOrg';
+import path from 'path'
+import React from 'react'
+import Helmet from 'react-helmet'
+import { StaticQuery, graphql } from 'gatsby'
+import PropTypes from 'prop-types'
+import SchemaOrg from './SchemaOrg'
 
-import favicon from "../../favicon.png";
+import favicon from '../../favicon.png'
 
 const seo = ({ postData, frontmatter = {}, postImage, isBlogPost }) => (
   <StaticQuery
@@ -17,7 +17,7 @@ const seo = ({ postData, frontmatter = {}, postImage, isBlogPost }) => (
             description
             canonicalUrl
             image
-            author 
+            author
             organization {
               name
               url
@@ -33,15 +33,15 @@ const seo = ({ postData, frontmatter = {}, postImage, isBlogPost }) => (
     `}
     render={({ site: { siteMetadata: seo } }) => {
       const postMeta =
-        frontmatter || postData.childMarkdownRemark.frontmatter || {};
+        frontmatter || postData.childMarkdownRemark.frontmatter || {}
 
-      const title = postMeta.title || seo.title;
-      const description = postMeta.description || seo.description;
-      const image = postImage ? `${seo.canonicalUrl}${postImage}` : seo.image;
+      const title = postMeta.title || seo.title
+      const description = postMeta.description || seo.description
+      const image = postImage ? `${seo.canonicalUrl}${postImage}` : seo.image
       const url = postMeta.slug
         ? `${seo.canonicalUrl}${path.sep}${postMeta.slug}`
-        : seo.canonicalUrl;
-      const datePublished = isBlogPost ? postMeta.datePublished : false;
+        : seo.canonicalUrl
+      const datePublished = isBlogPost ? postMeta.datePublished : false
 
       return (
         <React.Fragment>
@@ -80,10 +80,10 @@ const seo = ({ postData, frontmatter = {}, postImage, isBlogPost }) => (
             defaultTitle={seo.title}
           />
         </React.Fragment>
-      );
+      )
     }}
   />
-);
+)
 
 seo.propTypes = {
   isBlogPost: PropTypes.bool,
@@ -94,12 +94,12 @@ seo.propTypes = {
     }),
   }),
   postImage: PropTypes.string,
-};
+}
 
 seo.defaultProps = {
   isBlogPost: false,
   postData: { childMarkdownRemark: {} },
   postImage: null,
-};
+}
 
-export default seo;
+export default seo

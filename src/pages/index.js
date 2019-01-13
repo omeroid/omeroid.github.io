@@ -1,12 +1,12 @@
 //core
-import "bootstrap/dist/css/bootstrap.min.css";
-import "font-awesome/css/font-awesome.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'font-awesome/css/font-awesome.min.css'
 //front10 components
-import "@front10/landing-page-book/dist/themes/default/index.legacy_browsers.css";
+import '@front10/landing-page-book/dist/themes/default/index.legacy_browsers.css'
 
-import "../app.css";
+import '../app.css'
 
-import React from "react";
+import React from 'react'
 
 import {
   Row,
@@ -30,42 +30,44 @@ import {
   Gif,
   Footer,
   Copyright,
-  Social
-} from "@front10/landing-page-book/dist/components";
+  Social,
+} from '@front10/landing-page-book/dist/components'
 
 // import Helmet from "react-helmet";
 
-import SEO from "../components/seo/seo";
+import SEO from '../components/seo/seo'
 
-import particles from "../data/particles.json";
-import features from "../data/features.json";
-import team from "../data/team.json";
-import browsers from "../data/browsers.json";
+import particles from '../data/particles.json'
+import features from '../data/features.json'
+import team from '../data/team.json'
+import browsers from '../data/browsers.json'
 
 export default () => (
   <div className="App">
     <SEO />
     <Navbar expand="lg">
       <Container>
-          <NavbarCollapse>
-              <NavbarBrand>
-                  <Image 
-                      width="180"
-                      src="images/logo/omeroid_w.svg"
-                      alt="omeroid logo"
-                  />
-              </NavbarBrand>
-              <NavbarNav alignItems="right">
-                  <NavbarLink>Docs</NavbarLink>
-                  <NavbarLink>Contribute</NavbarLink>
-                  <NavbarLink>Blog</NavbarLink>
-                  <NavbarLink><Icon icon="fa fa-github" /></NavbarLink>
-              </NavbarNav>
-          </NavbarCollapse>
+        <NavbarCollapse>
+          <NavbarBrand>
+            <Image
+              width="180"
+              src="images/logo/omeroid_w.svg"
+              alt="omeroid logo"
+            />
+          </NavbarBrand>
+          <NavbarNav alignItems="right">
+            <NavbarLink>Docs</NavbarLink>
+            <NavbarLink>Contribute</NavbarLink>
+            <NavbarLink>Blog</NavbarLink>
+            <NavbarLink>
+              <Icon icon="fa fa-github" />
+            </NavbarLink>
+          </NavbarNav>
+        </NavbarCollapse>
       </Container>
     </Navbar>
     <Hero
-      opacity={1} 
+      opacity={1}
       overlayColor="#373D45"
       particlesParams={particles}
       minHeight="80vh"
@@ -77,33 +79,35 @@ export default () => (
           src="images/logo/omeroid_w.svg"
           width="800vw"
         />
-        <Header className="text-warning">
-           ~ Make it simple ~ 
-        </Header>
+        <Header className="text-warning">~ Make it simple ~</Header>
       </Container>
     </Hero>
     <Container>
-      <br/>
-      <Header borderBottom type="h1">Service</Header>
+      <br />
+      <Header borderBottom type="h1">
+        Service
+      </Header>
       <Features
-          shadow
-          buttonColor="primary"
-          features={[
-              {
-                      "image": "images/features/testing.png",
-                      "title": "システムコンサル/開発",
-                      "subtitle": "システムをシンプルに",
-                "summary": "会社の経営方針に合わせ、<br/>今必要なものをよりシンプルに実現することをサポートします。<br/>今だけでなく、未来を見据えたシステム設計、開発を行なっていきます。",
-                      "link": "https://www.omeroid.com"
-              },
-              {
-                      "image": "images/features/rocket.png",
-                      "title": "サービス事業",
-                      "subtitle": "日々をシンプルに",
-                "summary": "日々の生活の中にある、「あと一歩」をサポートします。<br/>omeroidのサービスは、人々の生活を豊かに、<br/>そしてシンプルにすることを目指しています。",
-                      "link": "https://www.omeroid.com"
-              },
-      ]}
+        shadow
+        buttonColor="primary"
+        features={[
+          {
+            image: 'images/features/testing.png',
+            title: 'システムコンサル/開発',
+            subtitle: 'システムをシンプルに',
+            summary:
+              '会社の経営方針に合わせ、<br/>今必要なものをよりシンプルに実現することをサポートします。<br/>今だけでなく、未来を見据えたシステム設計、開発を行なっていきます。',
+            link: 'https://www.omeroid.com',
+          },
+          {
+            image: 'images/features/rocket.png',
+            title: 'サービス事業',
+            subtitle: '日々をシンプルに',
+            summary:
+              '日々の生活の中にある、「あと一歩」をサポートします。<br/>omeroidのサービスは、人々の生活を豊かに、<br/>そしてシンプルにすることを目指しています。',
+            link: 'https://www.omeroid.com',
+          },
+        ]}
       />
     </Container>
     <Container>
@@ -193,7 +197,7 @@ export default () => (
           <Team
             showBorder={false}
             members={team}
-            socials={["linkedin", "twitter"]}
+            socials={['linkedin', 'twitter']}
           />
         </Column>
       </Row>
@@ -251,4 +255,4 @@ export default () => (
       </Row>
     </Container>
   </div>
-);
+)
