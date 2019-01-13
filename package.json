@@ -19,7 +19,8 @@
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "react-helmet": "^5.2.0"
+    "react-helmet": "^5.2.0",
+    "react-messenger-customer-chat": "^0.7.2"
   },
   "husky": {
     "hooks": {
@@ -50,5 +51,8 @@
   },
   "bugs": {
     "url": "https://github.com/omeroid/omeroid.github.io/issues"
+  },
+  "globals": {
+    "document": true
   }
 }

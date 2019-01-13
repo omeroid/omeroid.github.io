@@ -32,8 +32,10 @@ import {
   Copyright,
   Social,
   Analytics,
+  ContactInfo,
 } from '@front10/landing-page-book/dist/components'
 
+import MessengerCustomerChat from 'react-messenger-customer-chat';
 // import Helmet from "react-helmet";
 
 import SEO from '../components/seo/seo'
@@ -45,24 +47,9 @@ import browsers from '../data/browsers.json'
 
 export default () => (
   <div className="App">
-    <div id="fb-root" />
-    <script>
-      {(function(d, s, id) {
-        var js,
-          fjs = d.getElementsByTagName(s)[0]
-        if (d.getElementById(id)) return
-        js = d.createElement(s)
-        js.id = id
-        js.src = 'https://connect.facebook.net/ja_JP/sdk/xfbml.customerchat.js'
-        fjs.parentNode.insertBefore(js, fjs)
-      })(document, 'script', 'facebook-jssdk')}
-    </script>
-    <div
-      className={'fb-customerchat'}
-      attribution={'setup_tool'}
-      page_id={'1970520546574914'}
-      logged_in_greeting={'こんにちは！気軽にお問い合わせください！'}
-      logged_out_greeting={'こんにちは！気軽にお問い合わせください！'}
+    <MessengerCustomerChat
+      pageId="1970520546574914"
+      appId="1634817276825716"
     />
     <SEO />
     <Analytics idTracking="UA-132404098-1" urlPath="/" />
@@ -116,6 +103,19 @@ export default () => (
         showBorder={false}
         members={team}
         socials={['linkedin', 'twitter']}
+      />
+    </Container>
+    <Container>
+      <ContactInfo
+          showBorder
+          showIcons
+          lat={35.579114}
+          lng={139.747703}
+          locationApiKey="AIzaSyABYHuI6Wr_dYJA98KeMiltbx_aF5EqaDc"
+          address="東京都大田区平和島6丁目1番1号"
+          email="sadayuki.matsuno@omeroid.com"
+          mobile="05052402216"
+          website="https://omeroid.com"
       />
     </Container>
     <Footer copyrightTextColor={'light'}>
