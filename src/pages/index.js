@@ -39,13 +39,14 @@ import SEO from '../components/seo/seo'
 import particles from '../data/particles.json'
 import features from '../data/features.json'
 import team from '../data/team.json'
+import contactInfo from '../data/contactInfo.json'
 
 export default () => (
   <div className="App">
     <MessengerCustomerChat pageId="1970520546574914" appId="1634817276825716" />
     <SEO />
     <Analytics idTracking="UA-132404098-1" urlPath="/" />
-    <Navbar expand="lg">
+    <Navbar fixed expand="lg">
       <Container>
         <NavbarCollapse>
           <NavbarBrand>
@@ -118,7 +119,6 @@ export default () => (
       <Team
         showBorder={false}
         members={team}
-        socials={['linkedin', 'twitter']}
       />
     </Container>
     <Container>
@@ -128,12 +128,12 @@ export default () => (
       <ContactInfo
         showBorder
         showIcons
-        lat={35.579114}
-        lng={139.747703}
-        locationApiKey="AIzaSyABYHuI6Wr_dYJA98KeMiltbx_aF5EqaDc"
-        address="東京都大田区平和島6丁目1番1号"
-        email="sadayuki.matsuno@omeroid.com"
-        website="https://www.omeroid.com"
+        lat={contactInfo.lat}
+        lng={contactInfo.lng}
+        locationApiKey={contactInfo.locationApiKey}
+        address={contactInfo.address}
+        email={contactInfo.email}
+        website={contactInfo.website}
       />
     </Container>
     <Footer copyrightTextColor={'light'}>
@@ -141,7 +141,7 @@ export default () => (
         <Column className="col-sm-12 col-md">
           <Copyright
             showAllRightText={false}
-            text="omeroid Inc. All rights reserved"
+            text={contactInfo.copyright}
           />
         </Column>
       </Row>

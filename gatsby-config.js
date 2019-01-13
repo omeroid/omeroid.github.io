@@ -7,7 +7,7 @@ module.exports = {
     title: `omeroid Inc.`,
     description: `
       omeroid Inc.
-      システムコンサルとサービス事業を行なっています。
+      システムコンサル/開発とサービス事業を行なっています。
       システム開発のご相談は、お気軽にお申し付けください。
     `,
     canonicalUrl: 'https://www.omeroid.com',
