@@ -81,7 +81,7 @@ export default () => (
         />
         <Header className="text-warning">~ Make it simple ~</Header>
         <Social type="twitter" url="https://twitter.com/omeroid_inc" />
-        <Social type="facebook" url="fb.me/omeroid" />
+        <Social type="facebook" url="https://fb.me/omeroid" />
       </Container>
     </Hero>
     <Container>
