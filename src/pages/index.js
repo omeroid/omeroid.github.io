@@ -75,6 +75,8 @@ export default () => (
           width="800vw"
         />
         <Header className="text-warning">~ Make it simple ~</Header>
+        <Social type="twitter" url="https://twitter.com/omeroid_inc" />
+        <Social type="facebook" url="fb.me/omeroid" />
       </Container>
     </Hero>
     <Container>
@@ -91,17 +93,7 @@ export default () => (
       <Section>
         <Container className="text-justify">
           <Row>
-            <Column className="col-6 col-md-6">
-              <Card
-                contentAlign="left"
-                image="images/logo/omeroid.svg"
-                imageCircle={false}
-                title="Comming..."
-                subTitle=""
-                summary={``}
-              />
-            </Column>
-            <Column className="col-6 col-md-6">
+            <Column className="col-12 col-md-6">
               <Card
                 contentAlign="left"
                 image="images/logo/omeroid.svg"
@@ -137,7 +129,6 @@ export default () => (
         locationApiKey="AIzaSyABYHuI6Wr_dYJA98KeMiltbx_aF5EqaDc"
         address="東京都大田区平和島6丁目1番1号"
         email="sadayuki.matsuno@omeroid.com"
-        mobile="05052402216"
         website="https://www.omeroid.com"
       />
     </Container>
@@ -148,10 +139,6 @@ export default () => (
             showAllRightText={false}
             text="omeroid Inc. All rights reserved"
           />
-        </Column>
-        <Column className="col-sm-12 col-md mt-3 mt-md-0">
-          <Social type="twitter" url="https://twitter.com/omeroid_inc" />
-          <Social type="facebook" url="fb.me/omeroid" />
         </Column>
       </Row>
     </Footer>
