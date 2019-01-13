@@ -116,10 +116,7 @@ export default () => (
       <Header borderBottom type="h1">
         <div id={'team'}>Team</div>
       </Header>
-      <Team
-        showBorder={false}
-        members={team}
-      />
+      <Team showBorder={false} members={team} />
     </Container>
     <Container>
       <Header borderBottom type="h1">
@@ -139,10 +136,7 @@ export default () => (
     <Footer copyrightTextColor={'light'}>
       <Row>
         <Column className="col-sm-12 col-md">
-          <Copyright
-            showAllRightText={false}
-            text={contactInfo.copyright}
-          />
+          <Copyright showAllRightText={false} text={contactInfo.copyright} />
         </Column>
       </Row>
     </Footer>
