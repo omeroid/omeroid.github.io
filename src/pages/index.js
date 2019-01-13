@@ -89,7 +89,7 @@ export default () => (
       <Header borderBottom id="service" type="h1">
         <div id={'service'}>Service</div>
       </Header>
-      <Features shadow buttonColor="primary" features={features} />
+      <Features shadow showFooter={false} features={features} />
     </Container>
     <Container>
       <Header borderBottom type="h1">
