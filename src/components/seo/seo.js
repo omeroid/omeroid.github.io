@@ -31,7 +31,6 @@ const seo = ({ postData, frontmatter = {}, postImage, isBlogPost }) => (
         }
       }
     `}
-
     render={({ site: { siteMetadata: seo } }) => {
       const postMeta =
         frontmatter || postData.childMarkdownRemark.frontmatter || {}

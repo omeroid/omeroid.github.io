@@ -35,7 +35,7 @@ import {
   ContactInfo,
 } from '@front10/landing-page-book/dist/components'
 
-import MessengerCustomerChat from 'react-messenger-customer-chat';
+import MessengerCustomerChat from 'react-messenger-customer-chat'
 // import Helmet from "react-helmet";
 
 import SEO from '../components/seo/seo'
@@ -47,10 +47,7 @@ import browsers from '../data/browsers.json'
 
 export default () => (
   <div className="App">
-    <MessengerCustomerChat
-      pageId="1970520546574914"
-      appId="1634817276825716"
-    />
+    <MessengerCustomerChat pageId="1970520546574914" appId="1634817276825716" />
     <SEO />
     <Analytics idTracking="UA-132404098-1" urlPath="/" />
     <Navbar expand="lg">
@@ -107,15 +104,15 @@ export default () => (
     </Container>
     <Container>
       <ContactInfo
-          showBorder
-          showIcons
-          lat={35.579114}
-          lng={139.747703}
-          locationApiKey="AIzaSyABYHuI6Wr_dYJA98KeMiltbx_aF5EqaDc"
-          address="東京都大田区平和島6丁目1番1号"
-          email="sadayuki.matsuno@omeroid.com"
-          mobile="05052402216"
-          website="https://omeroid.com"
+        showBorder
+        showIcons
+        lat={35.579114}
+        lng={139.747703}
+        locationApiKey="AIzaSyABYHuI6Wr_dYJA98KeMiltbx_aF5EqaDc"
+        address="東京都大田区平和島6丁目1番1号"
+        email="sadayuki.matsuno@omeroid.com"
+        mobile="05052402216"
+        website="https://omeroid.com"
       />
     </Container>
     <Footer copyrightTextColor={'light'}>
