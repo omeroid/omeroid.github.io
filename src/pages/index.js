@@ -43,7 +43,7 @@ import team from '../data/team.json'
 export default () => (
   <div className="App">
     <MessengerCustomerChat pageId="1970520546574914" appId="1634817276825716" />
-    <SEO />
+    <SEO/>
     <Analytics idTracking="UA-132404098-1" urlPath="/" />
     <Navbar expand="lg">
       <Container>
@@ -56,6 +56,10 @@ export default () => (
             />
           </NavbarBrand>
           <NavbarNav alignItems="right">
+            <NavbarLink href={'#service'}>Service</NavbarLink>
+            <NavbarLink href={'#portfolio'}>Portfolio</NavbarLink>
+            <NavbarLink href={'#team'}>Team</NavbarLink>
+            <NavbarLink href={'#contactInfo'}>Contact Info</NavbarLink>
             <NavbarLink>Blog (Comming soon..)</NavbarLink>
           </NavbarNav>
         </NavbarCollapse>
@@ -81,14 +85,14 @@ export default () => (
     </Hero>
     <Container>
       <br />
-      <Header borderBottom type="h1">
-        Service
+      <Header borderBottom id="service" type="h1">
+        <div id={'service'}>Service</div>
       </Header>
       <Features shadow buttonColor="primary" features={features} />
     </Container>
     <Container>
       <Header borderBottom type="h1">
-        Portfolio
+        <div id={'portfolio'}>Portfolio</div>
       </Header>
       <Section>
         <Container className="text-justify">
@@ -109,7 +113,7 @@ export default () => (
     </Container>
     <Container>
       <Header borderBottom type="h1">
-        Team
+        <div id={'team'}>Team</div>
       </Header>
       <Team
         showBorder={false}
@@ -119,7 +123,7 @@ export default () => (
     </Container>
     <Container>
       <Header borderBottom type="h1">
-        Contact Info
+        <div id={'contactInfo'}>Contact Info</div>
       </Header>
       <ContactInfo
         showBorder
