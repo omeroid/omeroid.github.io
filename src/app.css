@@ -12,3 +12,11 @@
 .Copyright {
   color: white;
 }
+
+.ImageList div {
+  margin: auto;
+}
+
+.Label {
+  width: 100%;
+}
