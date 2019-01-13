@@ -43,7 +43,7 @@ import team from '../data/team.json'
 export default () => (
   <div className="App">
     <MessengerCustomerChat pageId="1970520546574914" appId="1634817276825716" />
-    <SEO/>
+    <SEO />
     <Analytics idTracking="UA-132404098-1" urlPath="/" />
     <Navbar expand="lg">
       <Container>

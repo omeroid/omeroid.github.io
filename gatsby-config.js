@@ -6,10 +6,12 @@ module.exports = {
   siteMetadata: {
     title: `omeroid Inc.`,
     description: `
-      omeroid株式会社 会社ホームページ
+      omeroid Inc.
+      システムコンサルとサービス事業を行なっています。
+      システム開発のご相談は、お気軽にお申し付けください。
     `,
     canonicalUrl: 'https://www.omeroid.com',
-    image: 'images/logo/omeroid_icon.svg',
+    image: 'https://raw.githubusercontent.com/omeroid/docs/master/logo/omeroid_logo/PNG/H_Bw_1440x240.png?token=AIlJ0mdl356Yk8OqYBAiz6RINJjM75yeks5cP-SUwA%3D%3D',
     author: 'Sadayuki Matsuno',
     organization: {
       name: 'omeroid 株式会社',
