@@ -45,22 +45,27 @@ import browsers from '../data/browsers.json'
 
 export default () => (
   <div className="App">
-    <div id="fb-root"></div>
-    <script>{(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = 'https://connect.facebook.net/ja_JP/sdk/xfbml.customerchat.js';
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'))}</script>
-    <div className={"fb-customerchat"}
+    <div id="fb-root" />
+    <script>
+      {(function(d, s, id) {
+        var js,
+          fjs = d.getElementsByTagName(s)[0]
+        if (d.getElementById(id)) return
+        js = d.createElement(s)
+        js.id = id
+        js.src = 'https://connect.facebook.net/ja_JP/sdk/xfbml.customerchat.js'
+        fjs.parentNode.insertBefore(js, fjs)
+      })(document, 'script', 'facebook-jssdk')}
+    </script>
+    <div
+      className={'fb-customerchat'}
       attribution={'setup_tool'}
-      page_id={"1970520546574914"}
-      logged_in_greeting={"こんにちは！気軽にお問い合わせください！"}
-      logged_out_greeting={"こんにちは！気軽にお問い合わせください！"}>
-    </div>
+      page_id={'1970520546574914'}
+      logged_in_greeting={'こんにちは！気軽にお問い合わせください！'}
+      logged_out_greeting={'こんにちは！気軽にお問い合わせください！'}
+    />
     <SEO />
-    <Analytics idTracking="UA-132404098-1" urlPath="/"/>
+    <Analytics idTracking="UA-132404098-1" urlPath="/" />
     <Navbar expand="lg">
       <Container>
         <NavbarCollapse>
@@ -98,34 +103,32 @@ export default () => (
     </Hero>
     <Container>
       <br />
-      <Header borderBottom type="h1">Service</Header>
-      <Features
-        shadow
-        buttonColor="primary"
-        features={features}
-      />
+      <Header borderBottom type="h1">
+        Service
+      </Header>
+      <Features shadow buttonColor="primary" features={features} />
     </Container>
     <Container>
-      <Header borderBottom type="h1">Team</Header>
+      <Header borderBottom type="h1">
+        Team
+      </Header>
       <Team
         showBorder={false}
         members={team}
         socials={['linkedin', 'twitter']}
       />
     </Container>
-    <Footer
-       copyrightTextColor={"light"}
-    >
+    <Footer copyrightTextColor={'light'}>
       <Row>
         <Column className="col-sm-12 col-md">
-          <Copyright showAllRightText={false} text="omeroid Inc. All rights reserved" />
+          <Copyright
+            showAllRightText={false}
+            text="omeroid Inc. All rights reserved"
+          />
         </Column>
         <Column className="col-sm-12 col-md mt-3 mt-md-0">
           <Social type="twitter" url="https://twitter.com/omeroid_inc" />
-          <Social
-            type="facebook"
-            url="fb.me/omeroid"
-          />
+          <Social type="facebook" url="fb.me/omeroid" />
         </Column>
       </Row>
     </Footer>
