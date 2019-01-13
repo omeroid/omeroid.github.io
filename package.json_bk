@@ -1,0 +1,47 @@
+{
+  "name": "omeroid-landing-page",
+  "private": true,
+  "description": "omeroid landing page",
+  "version": "0.1.0",
+  "author": "sadayuki-matsuno",
+  "dependencies": {
+    "@front10/landing-page-book": "v2.0.0-beta.0",
+    "babel-plugin-styled-components": "^1.8.0",
+    "gatsby": "^2.0.76",
+    "gatsby-image": "^2.0.20",
+    "gatsby-plugin-manifest": "^2.0.9",
+    "gatsby-plugin-offline": "^2.0.16",
+    "gatsby-plugin-react-helmet": "^3.0.2",
+    "gatsby-plugin-sharp": "^2.0.14",
+    "gatsby-plugin-styled-components": "^3.0.4",
+    "gatsby-source-filesystem": "^2.0.8",
+    "gatsby-transformer-sharp": "^2.1.8",
+    "prop-types": "^15.6.2",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-helmet": "^5.2.0"
+  },
+  "keywords": [
+    "gatsby"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf public && mkdir public && cp -r assets/* public/ && gatsby build",
+    "develop": "rm -rf public && mkdir public && cp -r assets/* public/ && gatsby develop",
+    "deploy": "gatsby build --prefix-paths && echo 'www.omeroid.com' > public/CNAME && gh-pages --branch master -d public",
+    "start": "npm run develop",
+    "format": "prettier --write \"src/**/*.js\"",
+    "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
+  },
+  "devDependencies": {
+    "gh-pages": "^2.0.1",
+    "prettier": "^1.15.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/omeroid/omeroid.github.io"
+  },
+  "bugs": {
+    "url": "https://github.com/omeroid/omeroid.github.io/issues"
+  }
+}

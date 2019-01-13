@@ -1,0 +1,16 @@
+[
+  {
+    "image": "images/features/rocket.png",
+    "title": "Simple",
+    "subtitle": "Easy to use",
+    "summary": "You can do a lot in your web application with little code and very fast.",
+    "link": "1"
+  },
+  {
+    "image": "images/features/testing.png",
+    "title": "Testing",
+    "subtitle": "Robust components",
+    "summary": "All our components are tested, like a Swiss watch. With code coverage above 70%",
+    "link": "4"
+  }
+]
