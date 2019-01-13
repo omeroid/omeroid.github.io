@@ -79,40 +79,46 @@ export default () => (
     </Hero>
     <Container>
       <br />
-      <Header borderBottom type="h1">Service</Header>
+      <Header borderBottom type="h1">
+        Service
+      </Header>
       <Features shadow buttonColor="primary" features={features} />
     </Container>
     <Container>
-      <Header borderBottom type="h1">Portfolio</Header>
+      <Header borderBottom type="h1">
+        Portfolio
+      </Header>
       <Section>
         <Container className="text-justify">
           <Row>
             <Column className="col-6 col-md-6">
-                <Card
-                  contentAlign="left"
-                  image="images/logo/omeroid.svg"
-                  imageCircle={false}
-                  title="Comming..."
-                  subTitle=""
-                  summary={``}
-                />
+              <Card
+                contentAlign="left"
+                image="images/logo/omeroid.svg"
+                imageCircle={false}
+                title="Comming..."
+                subTitle=""
+                summary={``}
+              />
             </Column>
             <Column className="col-6 col-md-6">
-                <Card
-                  contentAlign="left"
-                  image="images/logo/omeroid.svg"
-                  imageCircle={false}
-                  title="Comming..."
-                  subTitle=""
-                  summary={``}
-                />
+              <Card
+                contentAlign="left"
+                image="images/logo/omeroid.svg"
+                imageCircle={false}
+                title="Comming..."
+                subTitle=""
+                summary={``}
+              />
             </Column>
           </Row>
         </Container>
       </Section>
     </Container>
     <Container>
-      <Header borderBottom type="h1">Team</Header>
+      <Header borderBottom type="h1">
+        Team
+      </Header>
       <Team
         showBorder={false}
         members={team}
@@ -120,7 +126,9 @@ export default () => (
       />
     </Container>
     <Container>
-      <Header borderBottom type="h1">Contact Info</Header>
+      <Header borderBottom type="h1">
+        Contact Info
+      </Header>
       <ContactInfo
         showBorder
         showIcons
