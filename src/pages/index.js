@@ -136,7 +136,12 @@ export default () => (
                 <a href={s.href}>
                   <img alt="" width="200" height="200" src={s.image} />
                 </a>
-                <Label className="widthMax" fontWeight="bold" textAlign="center" content={s.content} />
+                <Label
+                  className="widthMax"
+                  fontWeight="bold"
+                  textAlign="center"
+                  content={s.content}
+                />
               </Column>
             ))}
           </Row>
