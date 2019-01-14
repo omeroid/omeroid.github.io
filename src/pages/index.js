@@ -41,6 +41,8 @@ import SEO from '../components/seo/seo'
 import particles from '../data/particles.json'
 import features from '../data/features.json'
 import team from '../data/team.json'
+import skill from '../data/skill.json'
+import shopping from '../data/shopping.json'
 import contactInfo from '../data/contactInfo.json'
 
 export default () => (
@@ -93,19 +95,7 @@ export default () => (
         <div id={'service'}>Service</div>
       </Header>
       <Features shadow showFooter={false} features={features} />
-      <ImageList
-        images={[
-          { image: 'images/skill/golang.png' },
-          { image: 'images/skill/react_redux.png' },
-          { image: 'images/skill/ruby_rails.jpg' },
-          { image: 'images/skill/kotlin.png' },
-          { image: 'images/skill/angular.png' },
-          { image: 'images/skill/postgres.png' },
-          { image: 'images/skill/mysql.png' },
-          { image: 'images/skill/aws.png' },
-          { image: 'images/skill/gcp.png' },
-        ]}
-      />
+      <ImageList images={skill} />
     </Container>
     <Container>
       <Header borderBottom type="h1">
@@ -141,66 +131,14 @@ export default () => (
       <Section>
         <Container className="text-justify">
           <Row>
-            <Column className="col-12 col-md-3">
-              <a href="https://omeroid.booth.pm/">
-                <img
-                  alt=""
-                  width="200"
-                  height="200"
-                  src="https://booth.pximg.net/c/620x620/c49ea816-74ab-4fb6-9945-f6d4ea9cd5c4/i/1176633/c29dbdd2-b602-477c-a008-4992029c109c_base_resized.jpg"
-                />
-              </a>
-              <Label
-                fontWeight="bold"
-                textAlign="center"
-                content="omeroid ステッカー"
-              />
-            </Column>
-            <Column className="col-12 col-md-3">
-              <a href="https://omeroid.booth.pm/">
-                <img
-                  alt=""
-                  width="200"
-                  height="200"
-                  src="https://booth.pximg.net/c49ea816-74ab-4fb6-9945-f6d4ea9cd5c4/i/1176670/6b41755f-4c29-4e84-9fc9-4c992bf412e5.png"
-                />
-              </a>
-              <Label
-                fontWeight="bold"
-                textAlign="center"
-                content="omeroid Tシャツ"
-              />
-            </Column>
-            <Column className="col-12 col-md-3">
-              <a href="https://omeroid.booth.pm/">
-                <img
-                  alt=""
-                  width="200"
-                  height="200"
-                  src="https://booth.pximg.net/c/620x620/c49ea816-74ab-4fb6-9945-f6d4ea9cd5c4/i/1176672/8e75cf01-93d2-4a4e-98a2-2da94e757233_base_resized.jpg"
-                />
-              </a>
-              <Label
-                fontWeight="bold"
-                textAlign="center"
-                content="omeroid パーカー"
-              />
-            </Column>
-            <Column className="col-12 col-md-3">
-              <a href="https://omeroid.booth.pm/">
-                <img
-                  alt=""
-                  width="200"
-                  height="200"
-                  src="https://booth.pximg.net/c/620x620/c49ea816-74ab-4fb6-9945-f6d4ea9cd5c4/i/1176684/499b5dd3-ca7a-4074-8895-0151ddaa58ad_base_resized.jpg"
-                />
-              </a>
-              <Label
-                fontWeight="bold"
-                textAlign="center"
-                content="omeroid マスキングテープ"
-              />
-            </Column>
+            {shopping.map(s => (
+              <Column className="col-12 col-md-3">
+                <a href={s.href}>
+                  <img alt="" width="200" height="200" src={s.image} />
+                </a>
+                <Label className="widthMax" fontWeight="bold" textAlign="center" content={s.content} />
+              </Column>
+            ))}
           </Row>
         </Container>
       </Section>
