@@ -37,7 +37,6 @@ const seo = ({ postData, frontmatter = {}, postImage, isBlogPost }) => (
 
       const title = postMeta.title || seo.title
       const description = postMeta.description || seo.description
-      const image = postImage ? `${seo.canonicalUrl}${postImage}` : seo.image
       const url = postMeta.slug
         ? `${seo.canonicalUrl}${path.sep}${postMeta.slug}`
         : seo.canonicalUrl
@@ -50,14 +49,14 @@ const seo = ({ postData, frontmatter = {}, postImage, isBlogPost }) => (
             {/* General tags */}
             <title>{title}</title>
             <meta name="description" content={description} />
-            <meta name="image" content={image} />
+            <meta name="image" content={seo.image} />
 
             {/* OpenGraph tags */}
             <meta property="og:url" content={url} />
-            {isBlogPost ? <meta property="og:type" content="article" /> : null}
+            <meta property="og:type" content="website" />
             <meta property="og:title" content={title} />
             <meta property="og:description" content={description} />
-            <meta property="og:image" content={image} />
+            <meta property="og:image" content={seo.image} />
             <meta property="fb:app_id" content={seo.social.fbAppID} />
 
             {/* Twitter Card tags */}
@@ -65,13 +64,13 @@ const seo = ({ postData, frontmatter = {}, postImage, isBlogPost }) => (
             <meta name="twitter:creator" content={seo.social.twitter} />
             <meta name="twitter:title" content={title} />
             <meta name="twitter:description" content={description} />
-            <meta name="twitter:image" content={image} />
+            <meta name="twitter:image" content={seo.image} />
           </Helmet>
           <SchemaOrg
             isBlogPost={isBlogPost}
             url={url}
             title={title}
-            image={image}
+            image={seo.image}
             description={description}
             datePublished={datePublished}
             canonicalUrl={seo.canonicalUrl}
