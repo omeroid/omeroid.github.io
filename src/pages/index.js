@@ -105,13 +105,14 @@ export default () => (
       </Header>
       <Card
         title="CEO 松野貞之がVulsのコミッターに登録"
-        summary={`弊社CEOの松野貞之がOSS脆弱性検知ツールのVulsのコミッターに登録されました。</br>
+        summary={`弊社CEOの松野貞之がOSS脆弱性検知ツールのVulsのメインコミッターの一員となりました。</br>
+            コミッターとは、特定のリポジトリに対して、Write権限(Push権限)を持つことを意味しています。</br>
             VulsはFuture株式会社の神戸康多氏が開発公開したOSSであり、Golangで書かれた脆弱性検知ツールです。</br>
             現在のGithubスター数は6000を超え、国産OSSソフトウェアでは最大級のリポジトリとなっています。`}
         image="images/portfolio/vuls_logo_large.png"
         contentAlign="left"
         imageCircle={false}
-        subTitle=""
+        subTitle="2019/02/01"
       >
         <Link href="https://github.com/future-architect/vuls" target="_blank">
           <Image
