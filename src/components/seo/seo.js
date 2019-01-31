@@ -67,7 +67,10 @@ const seo = ({ postData, frontmatter = {}, postImage, isBlogPost }) => (
             <meta name="twitter:image" content={seo.image} />
 
             {/* Google Search Console */}
-            <meta name="google-site-verification" content="Kebp7DTL_CTr0P9AGl4qa9N3hZx5P6VLTy8pnTdQi0s" />
+            <meta
+              name="google-site-verification"
+              content="Kebp7DTL_CTr0P9AGl4qa9N3hZx5P6VLTy8pnTdQi0s"
+            />
           </Helmet>
           <SchemaOrg
             isBlogPost={isBlogPost}
