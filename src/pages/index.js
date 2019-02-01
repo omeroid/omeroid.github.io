@@ -34,13 +34,12 @@ import {
   Link,
 } from '@front10/landing-page-book/dist/components'
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import Paper from '@material-ui/core/Paper'
 
 import MessengerCustomerChat from 'react-messenger-customer-chat'
 // import Helmet from "react-helmet";
@@ -169,16 +168,16 @@ export default () => (
       </Header>
       <Table className="company-table">
         <TableBody>
-            {companyInfo.map(row => (
-              <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
-                  {row.title}
-                </TableCell>
-                <TableCell align="right">{row.content}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+          {companyInfo.map(row => (
+            <TableRow key={row.id}>
+              <TableCell component="th" scope="row">
+                {row.title}
+              </TableCell>
+              <TableCell align="right">{row.content}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </Container>
     <Container>
       <Header borderBottom type="h1">
