@@ -34,6 +34,14 @@ import {
   Link,
 } from '@front10/landing-page-book/dist/components'
 
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
+
 import MessengerCustomerChat from 'react-messenger-customer-chat'
 // import Helmet from "react-helmet";
 
@@ -45,6 +53,7 @@ import team from '../data/team.json'
 import skill from '../data/skill.json'
 import shopping from '../data/shopping.json'
 import contactInfo from '../data/contactInfo.json'
+import companyInfo from '../data/companyInfo.json'
 
 export default () => (
   <div className="App">
@@ -65,7 +74,8 @@ export default () => (
             <NavbarLink href={'#service'}>Service</NavbarLink>
             <NavbarLink href={'#portfolio'}>Portfolio</NavbarLink>
             <NavbarLink href={'#team'}>Team</NavbarLink>
-            <NavbarLink href={'#contactInfo'}>Contact Info</NavbarLink>
+            <NavbarLink href={'#companyInfo'}>Company Info</NavbarLink>
+            <NavbarLink href={'#contactInfo'}>Contact</NavbarLink>
             <NavbarLink href={'https://omeroid.booth.pm'}>Shopping</NavbarLink>
             <NavbarLink>Blog (Comming soon..)</NavbarLink>
           </NavbarNav>
@@ -155,7 +165,24 @@ export default () => (
     </Container>
     <Container>
       <Header borderBottom type="h1">
-        <div id={'contactInfo'}>Contact Info</div>
+        <div id={'companyInfo'}>Company Information</div>
+      </Header>
+      <Table className="company-table">
+        <TableBody>
+            {companyInfo.map(row => (
+              <TableRow key={row.id}>
+                <TableCell component="th" scope="row">
+                  {row.title}
+                </TableCell>
+                <TableCell align="right">{row.content}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+    </Container>
+    <Container>
+      <Header borderBottom type="h1">
+        <div id={'contactInfo'}>Contact</div>
       </Header>
       <ContactInfo
         showBorder

@@ -20,3 +20,17 @@
 .widthMax{
   width: 100%;
 }
+
+.company-table {
+  width: 100%
+}
+  .company-table tr th {
+    font-weight: bold;
+  }
+  .company-table tr td {
+    text-align: left;
+  }
+
+.container {
+  margin-top: 30px;
+}
