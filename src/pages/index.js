@@ -101,8 +101,8 @@ export default () => (
     </Hero>
     <Container>
       <br />
-      <Header borderBottom id="service" type="h1">
-        <div id={'service'}>Service</div>
+      <Header borderBottom type="h1">
+        <div id={'service'} className={'anchor'}>Service</div>
       </Header>
       <Features shadow showFooter={false} features={features} />
       <ImageList images={skill} />
@@ -110,7 +110,7 @@ export default () => (
     <br />
     <Container>
       <Header borderBottom type="h1">
-        <div id={'portfolio'}>Portfolio</div>
+        <div id={'portfolio'} className={'anchor'}>Portfolio</div>
       </Header>
       <Card
         title="CEO 松野貞之がVulsのコミッターに登録"
@@ -134,7 +134,7 @@ export default () => (
     <br />
     <Container>
       <Header borderBottom type="h1">
-        <div id={'team'}>Team</div>
+        <div id={'team'} className={'anchor'}>Team</div>
       </Header>
       <Team showBorder={false} members={team} />
     </Container>
@@ -164,7 +164,7 @@ export default () => (
     </Container>
     <Container>
       <Header borderBottom type="h1">
-        <div id={'companyInfo'}>Company Information</div>
+        <div id={'companyInfo'} className={'anchor'}>Company Information</div>
       </Header>
       <Table className="company-table">
         <TableBody>
@@ -181,7 +181,7 @@ export default () => (
     </Container>
     <Container>
       <Header borderBottom type="h1">
-        <div id={'contactInfo'}>Contact</div>
+        <div id={'contactInfo'} className={'anchor'}>Contact</div>
       </Header>
       <ContactInfo
         showBorder
