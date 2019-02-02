@@ -59,6 +59,7 @@ export default () => (
     <MessengerCustomerChat pageId="1970520546574914" appId="1634817276825716" />
     <SEO />
     <Analytics idTracking="UA-132404098-1" urlPath="/" />
+    <h1 class="invisible">omeroid（オメロイド）株式会社</h1>
     <Navbar fixed expand="lg">
       <Container>
         <NavbarCollapse>
@@ -101,7 +102,7 @@ export default () => (
     </Hero>
     <Container>
       <br />
-      <Header borderBottom type="h1">
+      <Header borderBottom type="h2">
         <div id={'service'} className={'anchor'}>
           Service
         </div>
@@ -111,7 +112,7 @@ export default () => (
     </Container>
     <br />
     <Container>
-      <Header borderBottom type="h1">
+      <Header borderBottom type="h2">
         <div id={'portfolio'} className={'anchor'}>
           Portfolio
         </div>
@@ -137,7 +138,7 @@ export default () => (
     </Container>
     <br />
     <Container>
-      <Header borderBottom type="h1">
+      <Header borderBottom type="h2">
         <div id={'team'} className={'anchor'}>
           Team
         </div>
@@ -145,7 +146,7 @@ export default () => (
       <Team showBorder={false} members={team} />
     </Container>
     <Container>
-      <Header borderBottom type="h1">
+      <Header borderBottom type="h2">
         <div id={'shopping'}>Shopping</div>
       </Header>
       <Section>
@@ -169,7 +170,7 @@ export default () => (
       </Section>
     </Container>
     <Container>
-      <Header borderBottom type="h1">
+      <Header borderBottom type="h2">
         <div id={'companyInfo'} className={'anchor'}>
           Company Information
         </div>
@@ -188,7 +189,7 @@ export default () => (
       </Table>
     </Container>
     <Container>
-      <Header borderBottom type="h1">
+      <Header borderBottom type="h2">
         <div id={'contactInfo'} className={'anchor'}>
           Contact
         </div>

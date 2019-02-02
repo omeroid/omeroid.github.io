@@ -4,9 +4,9 @@ module.exports = {
     author: `sadayuki-matsuno`,
   },
   siteMetadata: {
-    title: `omeroid株式会社`,
+    title: `omeroid（オメロイド）株式会社`,
     description: `
-      omeroid株式会社.
+      omeroid（オメロイド）株式会社.
       システムコンサル/開発とサービス事業を行なっています。
       システム開発のご相談は、お気軽にお申し付けください。
     `,
