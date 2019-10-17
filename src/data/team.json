@@ -11,13 +11,35 @@
     ]
   },
   {
-    "image": "images/team/yu-kiyota.jpg",
+    "image": "images/team/kiyota.jpg",
     "job": "取締役 COO",
     "name": "Yu Kiyota",
     "profile": [
       {
         "social": "facebook",
         "url": "https://www.facebook.com/u.kiyota"
+      }
+    ]
+  },
+  {
+    "image": "images/logo/omeroid_icon.svg",
+    "job": "取締役",
+    "name": "Naoya Wada",
+    "profile": [
+      {
+        "social": "facebook",
+        "url": ""
+      }
+    ]
+  },
+  {
+    "image": "images/team/tsuchiya.jpg",
+    "job": "エンジニア",
+    "name": "Ryota Tsuchiya",
+    "profile": [
+      {
+        "social": "facebook",
+        "url": ""
       }
     ]
   }
