@@ -119,11 +119,7 @@ export default () => (
           Products
         </div>
       </Header>
-      <Features
-          buttonColor="primary"
-          features={products}
-      />
-
+      <Features buttonColor="primary" features={products} />
     </Container>
     <br />
     <Container>
@@ -141,7 +137,11 @@ export default () => (
         subTitle="2019/12/10"
         className="portfolio-card"
       >
-        <Link className="btn btn-primary mr-1" href="https://www.gen-ome.io/label" target="_blank">
+        <Link
+          className="btn btn-primary mr-1"
+          href="https://www.gen-ome.io/label"
+          target="_blank"
+        >
           See more
         </Link>
       </Card>
@@ -167,7 +167,7 @@ export default () => (
       </Card>
     </Container>
     <br />
-    
+
     <Container>
       <Header borderBottom type="h2">
         <div id={'team'} className={'anchor'}>
