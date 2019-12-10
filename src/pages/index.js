@@ -32,6 +32,7 @@ import {
   Section,
   Label,
   Link,
+  Icon,
 } from '@front10/landing-page-book/dist/components'
 
 import Table from '@material-ui/core/Table'
@@ -53,6 +54,7 @@ import skill from '../data/skill.json'
 import shopping from '../data/shopping.json'
 import contactInfo from '../data/contactInfo.json'
 import companyInfo from '../data/companyInfo.json'
+import products from '../data/products.json'
 
 export default () => (
   <div className="App">
@@ -113,10 +115,36 @@ export default () => (
     <br />
     <Container>
       <Header borderBottom type="h2">
+        <div id={'product'} className={'anchor'}>
+          Products
+        </div>
+      </Header>
+      <Features buttonColor="primary" features={products} />
+    </Container>
+    <br />
+    <Container>
+      <Header borderBottom type="h2">
         <div id={'portfolio'} className={'anchor'}>
           Portfolio
         </div>
       </Header>
+      <Card
+        title="ラベルプリントシステムをリリースしました。"
+        summary={`市販のAndroid端末とラベルプリンタを使用してラベルプリントを行えるサービスを提供<br>データはエクセルで記述して登録できるので、お手軽に、複雑な知識も必要ありません。<br>ラベルのテンプレートも作成できるため、ご自身で好きなようにラベルを作成できます。`}
+        image="images/products/label-main.png"
+        contentAlign="left"
+        imageCircle={false}
+        subTitle="2019/12/10"
+        className="portfolio-card"
+      >
+        <Link
+          className="btn btn-primary mr-1"
+          href="https://www.gen-ome.io/label"
+          target="_blank"
+        >
+          See more
+        </Link>
+      </Card>
       <Card
         title="CEO 松野貞之がVulsのコミッターに登録"
         summary={`弊社CEOの松野貞之がOSS脆弱性検知ツールのVulsのメインコミッターの一員となりました。</br>
@@ -127,6 +155,8 @@ export default () => (
         contentAlign="left"
         imageCircle={false}
         subTitle="2019/02/01"
+        style="margin-top:20px"
+        className="portfolio-card"
       >
         <Link href="https://github.com/future-architect/vuls" target="_blank">
           <Image
@@ -137,6 +167,7 @@ export default () => (
       </Card>
     </Container>
     <br />
+
     <Container>
       <Header borderBottom type="h2">
         <div id={'team'} className={'anchor'}>
