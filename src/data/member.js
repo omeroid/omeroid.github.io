@@ -12,7 +12,7 @@ export default () => [
   {
     "image": matsunoImage,
     "imageAlt": "松野貞之",
-    "to": '/member/matsuno',
+    "to": null,
     "title": "松野貞之 代表取締役社長 CEO",
     "content": ["ものごとをシンプルにしたいと思い起業", <br />,
       "CEOでありながら社内一のITスキルを有す", <br />,
