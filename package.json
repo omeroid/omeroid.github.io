@@ -22,8 +22,8 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf public && mkdir public && cp -r assets/* public/ && gatsby build",
-    "develop": "rm -rf public && mkdir public && cp -r assets/* public/ && gatsby develop",
+    "build": "gatsby build",
+    "develop": "gatsby develop",
     "deploy": "gatsby build --prefix-paths && echo 'www.omeroid.com' > public/CNAME && gh-pages --branch master -d public",
     "start": "npm run develop",
     "format": "prettier --write --single-quote \"src/**/*.js\"",
