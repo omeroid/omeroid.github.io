@@ -22,5 +22,5 @@ yarn deploy
 
 ## Reference
 
-- [front10/landing-page-gatsby](https://github.com/front10/landing-page-gatsby)
+- [gatsby-starter-forty](https://github.com/codebushi/gatsby-starter-forty)
 - [gatsbyjs](https://www.gatsbyjs.org/)
