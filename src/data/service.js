@@ -1,6 +1,7 @@
 import React from 'react'
 import engineerImage from '../assets/images/service/engineer.jpg'
 import consultantImage from '../assets/images/service/consultant.jpg'
+import productImage from '../assets/images/service.jpg'
 
 export default () => [
   {
@@ -18,6 +19,14 @@ export default () => [
     "title": "業務コンサルティング業務",
     "content": ["戦略・経営のサポートをいたします", <br />,
       "特に新規事業創出領域における経験が豊富です", <br />,
+    ]
+  },
+  {
+    "image": productImage,
+    "imageAlt": "プロダクト",
+    "to": './product',
+    "title": "プロダクト",
+    "content": ["世の中を便利にする自社プロダクトを作成しています", <br />
     ]
   },
   // {
