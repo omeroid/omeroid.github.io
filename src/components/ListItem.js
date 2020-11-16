@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { window } from 'ssr-window';
 
 import Item from './Item'
 

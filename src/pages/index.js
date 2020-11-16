@@ -77,14 +77,14 @@ class HomeIndex extends React.Component {
                                 <h3>Shop</h3>
                                 <p>ショップ</p>
                             </header>
-                            <Link to="/landing" className="link primary"></Link>
+                            <Link to="https://omeroid.booth.pm/" className="link primary"></Link>
                         </article>
                         <article style={{backgroundImage: `url(${logoImage})`}}>
                             <header className="major">
                                 <h3>What is omeroid?</h3>
                                 <p>omeroidの由来</p>
                             </header>
-                            <Link to="/landing" className="link primary"></Link>
+                            <Link to="/" className="link primary"></Link>
                         </article>
                     </section>
                     {/* <section id="two">
