@@ -84,7 +84,7 @@ class HomeIndex extends React.Component {
                                 <h3>What is omeroid?</h3>
                                 <p>omeroidの由来</p>
                             </header>
-                            <Link to="/" className="link primary"></Link>
+                            <Link to="https://note.com/omeroid/n/n874cf4ff76c6" className="link primary"></Link>
                         </article>
                     </section>
                     {/* <section id="two">
