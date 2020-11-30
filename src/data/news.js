@@ -2,8 +2,16 @@ import React from 'react'
 import labelImage from '../assets/images/products/label-main.png'
 import vlusImage from '../assets/images/news/vuls-logo-large.png'
 import travel2020Image from '../assets/images/blog/travel2020.jpg'
+import newBisinessImage from '../assets/images/blog/new-bisiness.png'
 
 export default () => [
+  {
+    "image": newBisinessImage,
+    "imageAlt": "新規事業への取り組みを始めました",
+    "to": "https://note.com/omeroid/n/n0e0cb1249d0e",
+    "title": [<small>2020/11</small>, <br />, "[ブログ]新規事業への取り組み"],
+    "content": ["メンバーからアイデアを募り、仮説検証スプリントを回して、新規事業を創造するプログラムをはじました", <br />]
+  },
   {
     "image": travel2020Image,
     "imageAlt": "社員旅行2020",

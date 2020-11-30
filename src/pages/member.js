@@ -23,7 +23,8 @@ const Service = (props) => (
         <Banner title={title} content={content} image={memberImage} />
 
         <div id="main">
-            <ListItem items={members} />
+            <ListItem items={members} >
+            </ListItem>
         </div>
     </Layout>
 )

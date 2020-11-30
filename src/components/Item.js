@@ -35,6 +35,7 @@ const Item = (props) => (
                 <h3>{props.title}</h3>
               </header>
               <p>{props.content}</p>
+              {props.children}
               {props.to &&
                 <ul className="actions">
                     <li><Link to={props.to} className="button" >詳細を見る</Link></li>

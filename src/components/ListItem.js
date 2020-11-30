@@ -73,7 +73,7 @@ const ListItem = (props) => {
         <section id="two" className="spotlights">
             { currentBlock.map(i => {
                 console.log('i', i)
-                return <Item image={i.image} imageAlt={i.imageAlt} to={i.to} title={i.title} content={i.content} />
+                return <Item image={i.image} imageAlt={i.imageAlt} to={i.to} title={i.title} content={i.content} >{props.children}</Item>
             }) }
             <Optional show={maxPage > 1}>
                 <div className="pagination-wrap">
