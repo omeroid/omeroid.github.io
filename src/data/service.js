@@ -7,7 +7,7 @@ export default () => [
   {
     "image": engineerImage,
     "imageAlt": "エンジニア",
-    "to": null,
+    "to": './it_consulting',
     "title": "ITコンサルティング業務",
     "content": ["要件定義・設計・開発・テスト・運用等のシステム開発の全フェーズをサポートいたします", <br />,
     ]

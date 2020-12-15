@@ -24,3 +24,12 @@
 			border-bottom: solid 1px _palette(border);
 		}
 	}
+
+/** customize **/
+	#main {
+		> section {
+			&:nth-child(2n) {
+				background-color: desaturate(lighten(_palette(bg-alt), 4), 2);
+			}
+		}
+	}
