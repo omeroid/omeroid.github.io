@@ -34,7 +34,7 @@ class HomeIndex extends React.Component {
                 <Helmet
                     title="omeroid（オメロイド）"
                     meta={[
-                        { name: 'description', content: 'omeroid（オメロイド）' },
+                        { name: 'description', content: content },
                         { name: 'keywords', content: 'omeroid, オメロイド' },
                     ]}
                 >

@@ -7,6 +7,7 @@ import kobayashiImage from '../assets/images/member/kobayashi.jpg'
 import ipposhiImage from '../assets/images/member/ipposhi.png'
 import kudoImage from '../assets/images/member/kudo.jpg'
 import fujitaImage from '../assets/images/member/fujita.jpg'
+import anonymousImage from '../assets/images/logo/omeroid360.jpg'
 
 export default () => [
   {
@@ -67,7 +68,7 @@ export default () => [
     "image": kudoImage,
     "imageAlt": "工藤一成",
     "to": null,
-    "title": "工藤一成 コンサルタント",
+    "title": "工藤一成 コーポレート",
     "content": ["物流機器メーカーからコンサルタントに転職", <br />,
       "大手新規事業立上支援PJを担当", <br />,
       "大学時代に物販・民泊・イベント事業・飲食店立上げに携わり、経営を経験 民泊事業は短期(1年半)で黒字化を達成", <br />,
@@ -82,6 +83,25 @@ export default () => [
       "製造業企業(精密機器・機械)からコンサルタントに転職", <br />,
       "SaaSやWebサービス企業の新事業検討・事業戦略検討支援を担当", <br />,
       "国内短期MBAプログラム(Columbia Venture for all)に参画し、短期ピッチプログラムでは優勝。提案したITサービ スを自らエンジニアとして開発・構築も試行", <br />,
+    ]
+  },
+  {
+    "image": anonymousImage,
+    "imageAlt": "木下侑哉",
+    "to": null,
+    "title": "木下侑哉 エンジニア",
+    "content": ["前職就業中にスクールと独学でプログラミングを学び、製造業から転職して入社", <br />,
+        "AWS/Rails/React/JacaScriptが得意",
+    ]
+  },
+  {
+    "image": anonymousImage,
+    "imageAlt": "Marcelo Higa",
+    "to": null,
+    "title": "Marcelo Higa エンジニア",
+    "content": ["ブラジル出身、日本育ちのエンジニア", <br />,
+        "日本語、英語、ポルトガル語が話せるトリリンガル", <br />,
+        "Elixir/Rails/JacaScript/Rustが得意"
     ]
   },
 ]

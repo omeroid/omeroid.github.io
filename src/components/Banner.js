@@ -21,13 +21,13 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
+import logo from '../assets/images/logo/omeroid_w.svg'
+import { Link } from 'gatsby'
 
 const Banner = (props) => (
     <section id="banner" className="style2" style={{backgroundImage: `url(${props.image})`}}>
         <div className="inner">
-            <header className="major">
-                <h1>{props.title}</h1>
-            </header>
+            <Link to="/"><img src={logo} alt="omeroid" to="/" /></Link>
             <div className="content">
                 <p>{props.content}</p>
             </div>
