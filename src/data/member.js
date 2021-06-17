@@ -91,7 +91,7 @@ export default () => [
     "to": null,
     "title": "木下侑哉 エンジニア",
     "content": ["前職就業中にスクールと独学でプログラミングを学び、製造業から転職して入社", <br />,
-        "AWS/Rails/React/JacaScriptが得意",
+        "AWS/Rails/React/JavaScriptが得意",
     ]
   },
   {
@@ -101,7 +101,7 @@ export default () => [
     "title": "Marcelo Higa エンジニア",
     "content": ["ブラジル出身、日本育ちのエンジニア", <br />,
         "日本語、英語、ポルトガル語が話せるトリリンガル", <br />,
-        "Elixir/Rails/JacaScript/Rustが得意"
+        "Elixir/Rails/JavaScript/Rustが得意"
     ]
   },
 ]
