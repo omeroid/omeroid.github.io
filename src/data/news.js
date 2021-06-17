@@ -4,8 +4,18 @@ import vlusImage from '../assets/images/news/vuls-logo-large.png'
 import travel2020Image from '../assets/images/blog/travel2020.jpg'
 import newBisinessImage from '../assets/images/blog/new-bisiness.png'
 import dacImage from '../assets/images/products/dac.png'
+import sharedineImage from '../assets/images/news/sharedine.png'
 
 export default () => [
+  {
+    "image": sharedineImage,
+    "imageAlt": "シェアダイン株式会社のコードリニューアル支援インタビュー掲載",
+    "to": "https://note.com/sharedine/n/n56f6934334ad",
+    "title": [<small>2021/05</small>, <br />, "[エンジニアリング]シェアダイン株式会社のコードリニューアル支援インタビュー掲載"],
+    "content": ["弊社代表松野がシェアダイン株式会社でのコードリニューアル支援のインタビューを受けました", <br />,
+      "omeroid株式会社としてどのような思いでコードリニューアルのレビューワーをしているのかという思いが語られています", <br />,
+    ]
+  },
   {
     "image": dacImage,
     "imageAlt": "「リモート化でのOJTを助ける進捗報告ツールdac」をリリースしました",
