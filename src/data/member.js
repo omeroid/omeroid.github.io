@@ -7,6 +7,7 @@ import kobayashiImage from '../assets/images/member/kobayashi.jpg'
 import ipposhiImage from '../assets/images/member/ipposhi.png'
 import kudoImage from '../assets/images/member/kudo.jpg'
 import fujitaImage from '../assets/images/member/fujita.jpg'
+import kinohsitaImage from '../assets/images/member/kinoshita.jpg'
 import anonymousImage from '../assets/images/logo/omeroid360.jpg'
 
 export default () => [
@@ -86,7 +87,7 @@ export default () => [
     ]
   },
   {
-    "image": anonymousImage,
+    "image": kinohsitaImage,
     "imageAlt": "木下侑哉",
     "to": null,
     "title": "木下侑哉 エンジニア",
