@@ -8,6 +8,8 @@ import ipposhiImage from '../assets/images/member/ipposhi.png'
 import kudoImage from '../assets/images/member/kudo.jpg'
 import fujitaImage from '../assets/images/member/fujita.jpg'
 import kinohsitaImage from '../assets/images/member/kinoshita.jpg'
+import nitsuImage from '../assets/images/member/nitsu.jpeg'
+import kagiwadaImage from '../assets/images/member/kagiwada.png'
 import anonymousImage from '../assets/images/logo/omeroid360.jpg'
 
 export default () => [
@@ -66,16 +68,6 @@ export default () => [
     ]
   },
   {
-    "image": kudoImage,
-    "imageAlt": "工藤一成",
-    "to": null,
-    "title": "工藤一成 コーポレート",
-    "content": ["物流機器メーカーからコンサルタントに転職", <br />,
-      "大手新規事業立上支援PJを担当", <br />,
-      "大学時代に物販・民泊・イベント事業・飲食店立上げに携わり、経営を経験 民泊事業は短期(1年半)で黒字化を達成", <br />,
-    ]
-  },
-  {
     "image": fujitaImage,
     "imageAlt": "藤田峻平",
     "to": null,
@@ -103,6 +95,25 @@ export default () => [
     "content": ["ブラジル出身、日本育ちのエンジニア", <br />,
         "日本語、英語、ポルトガル語が話せるトリリンガル", <br />,
         "Elixir/Rails/JavaScript/Rustが得意"
+    ]
+  },
+  {
+    "image": nitsuImage,
+    "imageAlt": "新津奈央",
+    "to": null,
+    "title": "新津奈央 コーポレート",
+    "content": ["番組制作会社出身のコーポレート", <br />,
+      "番組制作会社からコーポレート職に転職", <br />,
+      "幅広い仕事をしっかりこなす", <br />,
+    ]
+  },
+  {
+    "image": kagiwadaImage,
+    "imageAlt": "鍵和田祐輔",
+    "to": null,
+    "title": "鍵和田祐輔 コンサルタント",
+    "content": [
+       "体育会系のコンサルタント", <br />,
     ]
   },
 ]
