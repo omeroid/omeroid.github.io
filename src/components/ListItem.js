@@ -4,33 +4,10 @@ import { window } from 'ssr-window';
 
 import Item from './Item'
 
-// function OptionalLink(props) {
-//   const { to, className, children }= props;
-//   if (to) {
-//     return <Link to={to} className={className}>
-//       {children}
-//     </Link>
-//   } else {
-//     return <div className={className}>
-//       {children}
-//     </div>
-//   }
-// }
-
-// function Image(props) {
-//   const { image, imageAlt }= props;
-//   if (image) {
-//     return <OptionalLink to={props.to} className="image">
-//       <img src={image} alt={imageAlt} />
-//     </OptionalLink>
-//   } else {
-//     return <div></div>
-//   }
-// }
-
 const sliceByNumber = (array, number) => {
-    console.log('array', array)
-    console.log('number', number)
+    if(!number){
+        return [array]
+    }
     const length = Math.ceil(array.length / number)
     return new Array(length).fill().map((_, i) =>
         array.slice(i * number, (i + 1) * number)
@@ -64,11 +41,12 @@ function Page(props) {
 const ListItem = (props) => {
     const params = getUrlParams()
     let currentPage = parseInt(params['page']) || 1
-    const pageBlocks = sliceByNumber(props.items, 10)
+    const pageBlocks = sliceByNumber(props.items, props.pageSize)
     const maxPage = pageBlocks.length
     currentPage = currentPage > maxPage ? 1 : currentPage
 
     const currentBlock = pageBlocks[currentPage - 1]
+    console.log('currentBlock', currentBlock)
     return(
         <section id="two" className="spotlights">
             { currentBlock.map(i => {
@@ -91,6 +69,7 @@ const ListItem = (props) => {
 
 ListItem.propTypes = {
   items: PropTypes.array,
+  pageSize: PropTypes.number,
 }
 
 export default ListItem

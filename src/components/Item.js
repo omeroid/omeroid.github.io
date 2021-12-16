@@ -27,7 +27,7 @@ function Image(props) {
 }
 
 const Item = (props) => (
-  <section>
+  <section key={props.key}>
       <Image image={props.image} to={props.to}></Image>
       <div className="content">
           <div className="inner">
@@ -47,6 +47,7 @@ const Item = (props) => (
 )
 
 Item.propTypes = {
+  key: PropTypes.string,
   image: PropTypes.string,
   imageAlt: PropTypes.string,
   to: PropTypes.string,
