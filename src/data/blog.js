@@ -3,8 +3,16 @@ import React from 'react'
 import travel2020Image from '../assets/images/blog/travel2020.jpg'
 import logoImage from '../assets/images/logo/omeroid_icon.svg'
 import newBisinessImage from '../assets/images/blog/new-bisiness.png'
+import party2021Image from '../assets/images/blog/party2021.jpg'
 
 export default () => [
+  {
+    "image": party2021Image,
+    "imageAlt": "創立3周年記念パーティー開催してみた！",
+    "to": "https://note.com/omeroid/n/nc70aa4880d8a",
+    "title": [<small>2021/12</small>, <br />, "[ブログ]創立3周年記念パーティー開催してみた！"],
+    "content": ["omeroid創立3周年と売上目標達成を記念してパーティーを行いました", <br />]
+  },
   {
     "image": newBisinessImage,
     "imageAlt": "新規事業への取り組みを始めました",

@@ -27,6 +27,19 @@ const Contact = (props) => (
             <section className="split">
                 <section>
                     <div className="contact-method">
+                        <span className="icon alt fa-building-o"></span>
+                        <h3>会社概要</h3>
+                        <div><b>社名</b></div>
+                        <span>omeroid株式会社</span>
+                        <br />
+                        <br />
+                        <div><b>代表者</b></div>
+                        <span>代表取締役社長 CEO　松野貞之<br />
+                        </span>
+                    </div>
+                </section>
+                <section>
+                    <div className="contact-method">
                         <span className="icon alt fa-envelope"></span>
                         <h3>Email</h3>
                         <a href="#">inquiry@omeroid.com</a>
