@@ -5,7 +5,7 @@ import Layout from '../components/layout'
 import Banner from '../components/Banner'
 import ListItem from '../components/ListItem'
 
-import memberImage from '../assets/images/member.jpg'
+import memberImage from '../assets/images/member.png'
 
 import memberData from '../data/member'
 
