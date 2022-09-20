@@ -6,8 +6,16 @@ import newBisinessImage from '../assets/images/blog/new-bisiness.png'
 import dacImage from '../assets/images/products/dac.png'
 import sharedineImage from '../assets/images/news/sharedine.png'
 import party2021Image from '../assets/images/blog/party2021.jpg'
+import techBlogImage from '../assets/images/news/omeroid-techblog.png'
 
 export default () => [
+  {
+    "image": techBlogImage,
+    "imageAlt": "TECH BLOG開設しました",
+    "to": "https://omeroid.notion.site/OMEROID-TECH-BLOG-b49535115c1b4316abbc4d579aa153f9",
+    "title": [<small>2021/12</small>, <br />, "[ニュース]TECH BLOG開設しました！"],
+    "content": ["社外の方々に弊社のやっていることや、採用している技術要素に興味を持っていただけるよう、TECH BLOGを始めることにしました", <br />]
+  },
   {
     "image": party2021Image,
     "imageAlt": "創立3周年記念パーティー開催してみた！",
