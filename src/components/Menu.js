@@ -11,6 +11,7 @@ const Menu = (props) => (
                 <li><Link onClick={props.onToggleMenu} to="/service">Service/事業内容</Link></li>
                 <li><Link onClick={props.onToggleMenu} to="/member">Member/メンバー</Link></li>
                 <li><Link onClick={props.onToggleMenu} to="https://www.wantedly.com/companies/company_5409883">Recruit/採用</Link></li>
+                <li><Link onClick={props.onToggleMenu} to="/blogs">Blog/ブログ</Link></li>
                 <li><Link onClick={props.onToggleMenu} to="/shop">Shop/ショップ</Link></li>
             </ul>
             {/* <ul className="actions vertical">
