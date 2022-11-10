@@ -7,8 +7,16 @@ import dacImage from '../assets/images/products/dac.png'
 import sharedineImage from '../assets/images/news/sharedine.png'
 import party2021Image from '../assets/images/blog/party2021.jpg'
 import techBlogImage from '../assets/images/news/omeroid-techblog.png'
+import travel2022Image from '../assets/images/blog/travel2022.jpg'
 
 export default () => [
+  {
+    "image": travel2022Image,
+    "imageAlt": "社員旅行で福岡・博多に行ってみた！",
+    "to": "https://note.com/omeroid/n/n6d860d09725b",
+    "title": [<small>2022/11</small>, <br />, "[ブログ]社員旅行で福岡・博多に行ってみた！"],
+    "content": ["社員の目線から福岡社員旅行をお伝えします", <br />]
+  },
   {
     "image": techBlogImage,
     "imageAlt": "TECH BLOG開設しました",
