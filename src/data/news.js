@@ -21,7 +21,7 @@ export default () => [
     "image": techBlogImage,
     "imageAlt": "TECH BLOG開設しました",
     "to": "https://omeroid.notion.site/OMEROID-TECH-BLOG-b49535115c1b4316abbc4d579aa153f9",
-    "title": [<small>2021/12</small>, <br />, "[ニュース]TECH BLOG開設しました！"],
+    "title": [<small>2022/9</small>, <br />, "[ニュース]TECH BLOG開設しました！"],
     "content": ["社外の方々に弊社のやっていることや、採用している技術要素に興味を持っていただけるよう、TECH BLOGを始めることにしました", <br />]
   },
   {
