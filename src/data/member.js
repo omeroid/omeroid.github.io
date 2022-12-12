@@ -2,7 +2,6 @@ import React from 'react'
 import matsunoImage from '../assets/images/member/matsuno.jpg'
 import kiyotaImage from '../assets/images/member/kiyota.jpg'
 import wadaImage from '../assets/images/member/wada.jpg'
-import tsuchiyaImage from '../assets/images/member/tsuchiya.jpg'
 import kobayashiImage from '../assets/images/member/kobayashi.jpg'
 import ipposhiImage from '../assets/images/member/ipposhi.png'
 import kudoImage from '../assets/images/member/kudo.jpg'
@@ -41,15 +40,6 @@ export default () => [
     ]
   },
   {
-    "image": tsuchiyaImage,
-    "imageAlt": "土屋良太",
-    "to": null,
-    "title": "土屋良太 エンジニア",
-    "content": ["フロントエンドに強みを持つエンジニア", <br />,
-      "youtuberやTシャツ屋さんなど興味があったらやってみる主義", <br />,
-    ]
-  },
-  {
     "image": kobayashiImage,
     "imageAlt": "小林泰宣",
     "to": null,
@@ -84,7 +74,7 @@ export default () => [
     "to": null,
     "title": "木下侑哉 エンジニア",
     "content": ["前職就業中にスクールと独学でプログラミングを学び、製造業から転職して入社", <br />,
-        "AWS/Rails/React/JavaScriptが得意",
+      "AWS/Rails/React/JavaScriptが得意",
     ]
   },
   {
@@ -93,8 +83,8 @@ export default () => [
     "to": null,
     "title": "Marcelo Higa エンジニア",
     "content": ["ブラジル出身、日本育ちのエンジニア", <br />,
-        "日本語、英語、ポルトガル語が話せるトリリンガル", <br />,
-        "Elixir/Rails/JavaScript/Rustが得意"
+      "日本語、英語、ポルトガル語が話せるトリリンガル", <br />,
+      "Elixir/Rails/JavaScript/Rustが得意"
     ]
   },
   {
@@ -113,7 +103,7 @@ export default () => [
     "to": null,
     "title": "鍵和田祐輔 コンサルタント",
     "content": [
-       "体育会系のコンサルタント", <br />,
+      "体育会系のコンサルタント", <br />,
     ]
   },
 ]
