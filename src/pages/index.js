@@ -21,6 +21,9 @@ import pic03 from '../assets/images/pic03.jpg'
 import pic04 from '../assets/images/pic04.jpg'
 import pic05 from '../assets/images/pic05.jpg'
 import pic06 from '../assets/images/pic06.jpg'
+import engineerImage from '../assets/images/service/engineer.jpg'
+import consultantImage from '../assets/images/service/consultant.jpg'
+import productImage from '../assets/images/service.jpg'
 
 
 const title = "omeroid"
@@ -44,42 +47,49 @@ class HomeIndex extends React.Component {
 
                 <div id="main">
                     <section id="one" className="tiles">
-                        <article style={{backgroundImage: `url(${newsImage})`}}>
+                        <article style={{ backgroundImage: `url(${newsImage})` }}>
                             <header className="major">
                                 <h3>News</h3>
                                 <p>ニュース</p>
                             </header>
                             <Link to="/news" className="link primary"></Link>
                         </article>
-                        <article style={{backgroundImage: `url(${serviceImage})`}}>
+                        <article style={{ backgroundImage: `url(${engineerImage})` }}>
                             <header className="major">
-                                <h3>Service</h3>
-                                <p>事業内容</p>
+                                <h3>IT</h3>
+                                <p>ITコンサルティング・システム開発サービス</p>
                             </header>
-                            <Link to="/service" className="link primary"></Link>
+                            <Link to="/service/it" className="link primary"></Link>
                         </article>
-                        <article style={{backgroundImage: `url(${memberImage})`}}>
+                        <article style={{ backgroundImage: `url(${consultantImage})` }}>
                             <header className="major">
-                                <h3>Member</h3>
-                                <p>メンバー</p>
+                                <h3>Consulting</h3>
+                                <p>業務コンサルティングサービス</p>
                             </header>
-                            <Link to="/member" className="link primary"></Link>
+                            <Link to="/service/consulting" className="link primary"></Link>
                         </article>
-                        <article style={{backgroundImage: `url(${recruitImage})`}}>
+                        <article style={{ backgroundImage: `url(${productImage})` }}>
+                            <header className="major">
+                                <h3>Product</h3>
+                                <p>プロダクト</p>
+                            </header>
+                            <Link to="/service/product" className="link primary"></Link>
+                        </article>
+                        <article style={{ backgroundImage: `url(${recruitImage})` }}>
                             <header className="major">
                                 <h3>Recruit</h3>
                                 <p>採用</p>
                             </header>
                             <Link to="https://www.wantedly.com/companies/company_5409883" className="link primary"></Link>
                         </article>
-                        <article style={{backgroundImage: `url(${shopImage})`}}>
+                        <article style={{ backgroundImage: `url(${shopImage})` }}>
                             <header className="major">
                                 <h3>Shop</h3>
                                 <p>ショップ</p>
                             </header>
                             <Link to="https://omeroid.booth.pm/" className="link primary"></Link>
                         </article>
-                        <article style={{backgroundImage: `url(${logoImage})`}}>
+                        <article style={{ backgroundImage: `url(${logoImage})` }}>
                             <header className="major">
                                 <h3>Blog</h3>
                                 <p>omeroidの様子をお届けします</p>
