@@ -28,6 +28,7 @@ import productImage from '../assets/images/service.jpg'
 
 const title = "omeroid"
 const content = ["エンジニア・コンサルタントのプロ集団", <br />, "「Make it simple」をテーマに顧客のビジネスサポートや自社サービス開発を行っています"]
+const gptSiteSearchLoaderUrl = "https://dev-gpt-site-search-sdk.s3.ap-northeast-1.amazonaws.com/loader/index.js"
 
 class HomeIndex extends React.Component {
     render() {
@@ -41,6 +42,7 @@ class HomeIndex extends React.Component {
                         { name: 'keywords', content: 'omeroid, オメロイド' },
                     ]}
                 >
+                    <script src={gptSiteSearchLoaderUrl}></script>
                 </Helmet>
 
                 <Banner title={title} content={content} image={bannerImage} />
@@ -111,6 +113,7 @@ class HomeIndex extends React.Component {
                 </div>
                 <Contact />
                 <MessengerCustomerChat pageId="1970520546574914" appId="1634817276825716" />
+                <div id="gpt-site-search" />
             </Layout>
         )
     }
