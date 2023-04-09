@@ -112,7 +112,7 @@ class HomeIndex extends React.Component {
                     </section> */}
                 </div>
                 <Contact />
-                <MessengerCustomerChat pageId="1970520546574914" appId="1634817276825716" />
+                {/* <MessengerCustomerChat pageId="1970520546574914" appId="1634817276825716" /> */}
                 <div id="gpt-site-search" />
             </Layout>
         )
