@@ -28,7 +28,7 @@ import productImage from '../assets/images/service.jpg'
 
 const title = "omeroid"
 const content = ["エンジニア・コンサルタントのプロ集団", <br />, "「Make it simple」をテーマに顧客のビジネスサポートや自社サービス開発を行っています"]
-const gptSiteSearchLoaderUrl = "https://dev-gpt-site-search-sdk.s3.ap-northeast-1.amazonaws.com/loader/index.js"
+const gptSiteSearchLoaderUrl = "https://dev-gpt-site-search-sdk.s3.ap-northeast-1.amazonaws.com/loader/index.js?site_id=8f015ee0-7624-4aee-848b-117372387491"
 
 class HomeIndex extends React.Component {
     render() {
