@@ -56,9 +56,15 @@ const Contact = (props) => (
                     <div className="contact-method">
                         <span className="icon alt fa-home"></span>
                         <h3>Address</h3>
-                        <div><b>事務所</b></div>
-                        <span>東京都品川区南大井6-4-22<br />
-                        東京ネオンビル2F シェルパ・アンド・カンパニー
+                        <div><b>東京オフィス</b></div>
+                        <span>東京都中央区八丁堀3-1-7<br />
+                        永井ビル2階
+                        </span>
+                        <br />
+                        <br />
+                        <div><b>和歌山オフィス</b></div>
+                        <span>和歌山県和歌山市湊紺屋町1-20<br />
+                        Kinowa（キノワ）201号
                         </span>
                         <br />
                         <br />
