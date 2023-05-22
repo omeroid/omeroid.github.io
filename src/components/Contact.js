@@ -68,10 +68,6 @@ const Contact = (props) => (
                         </span>
                         <br />
                         <br />
-                        <div><b>登記住所</b></div>
-                        <span>東京都大田区平和島6丁目1番1号<br />
-                        東京流通センターB棟1階(W1-4~7)まつの内
-                        </span>
                     </div>
                 </section>
             </section>
