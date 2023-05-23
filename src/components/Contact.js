@@ -22,7 +22,8 @@ const Contact = (props) => (
                         <li><input type="reset" value="Clear" /></li>
                     </ul>
                 </form> */}
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d433.7566924725716!2d139.73111291895378!3d35.59283017027911!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018602cc78d3ae9%3A0x5813ff4e337fdd46!2z44CSMTQwLTAwMTMg5p2x5Lqs6YO95ZOB5bed5Yy65Y2X5aSn5LqV77yW5LiB55uu77yU4oiS77yS77ySIOadseS6rOODjeOCquODsw!5e0!3m2!1sja!2sjp!4v1602571746495!5m2!1sja!2sjp" width="100%" height="100%" frameborder="0" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d103830.75871456071!2d139.64967627861523!3d35.58551917108183!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601861d2c978d4c7%3A0xbe3af69eb1ea2ee0!2z5rC45LqV44OT44Or!5e0!3m2!1sja!2sjp!4v1684801290015!5m2!1sja!2sjp" width="600" height="450" frameborder="0" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3298.5852516080654!2d135.16429647642937!3d34.2336069730892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000b293191322dd%3A0xc9d777405979bce!2z44Ov44Kr44Ok44Oe56ys77yS5Yao5aOr44Ob44OG44Or!5e0!3m2!1sja!2sjp!4v1684801503883!5m2!1sja!2sjp" width="600" height="450" frameborder="0" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
             </section>
             <section className="split">
                 <section>
