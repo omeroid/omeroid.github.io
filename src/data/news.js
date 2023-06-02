@@ -8,8 +8,24 @@ import sharedineImage from '../assets/images/news/sharedine.png'
 import party2021Image from '../assets/images/blog/party2021.jpg'
 import techBlogImage from '../assets/images/news/omeroid-techblog.png'
 import travel2022Image from '../assets/images/blog/travel2022.jpg'
+import wakayamaAdvancementImage from '../assets/images/blog/wakayama-advancement.png'
+import officeTransfer from '../assets/images/blog/office_transfer.jpeg'
 
 export default () => [
+  {
+    "image": officeTransfer,
+    "imageAlt": "東京・和歌山オフィスを移転しました",
+    "to": "https://note.com/omeroid/n/ne82d07ee750e",
+    "title": [<small>2023/4</small>, <br />, "[ブログ]東京・和歌山オフィスを移転しました"],
+    "content": ["メンバーの増加や、より快適な仕事環境を作っていくために、東京と和歌山の両オフィスを移転しました。", <br />]
+  },
+    {
+    "image": wakayamaAdvancementImage,
+    "imageAlt": "omeroidは和歌山に進出します",
+    "to": "https://note.com/omeroid/n/n6ae1f089b2ba",
+    "title": [<small>2023/4</small>, <br />, "[ブログ]omeroidは和歌山に進出します！"],
+    "content": ["和歌山にオフィスを構え、和歌山県・和歌山市と進出協定を調印させていただきました", <br />]
+  },
   {
     "image": travel2022Image,
     "imageAlt": "社員旅行で福岡・博多に行ってみた！",
