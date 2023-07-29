@@ -49,7 +49,7 @@ export default () => {
       }
     },
     {
-      label: "業界別",
+      label: "テーマ別",
       options:
       {
         tooltip: {
