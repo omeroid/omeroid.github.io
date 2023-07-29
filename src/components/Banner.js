@@ -25,7 +25,7 @@ import logo from '../assets/images/logo/omeroid_w.svg'
 import { Link } from 'gatsby'
 
 const Banner = (props) => (
-    <section id="banner" className="style2" style={{backgroundImage: `url(${props.image})`}}>
+    <section id="banner" className="style2" style={{ backgroundImage: `url(${props.image})` }}>
         <div className="inner">
             <Link to="/"><img src={logo} alt="omeroid" to="/" /></Link>
             <div className="content">

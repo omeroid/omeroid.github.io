@@ -1,0 +1,95 @@
+
+.content-2 {
+  width: 550px;
+  flex-basis: 550px;
+  height: 300px;
+  margin: 10px auto auto auto;
+  display: flex;
+  .container {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+  }
+  .left {
+    flex-basis: 30%;
+    display: flex;
+  }
+  .right {
+    flex-basis: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    @include breakpoint(medium) {
+      font-size: 90%;
+		}
+  }
+  .icon-area {
+    display: flex;
+    margin: auto;
+    height: 110px;
+    width: 110px;
+    background-color: _palette(bg);
+    border-radius: 100px;
+
+		@include breakpoint(medium) {
+      height: 80px;
+      width: 80px;
+		}
+
+    img {
+      width: 70px;
+      height: 70px;
+      margin: auto;
+
+      @include breakpoint(medium) {
+        height: 50px;
+        width: 50px;
+      }
+    }
+  }
+  .title-area {
+    margin-top: 10px;
+    width: 90%;
+    border-bottom: 3px solid white;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+  }
+  .content-area {
+    margin-top: 10px;
+    width: 90%;
+    text-align: center;
+    color: white;
+  }
+  .accent1{
+    background-color: _palette(accent1);
+    span {
+      color: _palette(accent1)
+    }
+  }
+  .accent2{
+    background-color: _palette(accent2);
+    span {
+      color: _palette(accent2)
+    }
+  }
+  .accent3{
+    background-color: _palette(accent3);
+    span {
+      color: _palette(accent3)
+    }
+  }
+  .accent4{
+    background-color: _palette(accent4);
+    span {
+      color: _palette(accent4)
+    }
+  }
+  .accent5{
+    background-color: _palette(accent5);
+    span {
+      color: _palette(accent5)
+    }
+  }
+}

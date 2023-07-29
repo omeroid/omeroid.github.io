@@ -1,0 +1,14 @@
+
+.chart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .label-area {
+    width: 100%;
+    text-align: center;
+  }
+  .chart-area {
+    width: 100%;
+  }
+
+}

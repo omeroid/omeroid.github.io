@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "author": "Hunter Chang",
   "dependencies": {
+    "classnames": "^2.3.2",
+    "echarts": "^5.4.3",
+    "echarts-for-react": "^3.0.2",
     "gatsby": "^2.19.5",
     "gatsby-plugin-google-gtag": "^2.2.0",
     "gatsby-plugin-manifest": "^2.2.38",

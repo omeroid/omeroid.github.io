@@ -1,9 +1,14 @@
 import React from 'react'
 import Helmet from 'react-helmet'
+
 import Layout from '../../components/layout'
 import Banner from '../../components/Banner'
 import ListItem from '../../components/ListItem'
 import Item from '../../components/Item'
+import Content1 from '../../components/Content1'
+import Content2 from '../../components/Content2'
+import ConsultingExample from '../../components/ConsultingExample'
+import Chart from '../../components/Chart'
 
 import consultantImage from '../../assets/images/service/consultant.jpg'
 import menuImage from '../../assets/images/consulting/menu.png'
@@ -12,10 +17,18 @@ import strengthImage from '../../assets/images/consulting/strength.png'
 import exampleImage from '../../assets/images/consulting/example.png'
 
 import memberData from '../../data/consulting_member'
+import menuData from '../../data/consulting_menu'
+import strengthData from '../../data/consulting_strength'
+import exampleData from '../../data/consulting_example'
+import achievementData from '../../data/consulting_achievement'
 
 const title = "Consulting"
 const content = "業務コンサルティングサービスについて"
 const members = memberData()
+const menus = menuData()
+const strengths = strengthData()
+const examples = exampleData()
+const achievements = achievementData()
 
 const Service = (props) => (
   <Layout>
@@ -23,7 +36,6 @@ const Service = (props) => (
       <title>IT Consulting</title>
       <meta name="description" content="IT Consulting Page" />
     </Helmet>
-
     <Banner title={title} content={content} image={consultantImage} />
 
     <div id="main">
@@ -43,8 +55,8 @@ const Service = (props) => (
           <header className="major">
             <h2>支援内容</h2>
           </header>
-          <div className="box">
-            <Item image={menuImage} />
+          <div className="flex-wrapper">
+            {menus.map(m => (<Content1 image={m.image} title={m.title} accent={m.accent} content={m.content} width="350px" height="550px" />))}
           </div>
         </div>
       </section>
@@ -53,8 +65,8 @@ const Service = (props) => (
           <header className="major">
             <h2>強み</h2>
           </header>
-          <div className="box">
-            <Item image={strengthImage} />
+          <div className="flex-wrapper">
+            {strengths.map(m => (<Content2 image={m.image} title={m.title} accent={m.accent} content={m.content} />))}
           </div>
         </div>
       </section>
@@ -63,8 +75,14 @@ const Service = (props) => (
           <header className="major">
             <h2>実績</h2>
           </header>
-          <div className="box">
-            <Item image={achievementImage} />
+          <div className="flex-wrapper">
+            {achievements.map(i => {
+              return (<Chart
+                label={i.label}
+                options={i.options}
+                width="500px"
+              />)
+            })}
           </div>
         </div>
       </section>
@@ -73,8 +91,8 @@ const Service = (props) => (
           <header className="major">
             <h2>事例</h2>
           </header>
-          <div className="box">
-            <Item image={exampleImage} />
+          <div className="flex-wrapper">
+            {examples.map(m => (<ConsultingExample key={title} title={m.title} industry={m.industry} scale={m.sclae} overview={m.overview} background={m.background} content={m.content} />))}
           </div>
         </div>
       </section>
