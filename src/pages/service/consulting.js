@@ -92,7 +92,7 @@ const Service = (props) => (
             <h2>事例</h2>
           </header>
           <div className="flex-wrapper">
-            {examples.map(m => (<ConsultingExample key={title} title={m.title} industry={m.industry} scale={m.sclae} overview={m.overview} background={m.background} content={m.content} />))}
+            {examples.map(m => (<ConsultingExample key={title} title={m.title} industry={m.industry} scale={m.scale} overview={m.overview} background={m.background} content={m.content} />))}
           </div>
         </div>
       </section>
