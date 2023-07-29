@@ -90,4 +90,12 @@
 				}
 			}
 		}
+		.map {
+			margin: auto;
+			iframe {
+				@include breakpoint(medium) {
+					width: 100%;
+				}
+			}
+		}
 	}
