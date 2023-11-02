@@ -10,8 +10,16 @@ import techBlogImage from '../assets/images/news/omeroid-techblog.png'
 import travel2022Image from '../assets/images/blog/travel2022.jpg'
 import wakayamaAdvancementImage from '../assets/images/blog/wakayama-advancement.png'
 import officeTransfer from '../assets/images/blog/office_transfer.jpeg'
+import travel2023Image from '../assets/images/blog/travel2023.webp'
 
 export default () => [
+  {
+    "image": travel2023Image,
+    "imageAlt": "社員旅行で初海外！＠明洞IN韓国！",
+    "to": "https://note.com/omeroid/n/n4c6adddeaf46",
+    "title": [<small>2023/11</small>, <br />, "[ブログ]社員旅行で初海外！＠明洞IN韓国！"],
+    "content": ["今年の社員旅行は、韓国に行ってきました！", <br />]
+  },
   {
     "image": officeTransfer,
     "imageAlt": "東京・和歌山オフィスを移転しました",
@@ -19,7 +27,7 @@ export default () => [
     "title": [<small>2023/4</small>, <br />, "[ブログ]東京・和歌山オフィスを移転しました"],
     "content": ["メンバーの増加や、より快適な仕事環境を作っていくために、東京と和歌山の両オフィスを移転しました。", <br />]
   },
-    {
+  {
     "image": wakayamaAdvancementImage,
     "imageAlt": "omeroidは和歌山に進出します",
     "to": "https://note.com/omeroid/n/n6ae1f089b2ba",
