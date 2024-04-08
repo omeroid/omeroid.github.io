@@ -11,10 +11,7 @@ import ConsultingExample from '../../components/ConsultingExample'
 import Chart from '../../components/Chart'
 
 import consultantImage from '../../assets/images/service/consultant.jpg'
-import menuImage from '../../assets/images/consulting/menu.png'
-import achievementImage from '../../assets/images/consulting/achievement.png'
-import strengthImage from '../../assets/images/consulting/strength.png'
-import exampleImage from '../../assets/images/consulting/example.png'
+import exampleImage from '../../assets/images/consulting/teamwork-in-a-office.jpg'
 
 import memberData from '../../data/consulting_member'
 import menuData from '../../data/consulting_menu'
@@ -29,6 +26,15 @@ const menus = menuData()
 const strengths = strengthData()
 const examples = exampleData()
 const achievements = achievementData()
+
+const example = [
+  {
+    "image": exampleImage,
+    "imageAlt": "Consulting Examples",
+    "to": "https://omeroid.notion.site/c97db77827754002a0256400e04654a2",
+    "title": ["コンサルティング事例紹介"],
+  },
+]
 
 const Service = (props) => (
   <Layout>
@@ -92,7 +98,7 @@ const Service = (props) => (
             <h2>事例</h2>
           </header>
           <div className="flex-wrapper">
-            {examples.map(m => (<ConsultingExample key={title} title={m.title} industry={m.industry} scale={m.scale} overview={m.overview} background={m.background} content={m.content} />))}
+            <ListItem items={example} />
           </div>
         </div>
       </section>

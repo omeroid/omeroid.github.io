@@ -42,13 +42,4 @@ export default () => [
       <br />,
     ]
   },
-  {
-    "image": anonymousImage,
-    "imageAlt": "坂平祥鎮",
-    "to": null,
-    "title": "坂平祥鎮 コンサルタント",
-    "content": [
-      "", <br />,
-    ]
-  },
 ]

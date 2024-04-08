@@ -40,6 +40,7 @@ class HomeIndex extends React.Component {
                     meta={[
                         { name: 'description', content: content },
                         { name: 'keywords', content: 'omeroid, オメロイド' },
+                        { name: 'google-site-verification', content: '1oq4iVEvzPC5pEvBq-WHf4r_ehf6nh7ed_WZoQE1Hlo' },
                     ]}
                 >
                     {/* <script src={gptSiteSearchLoaderUrl}></script> */}
