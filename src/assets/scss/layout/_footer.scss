@@ -47,5 +47,8 @@
 		.footer_menu {
 			//- override ul
 			padding-left: 0px;
+			*:nth-child(n+2) {
+				margin-left: 20px;
+			}
 		}
 	}
