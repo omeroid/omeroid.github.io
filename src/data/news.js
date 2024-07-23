@@ -11,8 +11,16 @@ import travel2022Image from '../assets/images/blog/travel2022.jpg'
 import wakayamaAdvancementImage from '../assets/images/blog/wakayama-advancement.png'
 import officeTransfer from '../assets/images/blog/office_transfer.jpeg'
 import travel2023Image from '../assets/images/blog/travel2023.webp'
+import gasshuku2024Image from '../assets/images/news/gasshuku2024.webp'
 
 export default () => [
+  {
+    "image": gasshuku2024Image,
+    "imageAlt": "社員合宿＠静岡",
+    "to": "https://note.com/omeroid/n/nb731811b5ef6",
+    "title": [<small>2024/05</small>, <br />, "社員合宿＠静岡"],
+    "content": ["毎年の社員合宿、今年は静岡三島で行いました。", <br />]
+  },
   {
     "image": travel2023Image,
     "imageAlt": "社員旅行で初海外！＠明洞IN韓国！",
