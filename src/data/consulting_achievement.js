@@ -38,11 +38,11 @@ export default () => {
             },
             center: ['50%', '60%'],
             data: [
-              { value: 23, name: 'IT' },
-              { value: 22, name: '製薬・ヘルスケア' },
-              { value: 11, name: '研究開発' },
-              { value: 22, name: '小売' },
-              { value: 22, name: 'HR' }
+              { value: 26, name: '製薬・ヘルスケア' },
+              { value: 26, name: '物流・卸売・小売' },
+              { value: 15, name: 'HR' },
+              { value: 26, name: 'ITサービス' },
+              { value: 6, name: 'その他' }
             ]
           }
         ]
@@ -81,10 +81,11 @@ export default () => {
               formatter: "{a} <br/>{b} : {d}%"
             },
             data: [
-              { value: 15, name: '経営・事業戦略' },
-              { value: 20, name: '新興事業調査・開発' },
-              { value: 40, name: '営業・マーケティング関連' },
-              { value: 25, name: 'DX化・ITソリューション' },
+              { value: 13, name: '経営・事業戦略' },
+              { value: 29, name: '新規事業開発・市場調査' },
+              { value: 21, name: 'IT/DX戦略・デジタル化' },
+              { value: 32, name: 'MA/営業改革' },
+              { value: 5, name: 'その他' },
             ]
           }
         ]

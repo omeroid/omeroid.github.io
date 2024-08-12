@@ -31,9 +31,11 @@ const Item = (props) => (
     <Image image={props.image} to={props.to}></Image>
     <div className="content">
       <div className="inner">
-        <header className="major">
-          <h3>{props.title}</h3>
-        </header>
+        {props.title &&
+          <header className="major">
+            <h3>{props.title}</h3>
+          </header>
+        }
         <p>{props.content}</p>
         {props.children}
         {props.to &&

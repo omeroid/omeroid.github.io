@@ -32,7 +32,6 @@ import strengthImage from '../../assets/images/it/strength.png'
 
 
 
-import itConsultingData from '../../data/it_consulting'
 import memberData from '../../data/it_member'
 import menuData from '../../data/it_menu'
 import strengthData from '../../data/it_strength'
@@ -41,7 +40,6 @@ import achievementData from '../../data/it_achievement'
 
 const title = "IT Consulting"
 const content = "ITコンサルティング・システム開発事業について"
-const itConsulting = itConsultingData()
 const members = memberData()
 const menues = menuData()
 const strengths = strengthData()

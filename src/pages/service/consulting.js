@@ -20,7 +20,7 @@ import exampleData from '../../data/consulting_example'
 import achievementData from '../../data/consulting_achievement'
 
 const title = "Consulting"
-const content = "業務コンサルティングサービスについて"
+const content = "経営・業務コンサルティングサービスについて"
 const members = memberData()
 const menus = menuData()
 const strengths = strengthData()
