@@ -1102,6 +1102,11 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
   integrity sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==
 
+"@fontsource-variable/noto-serif-jp@^5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@fontsource-variable/noto-serif-jp/-/noto-serif-jp-5.0.2.tgz#e99aafe5d703184337e01d2eb0fbf35b915ca80b"
+  integrity sha512-jHVCB2kYsoNy9sscANwFFy6/N9T4NSsSTVWEFXEz8YY3U4U8KCPlggZKHdzffv/lI9WEzBfiltTgLI+QLxvXwg==
+
 "@graphql-tools/schema@^6.0.14":
   version "6.2.4"
   resolved "https://registry.yarnpkg.com/@graphql-tools/schema/-/schema-6.2.4.tgz#cc4e9f5cab0f4ec48500e666719d99fc5042481d"
