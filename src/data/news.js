@@ -12,8 +12,17 @@ import wakayamaAdvancementImage from '../assets/images/blog/wakayama-advancement
 import officeTransfer from '../assets/images/blog/office_transfer.jpeg'
 import travel2023Image from '../assets/images/blog/travel2023.webp'
 import gasshuku2024Image from '../assets/images/news/gasshuku2024.webp'
+import iso27001Image from '../assets/images/iso27001.png'
+
 
 export default () => [
+  {
+    "image": iso27001Image,
+    "imageAlt": "ISO27001の取得",
+    "to": "https://note.com/omeroid/n/n95fb9468a2e5",
+    "title": [<small>2024/06</small>, <br />, "ISO27001を取得しました。"],
+    "content": ["組織のデータをしっかりと守り、機密性、可用性、完全性を確保するために、国際規格(ISO/IEC 27001:2022)の認証を取得しました。", <br />]
+  },
   {
     "image": gasshuku2024Image,
     "imageAlt": "社員合宿＠静岡",
