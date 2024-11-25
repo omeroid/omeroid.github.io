@@ -13,9 +13,17 @@ import officeTransfer from '../assets/images/blog/office_transfer.jpeg'
 import travel2023Image from '../assets/images/blog/travel2023.webp'
 import gasshuku2024Image from '../assets/images/news/gasshuku2024.webp'
 import iso27001Image from '../assets/images/iso27001.png'
+import ryoko2024Image from '../assets/images/news/ryoko2024.jpg'
 
 
 export default () => [
+  {
+    "image": ryoko2024Image,
+    "imageAlt": "社員旅行2024＠北海道",
+    "to": "https://note.com/omeroid/n/n59af5f0f7e50",
+    "title": [<small>2024/10</small>, <br />, "社員旅行2024＠北海道"],
+    "content": ["今年はアンケートにより北海道に決定しました！", <br />]
+  },
   {
     "image": iso27001Image,
     "imageAlt": "ISO27001の取得",
