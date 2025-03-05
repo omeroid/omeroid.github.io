@@ -38,15 +38,6 @@ export default () => [
     ]
   },
   {
-    "image": kinohsitaImage,
-    "imageAlt": "木下侑哉",
-    "to": null,
-    "title": "木下侑哉 エンジニア",
-    "content": ["前職就業中にスクールと独学でプログラミングを学び、製造業から転職して入社", <br />,
-      "AWS/Rails/React/JavaScriptが得意",
-    ]
-  },
-  {
     "image": anonymousImage,
     "imageAlt": "Marcelo Higa",
     "to": null,
@@ -83,4 +74,22 @@ export default () => [
       "", <br />,
     ]
   },
+  {
+    "image": anonymousImage,
+    "imageAlt": "小川剛史",
+    "to": null,
+    "title": "小川剛史 エンジニア",
+    "content": [
+      "", <br />,
+    ]
+  },
+  {
+    "image": anonymousImage,
+    "imageAlt": "香村真紀",
+    "to": null,
+    "title": "香村真紀 エンジニア",
+    "content": [
+      "", <br />,
+    ]
+  }
 ]
