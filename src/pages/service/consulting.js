@@ -11,7 +11,8 @@ import ConsultingExample from '../../components/ConsultingExample'
 import Chart from '../../components/Chart'
 
 import consultantImage from '../../assets/images/service/consultant.jpg'
-import exampleImage from '../../assets/images/consulting/teamwork-in-a-office.jpg'
+import exampleImage from '../../assets/images/consulting/teamwork-in-a-office.jpeg'
+import reportImage from '../../assets/images/consulting/report.jpeg'
 
 import memberData from '../../data/consulting_member'
 import menuData from '../../data/consulting_menu'
@@ -19,8 +20,8 @@ import strengthData from '../../data/consulting_strength'
 import exampleData from '../../data/consulting_example'
 import achievementData from '../../data/consulting_achievement'
 
-const title = "Consulting"
-const content = "経営・業務コンサルティングサービスについて"
+const title = 'Consulting'
+const content = '経営・業務コンサルティングサービスについて'
 const members = memberData()
 const menus = menuData()
 const strengths = strengthData()
@@ -29,14 +30,24 @@ const achievements = achievementData()
 
 const example = [
   {
-    "image": exampleImage,
-    "imageAlt": "Consulting Examples",
-    "to": "https://omeroid.notion.site/c97db77827754002a0256400e04654a2",
-    "title": ["コンサルティング事例紹介"],
+    image: exampleImage,
+    imageAlt: 'Consulting Examples',
+    to: 'https://omeroid.notion.site/c97db77827754002a0256400e04654a2',
+    title: ['コンサルティング事例紹介'],
   },
 ]
 
-const Service = (props) => (
+const repot = [
+  {
+    image: reportImage,
+    imageAlt: 'Consulting Reports',
+    to:
+      'https://omeroid.notion.site/1fb26d41019d804ba455fd8c1602611f?v=1fb26d41019d8041a5de000c1e073b58',
+    title: ['レポート一覧'],
+  },
+]
+
+const Service = props => (
   <Layout>
     <Helmet>
       <title>IT Consulting</title>
@@ -51,7 +62,8 @@ const Service = (props) => (
             <h2>業務内容</h2>
           </header>
           <p>
-            新規・既存事業を問わず、幅広い業界のビジネス戦略、営業・マーケティング戦略、データ戦略の３つのテーマで伴走・サポートいたします。<br />
+            新規・既存事業を問わず、幅広い業界のビジネス戦略、営業・マーケティング戦略、データ戦略の３つのテーマで伴走・サポートいたします。
+            <br />
             また、デジタル化・DX推進のテーマでは戦略に関してだけではなく、システム開発の支援も行っています。
           </p>
         </div>
@@ -62,7 +74,16 @@ const Service = (props) => (
             <h2>支援内容</h2>
           </header>
           <div className="flex-wrapper">
-            {menus.map(m => (<Content1 image={m.image} title={m.title} accent={m.accent} content={m.content} width="350px" height="550px" />))}
+            {menus.map(m => (
+              <Content1
+                image={m.image}
+                title={m.title}
+                accent={m.accent}
+                content={m.content}
+                width="350px"
+                height="550px"
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -72,7 +93,14 @@ const Service = (props) => (
             <h2>強み</h2>
           </header>
           <div className="flex-wrapper">
-            {strengths.map(m => (<Content2 image={m.image} title={m.title} accent={m.accent} content={m.content} />))}
+            {strengths.map(m => (
+              <Content2
+                image={m.image}
+                title={m.title}
+                accent={m.accent}
+                content={m.content}
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -83,11 +111,7 @@ const Service = (props) => (
           </header>
           <div className="flex-wrapper">
             {achievements.map(i => {
-              return (<Chart
-                label={i.label}
-                options={i.options}
-                width="500px"
-              />)
+              return <Chart label={i.label} options={i.options} width="500px" />
             })}
           </div>
         </div>
@@ -95,10 +119,13 @@ const Service = (props) => (
       <section id="one">
         <div className="inner">
           <header className="major">
-            <h2>事例</h2>
+            <h2>コンテンツ</h2>
           </header>
           <div className="flex-wrapper">
             <ListItem items={example} />
+          </div>
+          <div className="flex-wrapper mt-20">
+            <ListItem items={repot} />
           </div>
         </div>
       </section>
@@ -112,8 +139,8 @@ const Service = (props) => (
           </div>
         </div>
       </section>
-    </div >
-  </Layout >
+    </div>
+  </Layout>
 )
 
 export default Service
