@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import Helmet from 'react-helmet'
 import Layout from '../../components/layout'
 import Banner from '../../components/Banner'
 import ListItem from '../../components/ListItem'
@@ -15,11 +14,6 @@ const services = productData()
 
 const Service = (props) => (
     <Layout>
-        <Helmet>
-            <title>Service</title>
-            <meta name="description" content="Service Page" />
-        </Helmet>
-
         <Banner title={title} content={content} image={productImage} />
 
         <div id="main">
@@ -29,3 +23,12 @@ const Service = (props) => (
 )
 
 export default Service
+
+export function Head() {
+    return (
+        <>
+            <title>Service</title>
+            <meta name="description" content="Service Page" />
+        </>
+    )
+}

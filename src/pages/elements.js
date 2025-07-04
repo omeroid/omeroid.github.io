@@ -1,5 +1,4 @@
 import React from 'react'
-import Helmet from 'react-helmet'
 import Layout from '../components/layout'
 
 import pic03 from '../assets/images/pic03.jpg'
@@ -9,11 +8,6 @@ import pic10 from '../assets/images/pic10.jpg'
 
 const Elements = (props) => (
     <Layout>
-        <Helmet>
-            <title>Elements - Forty by HTML5 UP</title>
-            <meta name="description" content="Elements Page" />
-        </Helmet>
-
         <div id="main" className="alt">
 
             <section id="one">
@@ -420,3 +414,12 @@ const Elements = (props) => (
 )
 
 export default Elements
+
+export function Head() {
+    return (
+        <>
+            <title>Elements - Forty by HTML5 UP</title>
+            <meta name="description" content="Elements Page" />
+        </>
+    )
+}

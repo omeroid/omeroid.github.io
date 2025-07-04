@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import Helmet from 'react-helmet'
 import Layout from '../components/layout'
 import BannerLanding from '../components/BannerLanding'
 
@@ -10,11 +9,6 @@ import pic10 from '../assets/images/pic10.jpg'
 
 const Landing = (props) => (
     <Layout>
-        <Helmet>
-            <title>Landing - Forty by HTML5 UP</title>
-            <meta name="description" content="Landing Page" />
-        </Helmet>
-
         <BannerLanding />
 
         <div id="main">
@@ -82,3 +76,12 @@ const Landing = (props) => (
 )
 
 export default Landing
+
+export function Head() {
+    return (
+        <>
+            <title>Landing - Forty by HTML5 UP</title>
+            <meta name="description" content="Landing Page" />
+        </>
+    )
+}

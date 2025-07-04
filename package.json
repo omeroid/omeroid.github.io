@@ -8,15 +8,14 @@
     "classnames": "^2.3.2",
     "echarts": "^5.4.3",
     "echarts-for-react": "^3.0.2",
-    "gatsby": "^2.19.5",
-    "gatsby-plugin-google-gtag": "^2.2.0",
-    "gatsby-plugin-manifest": "^2.2.38",
-    "gatsby-plugin-offline": "^3.0.32",
-    "gatsby-plugin-react-helmet": "^3.1.21",
-    "gatsby-plugin-sass": "^2.1.27",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-helmet": "^5.2.1",
+    "gatsby": "^5.13.0",
+    "gatsby-plugin-google-gtag": "^5.13.0",
+    "gatsby-plugin-manifest": "^5.13.0",
+    "gatsby-plugin-offline": "^6.13.0",
+    "gatsby-plugin-sass": "^6.13.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
     "react-messenger-customer-chat": "^0.7.2",
     "sass": "^1.89.1",
     "ssr-window": "^2.0.0"
@@ -30,15 +29,18 @@
     "develop": "gatsby develop",
     "deploy": "gatsby build --prefix-paths && echo 'www.omeroid.com' > public/CNAME && gh-pages --branch master -d public",
     "start": "yarn develop",
+    "clean": "gatsby clean",
+    "serve": "gatsby serve",
     "format": "prettier --write --single-quote \"src/**/*.js\"",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
   },
   "devDependencies": {
     "gh-pages": "^6.3.0",
-    "prettier": "^1.19.1"
+    "prettier": "^3.1.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/gatsbyjs/gatsby-starter-default"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

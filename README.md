@@ -4,8 +4,8 @@
 
 ## 技術スタック
 
-- **フレームワーク**: Gatsby v2.19.5
-- **言語**: JavaScript, React
+- **フレームワーク**: Gatsby v5.13.0
+- **言語**: JavaScript, React v18.2.0
 - **スタイリング**: SCSS
 - **ホスティング**: GitHub Pages
 - **ドメイン**: www.omeroid.com
@@ -93,9 +93,35 @@ yarn deploy    # GitHub Pagesへデプロイ
 yarn format    # Prettierでコードを整形
 ```
 
+### その他のコマンド
+```bash
+yarn clean     # Gatsbyキャッシュをクリア
+yarn serve     # ビルド済みサイトをローカルで確認（localhost:9000）
+```
+
 ## デプロイ
 
 このサイトはGitHub Pagesを使用してホスティングされています。
+
+### デプロイ前の確認事項
+
+1. **ビルドの確認**
+   ```bash
+   yarn clean      # キャッシュをクリア
+   yarn build      # ビルドを実行
+   yarn serve      # ローカルで動作確認
+   ```
+
+2. **ブランチの確認**
+   ```bash
+   git branch      # 現在のブランチを確認
+   git status      # 変更がコミットされているか確認
+   ```
+
+3. **デプロイ実行**
+   ```bash
+   yarn deploy     # GitHub Pagesへデプロイ
+   ```
 
 ### デプロイの仕組み
 
@@ -116,6 +142,27 @@ yarn format    # Prettierでコードを整形
 
 サイトは`www.omeroid.com`でアクセス可能です。DNSの設定は別途管理されています。
 
+## Gatsby v5への移行について
+
+### 主な変更点
+
+1. **React v18の採用**
+   - React 16.12.0 → 18.2.0
+   - 新しいReactの機能が使用可能
+
+2. **Head APIの変更**
+   - `react-helmet`の代わりにGatsbyのHeadエクスポートを使用
+   - 各ページで`export function Head()`を定義
+
+3. **パフォーマンスの向上**
+   - ビルド速度の改善
+   - ランタイムパフォーマンスの向上
+
+### 注意事項
+
+- Sassの非推奨警告が表示されますが、動作には影響しません
+- 未使用変数の警告が表示される場合があります
+
 ## 開発のヒント
 
 ### 新しいページの追加
@@ -127,9 +174,50 @@ yarn format    # Prettierでコードを整形
 ### データの更新
 メンバー情報、サービス情報、ブログ記事は`src/data/`ディレクトリのJSONファイルで管理されています。
 
+## トラブルシューティング
+
+### ビルドエラーが発生した場合
+
+1. **キャッシュのクリア**
+   ```bash
+   yarn clean
+   rm -rf node_modules yarn.lock
+   yarn install
+   ```
+
+2. **Node.jsバージョンの確認**
+   ```bash
+   node --version  # v20.19.1であることを確認
+   ```
+
+3. **ポートの競合**
+   - 開発サーバー: 8000番ポート
+   - ビルド確認用: 9000番ポート
+   ```bash
+   # ポートを使用しているプロセスを確認
+   lsof -i :8000
+   lsof -i :9000
+   ```
+
+### デプロイが失敗した場合
+
+1. **Gitの状態を確認**
+   ```bash
+   git status
+   git log --oneline -5
+   ```
+
+2. **手動でデプロイ**
+   ```bash
+   yarn build --prefix-paths
+   echo 'www.omeroid.com' > public/CNAME
+   npx gh-pages --branch master -d public
+   ```
+
 ## 参考リンク
 
-- [Gatsby公式ドキュメント](https://www.gatsbyjs.com/docs/)
+- [Gatsby v5公式ドキュメント](https://www.gatsbyjs.com/docs/)
+- [Gatsby v5移行ガイド](https://www.gatsbyjs.com/docs/reference/release-notes/migrating-from-v4-to-v5/)
 - [gatsby-starter-forty](https://github.com/codebushi/gatsby-starter-forty) - ベーステンプレート
 
 ## ライセンス

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import Helmet from 'react-helmet'
 import Layout from '../components/layout'
 import Banner from '../components/Banner'
 import ListItem from '../components/ListItem'
@@ -15,11 +14,6 @@ const blogs = blogData()
 
 const News = (props) => (
     <Layout>
-        <Helmet>
-            <title>News</title>
-            <meta name="description" content="Blog Page" />
-        </Helmet>
-
         <Banner title={title} content={content} image={logoImage} />
 
         <div id="main">
@@ -29,3 +23,12 @@ const News = (props) => (
 )
 
 export default News
+
+export function Head() {
+    return (
+        <>
+            <title>News</title>
+            <meta name="description" content="Blog Page" />
+        </>
+    )
+}

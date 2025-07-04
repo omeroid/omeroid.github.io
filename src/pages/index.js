@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import Helmet from 'react-helmet'
 import MessengerCustomerChat from 'react-messenger-customer-chat'
 
 import Layout from '../components/layout'
@@ -35,17 +34,6 @@ class HomeIndex extends React.Component {
 
         return (
             <Layout>
-                <Helmet
-                    title="omeroid（オメロイド）"
-                    meta={[
-                        { name: 'description', content: content },
-                        { name: 'keywords', content: 'omeroid, オメロイド' },
-                        { name: 'google-site-verification', content: '1oq4iVEvzPC5pEvBq-WHf4r_ehf6nh7ed_WZoQE1Hlo' },
-                    ]}
-                >
-                    {/* <script src={gptSiteSearchLoaderUrl}></script> */}
-                </Helmet>
-
                 <Banner title={title} content={content} image={bannerImage} />
 
                 <div id="main">
@@ -121,3 +109,15 @@ class HomeIndex extends React.Component {
 }
 
 export default HomeIndex
+
+export function Head() {
+    const content = "エンジニア・コンサルタントのプロ集団「Make it simple」をテーマに顧客のビジネスサポートや自社サービス開発を行っています"
+    return (
+        <>
+            <title>omeroid（オメロイド）</title>
+            <meta name="description" content={content} />
+            <meta name="keywords" content="omeroid, オメロイド" />
+            <meta name="google-site-verification" content="1oq4iVEvzPC5pEvBq-WHf4r_ehf6nh7ed_WZoQE1Hlo" />
+        </>
+    )
+}

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import Helmet from 'react-helmet'
 import Layout from '../../components/layout'
 import Banner from '../../components/Banner'
 import ListItem from '../../components/ListItem'
@@ -48,11 +47,6 @@ const achievements = achievementData()
 
 const Service = (props) => (
   <Layout>
-    <Helmet>
-      <title>IT Consulting</title>
-      <meta name="description" content="IT Consulting Page" />
-    </Helmet>
-
     <Banner title={title} content={content} image={engineerImage} />
 
     <div id="main">
@@ -117,3 +111,12 @@ const Service = (props) => (
 )
 
 export default Service
+
+export function Head() {
+  return (
+    <>
+      <title>IT Consulting</title>
+      <meta name="description" content="IT Consulting Page" />
+    </>
+  )
+}
