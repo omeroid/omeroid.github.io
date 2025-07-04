@@ -8,11 +8,11 @@
     "classnames": "^2.3.2",
     "echarts": "^5.4.3",
     "echarts-for-react": "^3.0.2",
-    "gatsby": "^5.13.0",
-    "gatsby-plugin-google-gtag": "^5.13.0",
-    "gatsby-plugin-manifest": "^5.13.0",
-    "gatsby-plugin-offline": "^6.13.0",
-    "gatsby-plugin-sass": "^6.13.0",
+    "gatsby": "^5.14.5",
+    "gatsby-plugin-google-gtag": "^5.14.0",
+    "gatsby-plugin-manifest": "^5.14.0",
+    "gatsby-plugin-offline": "^6.14.0",
+    "gatsby-plugin-sass": "^6.14.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
@@ -51,5 +51,11 @@
     "type": "git",
     "url": "https://github.com/gatsbyjs/gatsby-starter-default"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
+  "resolutions": {
+    "postcss": "^8.4.31",
+    "cookie": "^0.7.0",
+    "path-to-regexp": "^0.1.12",
+    "lodash.template": "^4.5.0"
+  }
 }
