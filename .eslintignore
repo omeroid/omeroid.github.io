@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Production
+public/
+.cache/
+
+# Gatsby files
+.cache/
+public/
+
+# Mac files
+.DS_Store
+
+# Yarn
+yarn-error.log
+.yarn/
+
+# Generated files
+gatsby-config.js
+gatsby-node.js
+gatsby-ssr.js
+gatsby-browser.js

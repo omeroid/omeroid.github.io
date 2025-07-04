@@ -88,15 +88,58 @@ yarn build     # 本番用ビルドを生成
 yarn deploy    # GitHub Pagesへデプロイ
 ```
 
-### コードフォーマット
+### コード品質管理
 ```bash
-yarn format    # Prettierでコードを整形
+yarn lint       # ESLintでコードをチェック
+yarn lint:fix   # ESLintでコードを自動修正
+yarn format     # Prettierでコードを整形
+yarn format:check # Prettierでフォーマットをチェック（CIで使用）
+```
+
+### テスト
+```bash
+yarn test      # テストを実行（現在は未実装）
+yarn test:ci   # CI環境でテストを実行
 ```
 
 ### その他のコマンド
 ```bash
 yarn clean     # Gatsbyキャッシュをクリア
 yarn serve     # ビルド済みサイトをローカルで確認（localhost:9000）
+```
+
+## CI/CD
+
+### 継続的インテグレーション（CI）
+
+プルリクエストやmain/masterブランチへのプッシュ時に、以下のチェックが自動実行されます：
+
+1. **コード品質チェック**
+   - ESLintによる静的解析
+   - Prettierによるフォーマットチェック
+   - 未使用の依存関係チェック
+
+2. **ビルドチェック**
+   - Gatsby v5でのビルド成功確認
+   - ビルドサイズのレポート
+
+3. **セキュリティチェック**
+   - `yarn audit`による脆弱性スキャン
+   - 依存関係の更新状況確認
+
+### ローカルでCIチェックを実行
+
+プッシュ前にローカルで同じチェックを実行できます：
+
+```bash
+# Lintチェック
+yarn lint
+
+# フォーマットチェック
+yarn format:check
+
+# ビルドチェック
+yarn build
 ```
 
 ## デプロイ
