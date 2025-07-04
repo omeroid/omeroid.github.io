@@ -3,24 +3,26 @@ import { Link } from 'gatsby'
 import PropTypes from 'prop-types'
 
 function OptionalLink(props) {
-  const { to, className, children } = props;
+  const { to, className, children } = props
   if (to) {
-    return <Link to={to} className={className}>
-      {children}
-    </Link>
+    return (
+      <Link to={to} className={className}>
+        {children}
+      </Link>
+    )
   } else {
-    return <div className={className}>
-      {children}
-    </div>
+    return <div className={className}>{children}</div>
   }
 }
 
 export function Image(props) {
-  const { image, imageAlt } = props;
+  const { image, imageAlt } = props
   if (image) {
-    return <OptionalLink to={props.to} className="image fit">
-      <img src={image} alt={imageAlt} />
-    </OptionalLink>
+    return (
+      <OptionalLink to={props.to} className="image fit">
+        <img src={image} alt={imageAlt} />
+      </OptionalLink>
+    )
   } else {
     return <div></div>
   }
@@ -31,18 +33,22 @@ const Item = (props) => (
     <Image image={props.image} to={props.to}></Image>
     <div className="content">
       <div className="inner">
-        {props.title &&
+        {props.title && (
           <header className="major">
             <h3>{props.title}</h3>
           </header>
-        }
+        )}
         <p>{props.content}</p>
         {props.children}
-        {props.to &&
+        {props.to && (
           <ul className="actions">
-            <li><Link to={props.to} className="button" >詳細を見る</Link></li>
+            <li>
+              <Link to={props.to} className="button">
+                詳細を見る
+              </Link>
+            </li>
           </ul>
-        }
+        )}
       </div>
     </div>
   </section>

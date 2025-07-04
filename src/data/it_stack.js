@@ -7,28 +7,28 @@ import stack6 from '../assets/images/it/stack6.png'
 
 const itStackData = () => [
   {
-    "image": stack1,
-    "title": "仮想通貨取引所",
+    image: stack1,
+    title: '仮想通貨取引所',
   },
   {
-    "image": stack2,
-    "title": "卸企業基幹システム",
+    image: stack2,
+    title: '卸企業基幹システム',
   },
   {
-    "image": stack3,
-    "title": "飲料メーカーシステム",
+    image: stack3,
+    title: '飲料メーカーシステム',
   },
   {
-    "image": stack4,
-    "title": "ベンチャー企業",
+    image: stack4,
+    title: 'ベンチャー企業',
   },
   {
-    "image": stack5,
-    "title": "野球チームファン・ECサイト",
+    image: stack5,
+    title: '野球チームファン・ECサイト',
   },
   {
-    "image": stack6,
-    "title": "脆弱性管理システム",
+    image: stack6,
+    title: '脆弱性管理システム',
   },
 ]
 

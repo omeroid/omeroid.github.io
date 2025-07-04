@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const IconTitleBox = (props) => (
   <section key={props.key} className="icon-title-box">
-    <div className={`container ${props.accent}`} >
+    <div className={`container ${props.accent}`}>
       <div className="image-area">
         <img src={props.icon} alt={props.title} />
       </div>
@@ -11,7 +11,7 @@ const IconTitleBox = (props) => (
         <span>{props.title}</span>
       </div>
     </div>
-  </section >
+  </section>
 )
 
 IconTitleBox.propTypes = {

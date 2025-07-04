@@ -7,27 +7,27 @@ import logoImage from '../assets/images/logo/omeroid_icon.svg'
 
 import blogData from '../data/blog'
 
-const title = "Blog"
-const content = "omeroidの様子をお届けします"
+const title = 'Blog'
+const content = 'omeroidの様子をお届けします'
 const blogs = blogData()
 
-const News = (props) => (
-    <Layout>
-        <Banner title={title} content={content} image={logoImage} />
+const News = (_props) => (
+  <Layout>
+    <Banner title={title} content={content} image={logoImage} />
 
-        <div id="main">
-            <ListItem items={blogs} />
-        </div>
-    </Layout>
+    <div id="main">
+      <ListItem items={blogs} />
+    </div>
+  </Layout>
 )
 
 export default News
 
 export function Head() {
-    return (
-        <>
-            <title>News</title>
-            <meta name="description" content="Blog Page" />
-        </>
-    )
+  return (
+    <>
+      <title>News</title>
+      <meta name="description" content="Blog Page" />
+    </>
+  )
 }

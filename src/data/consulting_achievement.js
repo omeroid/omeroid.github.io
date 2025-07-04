@@ -1,13 +1,13 @@
 const consultingAchievementData = () => {
   return [
     {
-      label: "業界別",
+      label: '業界別',
       options: {
         tooltip: {
-          trigger: 'item'
+          trigger: 'item',
         },
         legend: {
-          left: 'center'
+          left: 'center',
         },
         series: [
           {
@@ -18,17 +18,17 @@ const consultingAchievementData = () => {
             itemStyle: {
               borderRadius: 10,
               borderColor: '#fff',
-              borderWidth: 2
+              borderWidth: 2,
             },
             label: {
               show: false,
             },
             labelLine: {
-              show: false
+              show: false,
             },
             tooltip: {
               show: true,
-              formatter: "{a} <br/>{b} : {d}%"
+              formatter: '{a} <br/>{b} : {d}%',
             },
             center: ['50%', '60%'],
             data: [
@@ -36,21 +36,20 @@ const consultingAchievementData = () => {
               { value: 26, name: '物流・卸売・小売' },
               { value: 15, name: 'HR' },
               { value: 26, name: 'ITサービス' },
-              { value: 6, name: 'その他' }
-            ]
-          }
-        ]
-      }
+              { value: 6, name: 'その他' },
+            ],
+          },
+        ],
+      },
     },
     {
-      label: "テーマ別",
-      options:
-      {
+      label: 'テーマ別',
+      options: {
         tooltip: {
-          trigger: 'item'
+          trigger: 'item',
         },
         legend: {
-          left: 'center'
+          left: 'center',
         },
         center: ['50%', '60%'],
         series: [
@@ -62,17 +61,17 @@ const consultingAchievementData = () => {
             itemStyle: {
               borderRadius: 10,
               borderColor: '#fff',
-              borderWidth: 2
+              borderWidth: 2,
             },
             label: {
               show: false,
             },
             labelLine: {
-              show: false
+              show: false,
             },
             tooltip: {
               show: true,
-              formatter: "{a} <br/>{b} : {d}%"
+              formatter: '{a} <br/>{b} : {d}%',
             },
             data: [
               { value: 13, name: '経営・事業戦略' },
@@ -80,11 +79,11 @@ const consultingAchievementData = () => {
               { value: 21, name: 'IT/DX戦略・デジタル化' },
               { value: 32, name: 'MA/営業改革' },
               { value: 5, name: 'その他' },
-            ]
-          }
-        ]
-      }
-    }
+            ],
+          },
+        ],
+      },
+    },
   ]
 }
 

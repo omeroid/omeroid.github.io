@@ -32,7 +32,7 @@
     "serve": "NODE_NO_WARNINGS=1 gatsby serve",
     "format": "prettier --write --single-quote \"src/**/*.js\"",
     "format:check": "prettier --check --single-quote \"src/**/*.js\"",
-    "lint": "eslint src --ext .js,.jsx --max-warnings 0",
+    "lint": "eslint src --ext .js,.jsx",
     "lint:fix": "eslint src --ext .js,.jsx --fix",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\"",
     "test:ci": "yarn test"

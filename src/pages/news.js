@@ -7,27 +7,27 @@ import newsImage from '../assets/images/news.jpg'
 
 import newsData from '../data/news'
 
-const title = "News"
-const content = "会社やメンバーに関わる最新ニュースをお届けします"
+const title = 'News'
+const content = '会社やメンバーに関わる最新ニュースをお届けします'
 const news = newsData()
 
-const News = (props) => (
-    <Layout>
-        <Banner title={title} content={content} image={newsImage} />
+const News = (_props) => (
+  <Layout>
+    <Banner title={title} content={content} image={newsImage} />
 
-        <div id="main">
-            <ListItem items={news} />
-        </div>
-    </Layout>
+    <div id="main">
+      <ListItem items={news} />
+    </div>
+  </Layout>
 )
 
 export default News
 
 export function Head() {
-    return (
-        <>
-            <title>News</title>
-            <meta name="description" content="News Page" />
-        </>
-    )
+  return (
+    <>
+      <title>News</title>
+      <meta name="description" content="News Page" />
+    </>
+  )
 }

@@ -36,13 +36,12 @@ const repot = [
   {
     image: reportImage,
     imageAlt: 'Consulting Reports',
-    to:
-      'https://omeroid.notion.site/1fb26d41019d804ba455fd8c1602611f?v=1fb26d41019d8041a5de000c1e073b58',
+    to: 'https://omeroid.notion.site/1fb26d41019d804ba455fd8c1602611f?v=1fb26d41019d8041a5de000c1e073b58',
     title: ['レポート一覧'],
   },
 ]
 
-const Service = props => (
+const Service = (_props) => (
   <Layout>
     <Banner title={title} content={content} image={consultantImage} />
 
@@ -65,7 +64,7 @@ const Service = props => (
             <h2>支援内容</h2>
           </header>
           <div className="flex-wrapper">
-            {menus.map(m => (
+            {menus.map((m) => (
               <Content1
                 image={m.image}
                 title={m.title}
@@ -84,7 +83,7 @@ const Service = props => (
             <h2>強み</h2>
           </header>
           <div className="flex-wrapper">
-            {strengths.map(m => (
+            {strengths.map((m) => (
               <Content2
                 image={m.image}
                 title={m.title}
@@ -101,7 +100,7 @@ const Service = props => (
             <h2>実績</h2>
           </header>
           <div className="flex-wrapper">
-            {achievements.map(i => {
+            {achievements.map((i) => {
               return <Chart label={i.label} options={i.options} width="500px" />
             })}
           </div>

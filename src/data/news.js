@@ -13,105 +13,158 @@ import gasshuku2024Image from '../assets/images/news/gasshuku2024.webp'
 import iso27001Image from '../assets/images/iso27001.png'
 import ryoko2024Image from '../assets/images/news/ryoko2024.jpg'
 
-
 const newsData = () => [
   {
-    "image": ryoko2024Image,
-    "imageAlt": "社員旅行2024＠北海道",
-    "to": "https://note.com/omeroid/n/n59af5f0f7e50",
-    "title": [<small>2024/10</small>, <br />, "社員旅行2024＠北海道"],
-    "content": ["今年はアンケートにより北海道に決定しました！", <br />]
+    image: ryoko2024Image,
+    imageAlt: '社員旅行2024＠北海道',
+    to: 'https://note.com/omeroid/n/n59af5f0f7e50',
+    title: [<small>2024/10</small>, <br />, '社員旅行2024＠北海道'],
+    content: ['今年はアンケートにより北海道に決定しました！', <br />],
   },
   {
-    "image": iso27001Image,
-    "imageAlt": "ISO27001の取得",
-    "to": "https://note.com/omeroid/n/n95fb9468a2e5",
-    "title": [<small>2024/06</small>, <br />, "ISO27001を取得しました。"],
-    "content": ["組織のデータをしっかりと守り、機密性、可用性、完全性を確保するために、国際規格(ISO/IEC 27001:2022)の認証を取得しました。", <br />]
+    image: iso27001Image,
+    imageAlt: 'ISO27001の取得',
+    to: 'https://note.com/omeroid/n/n95fb9468a2e5',
+    title: [<small>2024/06</small>, <br />, 'ISO27001を取得しました。'],
+    content: [
+      '組織のデータをしっかりと守り、機密性、可用性、完全性を確保するために、国際規格(ISO/IEC 27001:2022)の認証を取得しました。',
+      <br />,
+    ],
   },
   {
-    "image": gasshuku2024Image,
-    "imageAlt": "社員合宿＠静岡",
-    "to": "https://note.com/omeroid/n/nb731811b5ef6",
-    "title": [<small>2024/05</small>, <br />, "社員合宿＠静岡"],
-    "content": ["毎年の社員合宿、今年は静岡三島で行いました。", <br />]
+    image: gasshuku2024Image,
+    imageAlt: '社員合宿＠静岡',
+    to: 'https://note.com/omeroid/n/nb731811b5ef6',
+    title: [<small>2024/05</small>, <br />, '社員合宿＠静岡'],
+    content: ['毎年の社員合宿、今年は静岡三島で行いました。', <br />],
   },
   {
-    "image": travel2023Image,
-    "imageAlt": "社員旅行で初海外！＠明洞IN韓国！",
-    "to": "https://note.com/omeroid/n/n4c6adddeaf46",
-    "title": [<small>2023/11</small>, <br />, "[ブログ]社員旅行で初海外！＠明洞IN韓国！"],
-    "content": ["今年の社員旅行は、韓国に行ってきました！", <br />]
+    image: travel2023Image,
+    imageAlt: '社員旅行で初海外！＠明洞IN韓国！',
+    to: 'https://note.com/omeroid/n/n4c6adddeaf46',
+    title: [
+      <small>2023/11</small>,
+      <br />,
+      '[ブログ]社員旅行で初海外！＠明洞IN韓国！',
+    ],
+    content: ['今年の社員旅行は、韓国に行ってきました！', <br />],
   },
   {
-    "image": officeTransfer,
-    "imageAlt": "東京・和歌山オフィスを移転しました",
-    "to": "https://note.com/omeroid/n/ne82d07ee750e",
-    "title": [<small>2023/4</small>, <br />, "[ブログ]東京・和歌山オフィスを移転しました"],
-    "content": ["メンバーの増加や、より快適な仕事環境を作っていくために、東京と和歌山の両オフィスを移転しました。", <br />]
+    image: officeTransfer,
+    imageAlt: '東京・和歌山オフィスを移転しました',
+    to: 'https://note.com/omeroid/n/ne82d07ee750e',
+    title: [
+      <small>2023/4</small>,
+      <br />,
+      '[ブログ]東京・和歌山オフィスを移転しました',
+    ],
+    content: [
+      'メンバーの増加や、より快適な仕事環境を作っていくために、東京と和歌山の両オフィスを移転しました。',
+      <br />,
+    ],
   },
   {
-    "image": wakayamaAdvancementImage,
-    "imageAlt": "omeroidは和歌山に進出します",
-    "to": "https://note.com/omeroid/n/n6ae1f089b2ba",
-    "title": [<small>2023/4</small>, <br />, "[ブログ]omeroidは和歌山に進出します！"],
-    "content": ["和歌山にオフィスを構え、和歌山県・和歌山市と進出協定を調印させていただきました", <br />]
+    image: wakayamaAdvancementImage,
+    imageAlt: 'omeroidは和歌山に進出します',
+    to: 'https://note.com/omeroid/n/n6ae1f089b2ba',
+    title: [
+      <small>2023/4</small>,
+      <br />,
+      '[ブログ]omeroidは和歌山に進出します！',
+    ],
+    content: [
+      '和歌山にオフィスを構え、和歌山県・和歌山市と進出協定を調印させていただきました',
+      <br />,
+    ],
   },
   {
-    "image": travel2022Image,
-    "imageAlt": "社員旅行で福岡・博多に行ってみた！",
-    "to": "https://note.com/omeroid/n/n6d860d09725b",
-    "title": [<small>2022/11</small>, <br />, "[ブログ]社員旅行で福岡・博多に行ってみた！"],
-    "content": ["社員の目線から福岡社員旅行をお伝えします", <br />]
+    image: travel2022Image,
+    imageAlt: '社員旅行で福岡・博多に行ってみた！',
+    to: 'https://note.com/omeroid/n/n6d860d09725b',
+    title: [
+      <small>2022/11</small>,
+      <br />,
+      '[ブログ]社員旅行で福岡・博多に行ってみた！',
+    ],
+    content: ['社員の目線から福岡社員旅行をお伝えします', <br />],
   },
   {
-    "image": techBlogImage,
-    "imageAlt": "TECH BLOG開設しました",
-    "to": "https://omeroid.notion.site/OMEROID-TECH-BLOG-b49535115c1b4316abbc4d579aa153f9",
-    "title": [<small>2022/9</small>, <br />, "[ニュース]TECH BLOG開設しました！"],
-    "content": ["社外の方々に弊社のやっていることや、採用している技術要素に興味を持っていただけるよう、TECH BLOGを始めることにしました", <br />]
+    image: techBlogImage,
+    imageAlt: 'TECH BLOG開設しました',
+    to: 'https://omeroid.notion.site/OMEROID-TECH-BLOG-b49535115c1b4316abbc4d579aa153f9',
+    title: [<small>2022/9</small>, <br />, '[ニュース]TECH BLOG開設しました！'],
+    content: [
+      '社外の方々に弊社のやっていることや、採用している技術要素に興味を持っていただけるよう、TECH BLOGを始めることにしました',
+      <br />,
+    ],
   },
   {
-    "image": party2021Image,
-    "imageAlt": "創立3周年記念パーティー開催してみた！",
-    "to": "https://note.com/omeroid/n/nc70aa4880d8a",
-    "title": [<small>2021/12</small>, <br />, "[ブログ]創立3周年記念パーティー開催してみた！"],
-    "content": ["omeroid創立3周年と売上目標達成を記念してパーティーを行いました", <br />]
+    image: party2021Image,
+    imageAlt: '創立3周年記念パーティー開催してみた！',
+    to: 'https://note.com/omeroid/n/nc70aa4880d8a',
+    title: [
+      <small>2021/12</small>,
+      <br />,
+      '[ブログ]創立3周年記念パーティー開催してみた！',
+    ],
+    content: [
+      'omeroid創立3周年と売上目標達成を記念してパーティーを行いました',
+      <br />,
+    ],
   },
   {
-    "image": dacImage,
-    "imageAlt": "「リモート化でのOJTを助ける進捗報告ツールdac」をリリースしました",
-    "to": "https://www.dac-work.com",
-    "title": [<small>2021/01</small>, <br />, "[プロダクト]「進捗報告ツールdac」をリリースしました"],
-    "content": ["リモート化でのOJTを助ける進捗報告サービスを提供", <br />,
-      "リモートで部下の状況がつかめてない、上司に報告がうまくいっていないという状況におすすめです。", <br />,
-    ]
+    image: dacImage,
+    imageAlt:
+      '「リモート化でのOJTを助ける進捗報告ツールdac」をリリースしました',
+    to: 'https://www.dac-work.com',
+    title: [
+      <small>2021/01</small>,
+      <br />,
+      '[プロダクト]「進捗報告ツールdac」をリリースしました',
+    ],
+    content: [
+      'リモート化でのOJTを助ける進捗報告サービスを提供',
+      <br />,
+      'リモートで部下の状況がつかめてない、上司に報告がうまくいっていないという状況におすすめです。',
+      <br />,
+    ],
   },
   {
-    "image": newBisinessImage,
-    "imageAlt": "新規事業への取り組みを始めました",
-    "to": "https://note.com/omeroid/n/n0e0cb1249d0e",
-    "title": [<small>2020/11</small>, <br />, "[ブログ]新規事業への取り組み"],
-    "content": ["メンバーからアイデアを募り、仮説検証スプリントを回して、新規事業を創造するプログラムをはじました", <br />]
+    image: newBisinessImage,
+    imageAlt: '新規事業への取り組みを始めました',
+    to: 'https://note.com/omeroid/n/n0e0cb1249d0e',
+    title: [<small>2020/11</small>, <br />, '[ブログ]新規事業への取り組み'],
+    content: [
+      'メンバーからアイデアを募り、仮説検証スプリントを回して、新規事業を創造するプログラムをはじました',
+      <br />,
+    ],
   },
   {
-    "image": travel2020Image,
-    "imageAlt": "社員旅行2020",
-    "to": "https://note.com/omeroid/n/nf7d1e62fc1b2",
-    "title": [<small>2020/10</small>, <br />, "[ブログ]社員旅行2020"],
-    "content": ["メンバー8名で社員旅行に行ったきた様子をお届けします", <br />,
-    ]
+    image: travel2020Image,
+    imageAlt: '社員旅行2020',
+    to: 'https://note.com/omeroid/n/nf7d1e62fc1b2',
+    title: [<small>2020/10</small>, <br />, '[ブログ]社員旅行2020'],
+    content: ['メンバー8名で社員旅行に行ったきた様子をお届けします', <br />],
   },
   {
-    "image": vlusImage,
-    "imageAlt": "vlus",
-    "to": null,
-    "title": [<small>2019/02/01</small>, <br />, "[メンバー]CEO松野がVlusのコミッターに登録"],
-    "content": ["弊社CEOの松野貞之がOSS脆弱性検知ツールのVulsのメインコミッターの一員となりました", <br />,
-      "コミッターとは、特定のリポジトリに対して、Write権限(Push権限)を持つことを意味しています", <br />,
-      "VulsはFuture株式会社の神戸康多氏が開発公開したOSSであり、Golangで書かれた脆弱性検知ツールです", <br />,
-      "現在のGithubスター数は6000を超え、国産OSSソフトウェアでは最大級のリポジトリとなっています", <br />,
-    ]
+    image: vlusImage,
+    imageAlt: 'vlus',
+    to: null,
+    title: [
+      <small>2019/02/01</small>,
+      <br />,
+      '[メンバー]CEO松野がVlusのコミッターに登録',
+    ],
+    content: [
+      '弊社CEOの松野貞之がOSS脆弱性検知ツールのVulsのメインコミッターの一員となりました',
+      <br />,
+      'コミッターとは、特定のリポジトリに対して、Write権限(Push権限)を持つことを意味しています',
+      <br />,
+      'VulsはFuture株式会社の神戸康多氏が開発公開したOSSであり、Golangで書かれた脆弱性検知ツールです',
+      <br />,
+      '現在のGithubスター数は6000を超え、国産OSSソフトウェアでは最大級のリポジトリとなっています',
+      <br />,
+    ],
   },
   // {
   //   "image": vlusImage,

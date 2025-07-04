@@ -9,23 +9,21 @@ import Chart from '../../components/Chart'
 
 import engineerImage from '../../assets/images/service/engineer.jpg'
 
-
-
 import memberData from '../../data/it_member'
 import menuData from '../../data/it_menu'
 import strengthData from '../../data/it_strength'
 import stackData from '../../data/it_stack'
 import achievementData from '../../data/it_achievement'
 
-const title = "IT Consulting"
-const content = "ITコンサルティング・システム開発事業について"
+const title = 'IT Consulting'
+const content = 'ITコンサルティング・システム開発事業について'
 const members = memberData()
 const menues = menuData()
 const strengths = strengthData()
 const stacks = stackData()
 const achievements = achievementData()
 
-const Service = (props) => (
+const Service = (_props) => (
   <Layout>
     <Banner title={title} content={content} image={engineerImage} />
 
@@ -36,7 +34,14 @@ const Service = (props) => (
             <h2>支援内容</h2>
           </header>
           <div className="flex-wrapper">
-            {menues.map(m => (<Content1 image={m.image} title={m.title} accent={m.accent} content={m.content} />))}
+            {menues.map((m) => (
+              <Content1
+                image={m.image}
+                title={m.title}
+                accent={m.accent}
+                content={m.content}
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -46,7 +51,14 @@ const Service = (props) => (
             <h2>omeroidの強み</h2>
           </header>
           <div className="flex-wrapper">
-            {strengths.map(m => (<Content2 image={m.image} title={m.title} accent={m.accent} content={m.content} />))}
+            {strengths.map((m) => (
+              <Content2
+                image={m.image}
+                title={m.title}
+                accent={m.accent}
+                content={m.content}
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -56,12 +68,8 @@ const Service = (props) => (
             <h2>事例</h2>
           </header>
           <div className="flex-wrapper">
-            {achievements.map(i => {
-              return (<Chart
-                label={i.label}
-                options={i.options}
-                width="700px"
-              />)
+            {achievements.map((i) => {
+              return <Chart label={i.label} options={i.options} width="700px" />
             })}
           </div>
         </div>
@@ -72,7 +80,9 @@ const Service = (props) => (
             <h2>技術スタック例</h2>
           </header>
           <div className="flex-wrapper">
-            {stacks.map(s => (<Content3 image={s.image} title={s.title} width="300px" />))}
+            {stacks.map((s) => (
+              <Content3 image={s.image} title={s.title} width="300px" />
+            ))}
           </div>
         </div>
       </section>
@@ -86,8 +96,8 @@ const Service = (props) => (
           </div>
         </div>
       </section>
-    </div >
-  </Layout >
+    </div>
+  </Layout>
 )
 
 export default Service

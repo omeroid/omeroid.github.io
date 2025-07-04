@@ -13,71 +13,76 @@ import engineerImage from '../assets/images/service/engineer.jpg'
 import consultantImage from '../assets/images/service/consultant.jpg'
 import productImage from '../assets/images/service.jpg'
 
-
-const title = "omeroid"
-const content = "エンジニア・コンサルタントのプロ集団「Make it simple」をテーマに顧客のビジネスサポートや自社サービス開発を行っています"
+const title = 'omeroid'
+const content =
+  'エンジニア・コンサルタントのプロ集団「Make it simple」をテーマに顧客のビジネスサポートや自社サービス開発を行っています'
 // const gptSiteSearchLoaderUrl = "https://dev-gpt-site-search-sdk.s3.ap-northeast-1.amazonaws.com/loader/index.js"
 
 class HomeIndex extends React.Component {
-    render() {
+  render() {
+    return (
+      <Layout>
+        <Banner title={title} content={content} image={bannerImage} />
 
-        return (
-            <Layout>
-                <Banner title={title} content={content} image={bannerImage} />
-
-                <div id="main">
-                    <section id="one" className="tiles">
-                        <article style={{ backgroundImage: `url(${newsImage})` }}>
-                            <header className="major">
-                                <h3>News</h3>
-                                <p>ニュース</p>
-                            </header>
-                            <Link to="/news" className="link primary"></Link>
-                        </article>
-                        <article style={{ backgroundImage: `url(${engineerImage})` }}>
-                            <header className="major">
-                                <h3>IT</h3>
-                                <p>ITコンサルティング・システム開発サービス</p>
-                            </header>
-                            <Link to="/service/it" className="link primary"></Link>
-                        </article>
-                        <article style={{ backgroundImage: `url(${consultantImage})` }}>
-                            <header className="major">
-                                <h3>Consulting</h3>
-                                <p>経営・業務コンサルティングサービス</p>
-                            </header>
-                            <Link to="/service/consulting" className="link primary"></Link>
-                        </article>
-                        <article style={{ backgroundImage: `url(${productImage})` }}>
-                            <header className="major">
-                                <h3>Product</h3>
-                                <p>プロダクト</p>
-                            </header>
-                            <Link to="/service/product" className="link primary"></Link>
-                        </article>
-                        <article style={{ backgroundImage: `url(${recruitImage})` }}>
-                            <header className="major">
-                                <h3>Recruit</h3>
-                                <p>採用</p>
-                            </header>
-                            <Link to="https://www.wantedly.com/companies/company_5409883" className="link primary"></Link>
-                        </article>
-                        <article style={{ backgroundImage: `url(${shopImage})` }}>
-                            <header className="major">
-                                <h3>Shop</h3>
-                                <p>ショップ</p>
-                            </header>
-                            <Link to="https://omeroid.booth.pm/" className="link primary"></Link>
-                        </article>
-                        <article style={{ backgroundImage: `url(${logoImage})` }}>
-                            <header className="major">
-                                <h3>Blog</h3>
-                                <p>omeroidの様子をお届けします</p>
-                            </header>
-                            <Link to="/blogs" className="link primary"></Link>
-                        </article>
-                    </section>
-                    {/* <section id="two">
+        <div id="main">
+          <section id="one" className="tiles">
+            <article style={{ backgroundImage: `url(${newsImage})` }}>
+              <header className="major">
+                <h3>News</h3>
+                <p>ニュース</p>
+              </header>
+              <Link to="/news" className="link primary"></Link>
+            </article>
+            <article style={{ backgroundImage: `url(${engineerImage})` }}>
+              <header className="major">
+                <h3>IT</h3>
+                <p>ITコンサルティング・システム開発サービス</p>
+              </header>
+              <Link to="/service/it" className="link primary"></Link>
+            </article>
+            <article style={{ backgroundImage: `url(${consultantImage})` }}>
+              <header className="major">
+                <h3>Consulting</h3>
+                <p>経営・業務コンサルティングサービス</p>
+              </header>
+              <Link to="/service/consulting" className="link primary"></Link>
+            </article>
+            <article style={{ backgroundImage: `url(${productImage})` }}>
+              <header className="major">
+                <h3>Product</h3>
+                <p>プロダクト</p>
+              </header>
+              <Link to="/service/product" className="link primary"></Link>
+            </article>
+            <article style={{ backgroundImage: `url(${recruitImage})` }}>
+              <header className="major">
+                <h3>Recruit</h3>
+                <p>採用</p>
+              </header>
+              <Link
+                to="https://www.wantedly.com/companies/company_5409883"
+                className="link primary"
+              ></Link>
+            </article>
+            <article style={{ backgroundImage: `url(${shopImage})` }}>
+              <header className="major">
+                <h3>Shop</h3>
+                <p>ショップ</p>
+              </header>
+              <Link
+                to="https://omeroid.booth.pm/"
+                className="link primary"
+              ></Link>
+            </article>
+            <article style={{ backgroundImage: `url(${logoImage})` }}>
+              <header className="major">
+                <h3>Blog</h3>
+                <p>omeroidの様子をお届けします</p>
+              </header>
+              <Link to="/blogs" className="link primary"></Link>
+            </article>
+          </section>
+          {/* <section id="two">
                         <div className="inner">
                             <header className="major">
                                 <h2>Massa libero</h2>
@@ -88,24 +93,31 @@ class HomeIndex extends React.Component {
                             </ul>
                         </div>
                     </section> */}
-                </div>
-                <Contact />
-                <div id="gpt-site-search" siteId="8f015ee0-7624-4aee-848b-117372387491" />
-            </Layout>
-        )
-    }
+        </div>
+        <Contact />
+        <div
+          id="gpt-site-search"
+          siteId="8f015ee0-7624-4aee-848b-117372387491"
+        />
+      </Layout>
+    )
+  }
 }
 
 export default HomeIndex
 
 export function Head() {
-    const content = "エンジニア・コンサルタントのプロ集団「Make it simple」をテーマに顧客のビジネスサポートや自社サービス開発を行っています"
-    return (
-        <>
-            <title>omeroid（オメロイド）</title>
-            <meta name="description" content={content} />
-            <meta name="keywords" content="omeroid, オメロイド" />
-            <meta name="google-site-verification" content="1oq4iVEvzPC5pEvBq-WHf4r_ehf6nh7ed_WZoQE1Hlo" />
-        </>
-    )
+  const content =
+    'エンジニア・コンサルタントのプロ集団「Make it simple」をテーマに顧客のビジネスサポートや自社サービス開発を行っています'
+  return (
+    <>
+      <title>omeroid（オメロイド）</title>
+      <meta name="description" content={content} />
+      <meta name="keywords" content="omeroid, オメロイド" />
+      <meta
+        name="google-site-verification"
+        content="1oq4iVEvzPC5pEvBq-WHf4r_ehf6nh7ed_WZoQE1Hlo"
+      />
+    </>
+  )
 }

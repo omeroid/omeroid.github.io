@@ -14,8 +14,7 @@ const Content2 = (props) => (
         <div className="content-area">{props.content}</div>
       </div>
     </div>
-
-  </section >
+  </section>
 )
 
 Content2.propTypes = {
