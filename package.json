@@ -29,7 +29,7 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "deploy": "gatsby build --prefix-paths && echo 'www.omeroid.com' > public/CNAME && gh-pages --branch master -d public",
-    "start": "npm run develop",
+    "start": "yarn develop",
     "format": "prettier --write --single-quote \"src/**/*.js\"",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
   },
