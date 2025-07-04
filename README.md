@@ -4,11 +4,13 @@
 
 ## 技術スタック
 
-- **フレームワーク**: Gatsby v5.13.0
-- **言語**: JavaScript, React v18.2.0
-- **スタイリング**: SCSS
+- **フレームワーク**: Gatsby v5.14.5
+- **言語**: JavaScript, React v18.3.1
+- **スタイリング**: SCSS (Sass v1.89.2)
 - **ホスティング**: GitHub Pages
 - **ドメイン**: www.omeroid.com
+- **リンター**: ESLint v9.30.1
+- **フォーマッター**: Prettier v3.6.2
 
 ## 必要な環境
 
@@ -110,22 +112,24 @@ yarn serve     # ビルド済みサイトをローカルで確認（localhost:90
 
 ## CI/CD
 
-### 継続的インテグレーション（CI）
+GitHub Actionsを使用して、CI（継続的インテグレーション）とCD（継続的デプロイ）を実装しています。
 
-プルリクエストやdevelopブランチへのプッシュ時に、以下のチェックが自動実行されます：
+### ワークフロー構成
 
-1. **コード品質チェック**
-   - ESLintによる静的解析
+`.github/workflows/ci-deploy.yml`で統合ワークフローを定義：
+
+1. **CIジョブ**
+   - プルリクエストとdevelopブランチへのプッシュ時に実行
+   - ESLint v9による静的解析
    - Prettierによるフォーマットチェック
-   - 未使用の依存関係チェック
+   - テストの実行
+   - Gatsbyビルドの成功確認
+   - セキュリティ監査（`yarn audit`）
 
-2. **ビルドチェック**
-   - Gatsby v5でのビルド成功確認
-   - ビルドサイズのレポート
-
-3. **セキュリティチェック**
-   - `yarn audit`による脆弱性スキャン
-   - 依存関係の更新状況確認
+2. **ビルド・デプロイジョブ**
+   - CIジョブが成功した場合のみ実行
+   - developブランチへのプッシュ時のみ実行（PRでは実行されない）
+   - GitHub Pagesへの自動デプロイ
 
 ### ローカルでCIチェックを実行
 
@@ -212,48 +216,49 @@ developブランチへのプッシュまたはマージ時に、GitHub Actions�
 
 ### デプロイ権限
 
-#### 自動デプロイ
 - developブランチへのマージ権限があれば自動的にデプロイされます
 - GitHub Actionsの実行権限は自動的に付与されます
-
-#### 手動デプロイ
-- リポジトリへの書き込み権限
-- masterブランチへのプッシュ権限
+- 手動デプロイは`workflow_dispatch`イベントで実行可能
 
 ### GitHub Pagesの設定
 
 リポジトリ設定で以下を確認してください：
 
-1. Settings → Pages
-2. Source: GitHub Actions
-3. Settings → Environments → github-pages で develop ブランチからのデプロイを許可
+1. **Settings → Pages**
+   - Source: GitHub Actions を選択
 
-**重要**: GitHub Pages の設定で、デプロイメントブランチを develop に変更するか、すべてのブランチからのデプロイを許可する必要があります。
+2. **Settings → Environments → github-pages**
+   - Deployment branches: developブランチからのデプロイを許可
+   - または「All branches」を選択
+
+**重要**: デフォルトではmasterブランチからのみデプロイが許可されているため、developブランチからデプロイできるように設定変更が必要です。
 
 ### カスタムドメイン
 
 サイトは`www.omeroid.com`でアクセス可能です。DNSの設定は別途管理されています。
 
-## Gatsby v5への移行について
+## 最近の更新
 
-### 主な変更点
+### 2025年7月の更新
 
-1. **React v18の採用**
-   - React 16.12.0 → 18.2.0
-   - 新しいReactの機能が使用可能
+1. **依存関係の更新**
+   - Gatsby: v5.13.0 → v5.14.5
+   - React: v18.2.0 → v18.3.1
+   - ESLint: v8.x → v9.30.1（メジャーアップデート）
+   - その他の依存関係も最新版に更新
 
-2. **Head APIの変更**
-   - `react-helmet`の代わりにGatsbyのHeadエクスポートを使用
-   - 各ページで`export function Head()`を定義
+2. **ESLint設定の更新**
+   - ESLint v9のフラットコンフィグ形式に移行
+   - `eslint.config.js`で設定を管理
+   - `.eslintrc.js`は廃止
 
-3. **パフォーマンスの向上**
-   - ビルド速度の改善
-   - ランタイムパフォーマンスの向上
+3. **CI/CDの改善**
+   - CIとデプロイワークフローを統合
+   - CIが成功した場合のみデプロイを実行
 
-### 注意事項
-
-- Sassの非推奨警告が表示されますが、動作には影響しません
-- 未使用変数の警告が表示される場合があります
+4. **その他の修正**
+   - ssr-windowパッケージを削除（SSR対応のwindowアクセスに変更）
+   - shopページのリンクを外部リンクに修正
 
 ## 開発のヒント
 
@@ -281,6 +286,17 @@ developブランチへのプッシュまたはマージ時に、GitHub Actions�
    ```bash
    node --version  # v20.19.1であることを確認
    ```
+
+### ESLintエラーが発生した場合
+
+1. **自動修正を試す**
+   ```bash
+   yarn lint:fix
+   ```
+
+2. **ESLint v9への移行に関する問題**
+   - `.eslintignore`ファイルは使用できません
+   - `eslint.config.js`の`ignores`プロパティを使用してください
 
 3. **ポートの競合**
    - 開発サーバー: 8000番ポート
