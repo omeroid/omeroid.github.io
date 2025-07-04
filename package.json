@@ -24,12 +24,12 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "deploy": "gatsby build --prefix-paths && echo 'www.omeroid.com' > public/CNAME && gh-pages --branch master -d public",
+    "build": "NODE_NO_WARNINGS=1 gatsby build",
+    "develop": "NODE_NO_WARNINGS=1 gatsby develop",
+    "deploy": "NODE_NO_WARNINGS=1 gatsby build --prefix-paths && echo 'www.omeroid.com' > public/CNAME && gh-pages --branch master -d public",
     "start": "yarn develop",
-    "clean": "gatsby clean",
-    "serve": "gatsby serve",
+    "clean": "NODE_NO_WARNINGS=1 gatsby clean",
+    "serve": "NODE_NO_WARNINGS=1 gatsby serve",
     "format": "prettier --write --single-quote \"src/**/*.js\"",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
   },

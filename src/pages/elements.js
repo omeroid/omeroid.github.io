@@ -216,7 +216,8 @@ const Elements = (props) => (
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <td colSpan="2"></td>
+                                                {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+                                                <td colSpan="2">&nbsp;</td>
                                                 <td>100.00</td>
                                             </tr>
                                         </tfoot>
@@ -262,7 +263,8 @@ const Elements = (props) => (
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <td colSpan="2"></td>
+                                                {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+                                                <td colSpan="2">&nbsp;</td>
                                                 <td>100.00</td>
                                             </tr>
                                         </tfoot>

@@ -1,10 +1,8 @@
 import React from 'react'
-import labelImage from '../assets/images/products/label-main.png'
 import vlusImage from '../assets/images/news/vuls-logo-large.png'
 import travel2020Image from '../assets/images/blog/travel2020.jpg'
 import newBisinessImage from '../assets/images/blog/new-bisiness.png'
 import dacImage from '../assets/images/products/dac.png'
-import sharedineImage from '../assets/images/news/sharedine.png'
 import party2021Image from '../assets/images/blog/party2021.jpg'
 import techBlogImage from '../assets/images/news/omeroid-techblog.png'
 import travel2022Image from '../assets/images/blog/travel2022.jpg'
@@ -81,15 +79,6 @@ const newsData = () => [
     "content": ["omeroid創立3周年と売上目標達成を記念してパーティーを行いました", <br />]
   },
   {
-    "image": sharedineImage,
-    "imageAlt": "シェアダイン株式会社のコードリニューアル支援インタビュー掲載",
-    "to": "https://note.com/sharedine/n/n56f6934334ad",
-    "title": [<small>2021/05</small>, <br />, "[エンジニアリング]シェアダイン株式会社のコードリニューアル支援インタビュー掲載"],
-    "content": ["弊社代表松野がシェアダイン株式会社でのコードリニューアル支援のインタビューを受けました", <br />,
-      "omeroid株式会社としてどのような思いでコードリニューアルのレビューワーをしているのかという思いが語られています", <br />,
-    ]
-  },
-  {
     "image": dacImage,
     "imageAlt": "「リモート化でのOJTを助ける進捗報告ツールdac」をリリースしました",
     "to": "https://www.dac-work.com",
@@ -111,16 +100,6 @@ const newsData = () => [
     "to": "https://note.com/omeroid/n/nf7d1e62fc1b2",
     "title": [<small>2020/10</small>, <br />, "[ブログ]社員旅行2020"],
     "content": ["メンバー8名で社員旅行に行ったきた様子をお届けします", <br />,
-    ]
-  },
-  {
-    "image": labelImage,
-    "imageAlt": "ラベルプリント",
-    "to": "https://www.gen-ome.io/label/",
-    "title": [<small>2019/12/10</small>, <br />, "[プロダクト]ラベルプリントシステムをリリースしました"],
-    "content": ["市販のAndroid端末とラベルプリンタを使用してラベルプリントを行えるサービスを提供", <br />,
-      "データはエクセルで記述して登録できるので、お手軽に、複雑な知識も必要ありません。", <br />,
-      "ラベルのテンプレートも作成できるため、ご自身で好きなようにラベルを作成できます。"
     ]
   },
   {
