@@ -103,7 +103,32 @@ yarn serve     # ビルド済みサイトをローカルで確認（localhost:90
 
 このサイトはGitHub Pagesを使用してホスティングされています。
 
-### デプロイ前の確認事項
+### 自動デプロイ（推奨）
+
+main/masterブランチへのプッシュまたはマージ時に、GitHub Actionsが自動的にビルドとデプロイを実行します。
+
+1. **プルリクエストの作成**
+   ```bash
+   git checkout -b feature/your-feature
+   git add .
+   git commit -m "Your changes"
+   git push origin feature/your-feature
+   ```
+
+2. **GitHubでプルリクエストを作成してマージ**
+   - PRを作成し、レビュー後にmain/masterブランチへマージ
+   - GitHub Actionsが自動的にビルドとデプロイを実行
+   - Actionsタブで進行状況を確認可能
+
+3. **デプロイ状況の確認**
+   - リポジトリの「Actions」タブで確認
+   - 緑のチェックマークが表示されれば成功
+
+### 手動デプロイ
+
+緊急時や特別な理由がある場合のみ使用してください。
+
+#### デプロイ前の確認事項
 
 1. **ビルドの確認**
    ```bash
@@ -118,12 +143,22 @@ yarn serve     # ビルド済みサイトをローカルで確認（localhost:90
    git status      # 変更がコミットされているか確認
    ```
 
-3. **デプロイ実行**
+3. **手動デプロイ実行**
    ```bash
    yarn deploy     # GitHub Pagesへデプロイ
    ```
 
 ### デプロイの仕組み
+
+#### 自動デプロイ（GitHub Actions）
+1. main/masterブランチへのプッシュをトリガーに起動
+2. Ubuntu環境でNode.jsをセットアップ
+3. 依存関係をインストール（`yarn install --frozen-lockfile`）
+4. Gatsbyでビルド実行
+5. CNAMEファイルを生成
+6. GitHub Pagesへデプロイ
+
+#### 手動デプロイ
 
 1. `yarn deploy`コマンドを実行すると以下の処理が行われます：
    - Gatsbyで本番用ビルドを生成
@@ -134,9 +169,22 @@ yarn serve     # ビルド済みサイトをローカルで確認（localhost:90
 
 ### デプロイ権限
 
-デプロイを行うには以下の権限が必要です：
+#### 自動デプロイ
+- main/masterブランチへのマージ権限があれば自動的にデプロイされます
+- GitHub Actionsの実行権限は自動的に付与されます
+
+#### 手動デプロイ
 - リポジトリへの書き込み権限
 - masterブランチへのプッシュ権限
+
+### GitHub Pagesの設定
+
+初回セットアップ時のみ、リポジトリ設定で以下を確認してください：
+
+1. Settings → Pages
+2. Source: Deploy from a branch
+3. Branch: master
+4. Folder: / (root)
 
 ### カスタムドメイン
 
