@@ -3,31 +3,35 @@ import engineerImage from '../assets/images/service/engineer.jpg'
 import consultantImage from '../assets/images/service/consultant.jpg'
 import productImage from '../assets/images/service.jpg'
 
-export default () => [
+const serviceData = () => [
   {
-    "image": engineerImage,
-    "imageAlt": "エンジニア",
-    "to": './it',
-    "title": "ITコンサルティングサービス",
-    "content": ["要件定義・設計・開発・テスト・運用等のシステム開発の全フェーズをサポートいたします", <br />,
-    ]
+    image: engineerImage,
+    imageAlt: 'エンジニア',
+    to: './it',
+    title: 'ITコンサルティングサービス',
+    content: [
+      '要件定義・設計・開発・テスト・運用等のシステム開発の全フェーズをサポートいたします',
+      <br />,
+    ],
   },
   {
-    "image": consultantImage,
-    "imageAlt": "コンサルタント",
-    "to": './consulting',
-    "title": "経営・業務コンサルティングサービス",
-    "content": ["事業戦略・経営戦略策定に伴走・サポートいたします。", <br />,
-      "また、豊富なデジタル化・DX推進の経験をもとに、戦略策定からロードマップ策定、システム・データアーキテクチャの設計等をご支援いたします。", <br />
-    ]
+    image: consultantImage,
+    imageAlt: 'コンサルタント',
+    to: './consulting',
+    title: '経営・業務コンサルティングサービス',
+    content: [
+      '事業戦略・経営戦略策定に伴走・サポートいたします。',
+      <br />,
+      'また、豊富なデジタル化・DX推進の経験をもとに、戦略策定からロードマップ策定、システム・データアーキテクチャの設計等をご支援いたします。',
+      <br />,
+    ],
   },
   {
-    "image": productImage,
-    "imageAlt": "プロダクト",
-    "to": './product',
-    "title": "プロダクト",
-    "content": ["世の中を便利にする自社プロダクトを作成しています", <br />
-    ]
+    image: productImage,
+    imageAlt: 'プロダクト',
+    to: './product',
+    title: 'プロダクト',
+    content: ['世の中を便利にする自社プロダクトを作成しています', <br />],
   },
   // {
   //   "image": vlusImage,
@@ -162,3 +166,5 @@ export default () => [
   //   ]
   // },
 ]
+
+export default serviceData

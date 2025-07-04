@@ -1,14 +1,12 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import PropTypes from 'prop-types'
-import IconTitleBox from '../components/IconTitleBox'
 
 const Content2 = (props) => (
   <section key={props.key} className="content-2">
     <div className={`container ${props.accent} `}>
       <div className="left">
         <div className="icon-area">
-          <img src={props.image} />
+          <img src={props.image} alt={props.title} />
         </div>
       </div>
       <div className="right">
@@ -16,8 +14,7 @@ const Content2 = (props) => (
         <div className="content-area">{props.content}</div>
       </div>
     </div>
-
-  </section >
+  </section>
 )
 
 Content2.propTypes = {

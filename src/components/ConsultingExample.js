@@ -8,11 +8,19 @@ const ConsultingExample = (props) => (
     <div className="content-area">
       <Content4 title="業界" content={props.industry} accent="accent1" />
       <Content4 title="企業規模" content={props.scale} accent="accent1" />
-      <Content4 title="プロジェクト概要" content={props.overview} accent="accent1" />
-      <Content4 title="課題・背景" content={props.background} accent="accent1" />
+      <Content4
+        title="プロジェクト概要"
+        content={props.overview}
+        accent="accent1"
+      />
+      <Content4
+        title="課題・背景"
+        content={props.background}
+        accent="accent1"
+      />
       <Content4 title="実施した内容" content={props.content} accent="accent1" />
     </div>
-  </section >
+  </section>
 )
 
 ConsultingExample.propTypes = {

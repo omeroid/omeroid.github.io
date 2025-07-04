@@ -1,0 +1,200 @@
+yarn run v1.22.22
+$ gatsby develop
+
+ ERROR  UNKNOWN
+
+(node:23484) [DEP0040] DeprecationWarning: The `punycode` module is deprecated.
+Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+
+
+ ERROR  UNKNOWN
+
+(node:23490) [DEP0040] DeprecationWarning: The `punycode` module is deprecated.
+Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+
+success compile gatsby files - 1.024s
+
+[2K[1A[2K[Gsuccess load gatsby config - 0.010s
+
+[2K[1A[2K[Gsuccess load plugins - 0.161s
+
+[2K[1A[2K[Gsuccess onPreInit - 0.002s
+
+[2K[1A[2K[Gsuccess initialize cache - 0.017s
+
+[2K[1A[2K[Gsuccess copy gatsby files - 0.032s
+
+[2K[1A[2K[Gsuccess Compiling Gatsby Functions - 0.111s
+
+[2K[1A[2K[Gsuccess onPreBootstrap - 0.122s
+
+[2K[1A[2K[Gsuccess createSchemaCustomization - 0.001s
+
+[2K[1A[2K[Gsuccess Clean up stale nodes - 0.004s - 15/0 0.00/s
+
+[2K[1A[2K[Gsuccess Checking for changed pages - 0.000s
+
+[2K[1A[2K[Gsuccess source and transform nodes - 0.030s
+
+[2K[1A[2K[Gsuccess building schema - 0.122s
+
+[2K[1A[2K[Gsuccess createPages - 0.015s
+
+[2K[1A[2K[Gsuccess createPagesStatefully - 0.063s
+
+[2K[1A[2K[Ginfo Total nodes: 43, SitePage nodes: 15 (use --verbose for breakdown)
+
+[2K[1A[2K[Gsuccess Checking for changed pages - 0.000s
+
+[2K[1A[2K[Gsuccess write out redirect data - 0.001s
+
+[2K[1A[2K[Gsuccess Build manifest and related icons - 0.077s
+
+[2K[1A[2K[Gsuccess onPostBootstrap - 0.079s
+
+[2K[1A[2K[Ginfo bootstrap finished - 2.504s
+
+[2K[1A[2K[Gsuccess onPreExtractQueries - 0.000s
+
+[2K[1A[2K[Gsuccess extract queries from components - 0.161s
+
+[2K[1A[2K[Gsuccess write out requires - 0.006s
+
+DEPRECATION WARNING [legacy-js-api]: The legacy JS API is deprecated and will be removed in Dart Sass 2.0.0.
+
+More info: https://sass-lang.com/d/legacy-js-api
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+1 │ @import 'libs/vars';
+  │         ^^^^^^^^^^^
+  ╵
+    src/assets/scss/main.scss 1:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+2 │ @import 'libs/functions';
+  │         ^^^^^^^^^^^^^^^^
+  ╵
+    src/assets/scss/main.scss 2:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+3 │ @import 'libs/mixins';
+  │         ^^^^^^^^^^^^^
+  ╵
+    src/assets/scss/main.scss 3:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+4 │ @import 'libs/skel';
+  │         ^^^^^^^^^^^
+  ╵
+    src/assets/scss/main.scss 4:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+8 │ @import "css-grid";
+  │         ^^^^^^^^^^
+  ╵
+    src/assets/scss/main.scss 8:9  root stylesheet
+
+DEPRECATION WARNING [elseif]: @elseif is deprecated and will not be supported in future Sass versions.
+
+Recommendation: @else if
+
+    ╷
+576 │             @elseif $expandValue {
+    │             ^^^^^^^
+    ╵
+    src/assets/scss/libs/_skel.scss 576:4  @import
+    src/assets/scss/main.scss 4:9          root stylesheet
+
+DEPRECATION WARNING [new-global]: As of Dart Sass 2.0.0, !global assignments won't be able to declare new variables.
+
+Since this assignment is at the root of the stylesheet, the !global flag is
+unnecessary and can safely be removed.
+
+  ╷
+7 │     $breakpoints: () !global;
+  │     ^^^^^^^^^^^^^^^^^^^^^^^^
+  ╵
+    src/assets/scss/libs/_skel.scss 7:2  @import
+    src/assets/scss/main.scss 4:9        root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+    ╷
+362 │             $z: map-get($config, 'breakpoints');
+    │                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ╵
+    src/assets/scss/libs/_skel.scss 362:8  skel-layout()
+    src/assets/scss/main.scss 25:2         root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+    ╷
+369 │             $x: map-get($config, 'reset');
+    │                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ╵
+    src/assets/scss/libs/_skel.scss 369:8  skel-layout()
+    src/assets/scss/main.scss 25:2         root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+    ╷
+380 │             $x: map-get($config, 'boxModel');
+    │                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ╵
+    src/assets/scss/libs/_skel.scss 380:8  skel-layout()
+    src/assets/scss/main.scss 25:2         root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+    ╷
+391 │             $containers: map-get($config, 'containers');
+    │                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ╵
+    src/assets/scss/libs/_skel.scss 391:17  skel-layout()
+    src/assets/scss/main.scss 25:2          root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+    ╷
+437 │             $grid: map-get($config, 'grid');
+    │                    ^^^^^^^^^^^^^^^^^^^^^^^^
+    ╵

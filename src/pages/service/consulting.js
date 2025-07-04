@@ -1,13 +1,10 @@
 import React from 'react'
-import Helmet from 'react-helmet'
 
 import Layout from '../../components/layout'
 import Banner from '../../components/Banner'
 import ListItem from '../../components/ListItem'
-import Item from '../../components/Item'
 import Content1 from '../../components/Content1'
 import Content2 from '../../components/Content2'
-import ConsultingExample from '../../components/ConsultingExample'
 import Chart from '../../components/Chart'
 
 import consultantImage from '../../assets/images/service/consultant.jpg'
@@ -17,7 +14,6 @@ import reportImage from '../../assets/images/consulting/report.jpeg'
 import memberData from '../../data/consulting_member'
 import menuData from '../../data/consulting_menu'
 import strengthData from '../../data/consulting_strength'
-import exampleData from '../../data/consulting_example'
 import achievementData from '../../data/consulting_achievement'
 
 const title = 'Consulting'
@@ -25,7 +21,6 @@ const content = '経営・業務コンサルティングサービスについて
 const members = memberData()
 const menus = menuData()
 const strengths = strengthData()
-const examples = exampleData()
 const achievements = achievementData()
 
 const example = [
@@ -41,18 +36,13 @@ const repot = [
   {
     image: reportImage,
     imageAlt: 'Consulting Reports',
-    to:
-      'https://omeroid.notion.site/1fb26d41019d804ba455fd8c1602611f?v=1fb26d41019d8041a5de000c1e073b58',
+    to: 'https://omeroid.notion.site/1fb26d41019d804ba455fd8c1602611f?v=1fb26d41019d8041a5de000c1e073b58',
     title: ['レポート一覧'],
   },
 ]
 
-const Service = props => (
+const Service = (_props) => (
   <Layout>
-    <Helmet>
-      <title>IT Consulting</title>
-      <meta name="description" content="IT Consulting Page" />
-    </Helmet>
     <Banner title={title} content={content} image={consultantImage} />
 
     <div id="main">
@@ -74,7 +64,7 @@ const Service = props => (
             <h2>支援内容</h2>
           </header>
           <div className="flex-wrapper">
-            {menus.map(m => (
+            {menus.map((m) => (
               <Content1
                 image={m.image}
                 title={m.title}
@@ -93,7 +83,7 @@ const Service = props => (
             <h2>強み</h2>
           </header>
           <div className="flex-wrapper">
-            {strengths.map(m => (
+            {strengths.map((m) => (
               <Content2
                 image={m.image}
                 title={m.title}
@@ -110,7 +100,7 @@ const Service = props => (
             <h2>実績</h2>
           </header>
           <div className="flex-wrapper">
-            {achievements.map(i => {
+            {achievements.map((i) => {
               return <Chart label={i.label} options={i.options} width="500px" />
             })}
           </div>
@@ -144,3 +134,12 @@ const Service = props => (
 )
 
 export default Service
+
+export function Head() {
+  return (
+    <>
+      <title>IT Consulting</title>
+      <meta name="description" content="IT Consulting Page" />
+    </>
+  )
+}
