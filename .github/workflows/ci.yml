@@ -4,13 +4,9 @@ name: CI
 on:
   push:
     branches:
-      - main
-      - master
       - develop
   pull_request:
     branches:
-      - main
-      - master
       - develop
 
 # 必要な権限を設定
