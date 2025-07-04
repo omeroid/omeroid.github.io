@@ -3,7 +3,7 @@ import iconBusinessStorategy from '../assets/images/consulting/icon_business_sto
 import iconDataStorategy from '../assets/images/consulting/icon_data_storategy.png'
 import iconSalesMarketingStorategy from '../assets/images/consulting/icon_sales_marketing_storategy.png'
 
-export default () => [
+const consultingMenuData = () => [
   {
     "image": iconBusinessStorategy,
     "title": "Business Strategy",
@@ -43,3 +43,5 @@ export default () => [
     ],
   },
 ]
+
+export default consultingMenuData

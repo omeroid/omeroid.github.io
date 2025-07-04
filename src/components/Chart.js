@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactECharts from 'echarts-for-react'
-import echarts from 'echarts';
 
 const Chart = (props) => {
     var colorPalette = [

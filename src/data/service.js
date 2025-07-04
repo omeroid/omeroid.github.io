@@ -3,7 +3,7 @@ import engineerImage from '../assets/images/service/engineer.jpg'
 import consultantImage from '../assets/images/service/consultant.jpg'
 import productImage from '../assets/images/service.jpg'
 
-export default () => [
+const serviceData = () => [
   {
     "image": engineerImage,
     "imageAlt": "エンジニア",
@@ -162,3 +162,5 @@ export default () => [
   //   ]
   // },
 ]
+
+export default serviceData

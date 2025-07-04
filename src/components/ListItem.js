@@ -34,7 +34,7 @@ function Optional(props) {
 
 function Page(props) {
     const { number, current }= props;
-    return <li><a href={`?page=${number}`} className={number == current ? 'page active' : 'page'}>{number}</a></li>
+    return <li><a href={`?page=${number}`} className={number === current ? 'page active' : 'page'}>{number}</a></li>
 }
   
 
@@ -55,11 +55,11 @@ const ListItem = (props) => {
             <Optional show={maxPage > 1}>
                 <div className="pagination-wrap">
                     <ul className="pagination">
-                        <li><a href={`?page=${currentPage-1}`} className={`button small ${currentPage == 1 ? 'disabled': ''}`}>Prev</a></li>
+                        <li><a href={`?page=${currentPage-1}`} className={`button small ${currentPage === 1 ? 'disabled': ''}`}>Prev</a></li>
                         { pageBlocks.map((_, index) => {
                             return <Page number={index+1} current={currentPage} />
                         }) }
-                        <li><a href={`?page=${currentPage+1}`} className={`button small ${currentPage == maxPage ? 'disabled': ''}`}>Next</a></li>
+                        <li><a href={`?page=${currentPage+1}`} className={`button small ${currentPage === maxPage ? 'disabled': ''}`}>Next</a></li>
                     </ul>
                 </div>
             </Optional>

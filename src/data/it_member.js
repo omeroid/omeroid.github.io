@@ -1,15 +1,10 @@
 import React from 'react'
 import matsunoImage from '../assets/images/member/matsuno.jpg'
 import kiyotaImage from '../assets/images/member/kiyota.jpg'
-import wadaImage from '../assets/images/member/wada.jpg'
 import kobayashiImage from '../assets/images/member/kobayashi.jpg'
-import fujitaImage from '../assets/images/member/fujita.jpg'
-import kinohsitaImage from '../assets/images/member/kinoshita.jpg'
-import nitsuImage from '../assets/images/member/nitsu.jpeg'
-import kagiwadaImage from '../assets/images/member/kagiwada.jpg'
 import anonymousImage from '../assets/images/logo/omeroid360.jpg'
 
-export default () => [
+const itMemberData = () => [
   {
     "image": matsunoImage,
     "imageAlt": "松野貞之",
@@ -93,3 +88,5 @@ export default () => [
     ]
   }
 ]
+
+export default itMemberData

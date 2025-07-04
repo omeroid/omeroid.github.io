@@ -4,7 +4,7 @@ import iconStrength2 from '../assets/images/it/icon-strength-2.png'
 import iconStrength3 from '../assets/images/it/icon-strength-3.png'
 import iconStrength4 from '../assets/images/it/icon-strength-4.png'
 
-export default () => [
+const itStrengthData = () => [
   {
     "image": iconStrength1,
     "title": "ビジネス課題に合わせた解決方法",
@@ -43,3 +43,5 @@ export default () => [
     ],
   },
 ]
+
+export default itStrengthData

@@ -5,7 +5,7 @@ import iconGearImage from '../assets/images/it/icon-gear.png'
 import iconOperationImage from '../assets/images/it/icon-operation.png'
 import iconPerson3Image from '../assets/images/it/icon-person-3.png'
 
-export default () => [
+const itMenuData = () => [
   {
     "image": iconItStorategyImage,
     "title": "IT戦略策定",
@@ -86,3 +86,5 @@ export default () => [
     ],
   },
 ]
+
+export default itMenuData

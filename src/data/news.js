@@ -16,7 +16,7 @@ import iso27001Image from '../assets/images/iso27001.png'
 import ryoko2024Image from '../assets/images/news/ryoko2024.jpg'
 
 
-export default () => [
+const newsData = () => [
   {
     "image": ryoko2024Image,
     "imageAlt": "社員旅行2024＠北海道",
@@ -267,3 +267,5 @@ export default () => [
   //   ]
   // },
 ]
+
+export default newsData

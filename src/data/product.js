@@ -4,7 +4,7 @@ import dacImage from '../assets/images/products/dac.png'
 import pokerReviewImage from '../assets/images/products/poker-review.jpg'
 import shopifyImage from '../assets/images/products/shopify.png'
 
-export default () => [
+const productData = () => [
   {
     "image": dacImage,
     "imageAlt": "リモート化でのOJTを助ける進捗報告ツールdac",
@@ -41,3 +41,5 @@ export default () => [
       ]
   },
 ]
+
+export default productData

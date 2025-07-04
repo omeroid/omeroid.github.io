@@ -3,7 +3,7 @@ import React from 'react'
 import travel2020Image from '../assets/images/blog/travel2020.jpg'
 import techBlogImage from '../assets/images/news/omeroid-techblog.png'
 
-export default () => [
+const blogData = () => [
   {
     "image": techBlogImage,
     "imageAlt": "TECH BLOG",
@@ -19,3 +19,5 @@ export default () => [
     "content": ["omeroidのイベントや文化", <br />]
   },
 ]
+
+export default blogData

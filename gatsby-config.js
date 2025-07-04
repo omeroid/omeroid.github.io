@@ -44,7 +44,14 @@ module.exports = {
         icon: 'src/assets/images/logo/omeroid360.jpg', // This path is relative to the root of the site.
       },
     },
-    'gatsby-plugin-sass',
+    {
+      resolve: 'gatsby-plugin-sass',
+      options: {
+        sassOptions: {
+          silenceDeprecations: ['legacy-js-api', 'import', 'global-builtin', 'color-functions', 'slash-div', 'new-global', 'elseif'],
+        },
+      },
+    },
     'gatsby-plugin-offline',
   ],
 }

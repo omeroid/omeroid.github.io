@@ -14,7 +14,6 @@ import reportImage from '../../assets/images/consulting/report.jpeg'
 import memberData from '../../data/consulting_member'
 import menuData from '../../data/consulting_menu'
 import strengthData from '../../data/consulting_strength'
-import exampleData from '../../data/consulting_example'
 import achievementData from '../../data/consulting_achievement'
 
 const title = 'Consulting'

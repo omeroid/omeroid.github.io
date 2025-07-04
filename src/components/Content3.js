@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import PropTypes from 'prop-types'
 import classNames from "classnames";
 
@@ -10,7 +9,7 @@ const Content3 = (props) => (
         {props.title}
       </div>
       <div className="content-area">
-        <img src={props.image} />
+        <img src={props.image} alt={props.title} />
       </div>
     </div>
 

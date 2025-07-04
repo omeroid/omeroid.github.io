@@ -1,10 +1,4 @@
-import React from 'react'
-import iconStrength1 from '../assets/images/it/icon-strength-1.png'
-import iconStrength2 from '../assets/images/it/icon-strength-2.png'
-import iconStrength3 from '../assets/images/it/icon-strength-3.png'
-import iconStrength4 from '../assets/images/it/icon-strength-4.png'
-
-export default () => {
+const consultingAchievementData = () => {
   return [
     {
       label: "業界別",
@@ -93,3 +87,5 @@ export default () => {
     }
   ]
 }
+
+export default consultingAchievementData

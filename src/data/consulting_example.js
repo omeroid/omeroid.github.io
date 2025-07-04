@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default () => [
+const consultingExampleData = () => [
   {
     "title": "Business Strategy",
     "industry": "小売",
@@ -14,3 +14,5 @@ export default () => [
     ]
   },
 ]
+
+export default consultingExampleData
