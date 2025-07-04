@@ -36,9 +36,9 @@ const Menu = (props) => (
           </Link>
         </li>
         <li>
-          <Link onClick={props.onToggleMenu} to="/shop">
+          <a href="https://omeroid.booth.pm/" target="_blank" rel="noopener noreferrer" onClick={props.onToggleMenu}>
             Shop/ショップ
-          </Link>
+          </a>
         </li>
       </ul>
       {/* <ul className="actions vertical">

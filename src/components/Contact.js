@@ -30,14 +30,14 @@ const Contact = (_props) => (
             height="450"
             allowfullscreen=""
             loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
+            referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
           <iframe
             title="和歌山オフィスの地図"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3298.5852516080654!2d135.16429647642937!3d34.2336069730892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000b293191322dd%3A0xc9d777405979bce!2z44Ov44Kr44Ok44Oe56ys77yS5Yao5aOr44Ob44OG44Or!5e0!3m2!1sja!2sjp!4v1684801503883!5m2!1sja!2sjp"
             width="600"
             height="450"
-            frameborder="0"
+            frameBorder="0"
             allowfullscreen=""
             aria-hidden="false"
           ></iframe>

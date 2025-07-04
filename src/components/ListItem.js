@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { window } from 'ssr-window'
 
 import Item from './Item'
 
@@ -15,6 +14,9 @@ const sliceByNumber = (array, number) => {
 }
 
 const getUrlParams = () => {
+  if (typeof window === 'undefined') {
+    return {}
+  }
   const urlParamStr = window.location.search.substring(1)
   let params = {}
   urlParamStr.split('&').forEach((param) => {
