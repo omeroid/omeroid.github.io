@@ -112,7 +112,7 @@ yarn serve     # ビルド済みサイトをローカルで確認（localhost:90
 
 ### 継続的インテグレーション（CI）
 
-プルリクエストやmain/masterブランチへのプッシュ時に、以下のチェックが自動実行されます：
+プルリクエストやdevelopブランチへのプッシュ時に、以下のチェックが自動実行されます：
 
 1. **コード品質チェック**
    - ESLintによる静的解析
@@ -148,7 +148,7 @@ yarn build
 
 ### 自動デプロイ（推奨）
 
-main/masterブランチへのプッシュまたはマージ時に、GitHub Actionsが自動的にビルドとデプロイを実行します。
+developブランチへのプッシュまたはマージ時に、GitHub Actionsが自動的にビルドとデプロイを実行します。
 
 1. **プルリクエストの作成**
    ```bash
@@ -159,7 +159,7 @@ main/masterブランチへのプッシュまたはマージ時に、GitHub Actio
    ```
 
 2. **GitHubでプルリクエストを作成してマージ**
-   - PRを作成し、レビュー後にmain/masterブランチへマージ
+   - PRを作成し、レビュー後にdevelopブランチへマージ
    - GitHub Actionsが自動的にビルドとデプロイを実行
    - Actionsタブで進行状況を確認可能
 
@@ -194,7 +194,7 @@ main/masterブランチへのプッシュまたはマージ時に、GitHub Actio
 ### デプロイの仕組み
 
 #### 自動デプロイ（GitHub Actions）
-1. main/masterブランチへのプッシュをトリガーに起動
+1. developブランチへのプッシュをトリガーに起動
 2. Ubuntu環境でNode.jsをセットアップ
 3. 依存関係をインストール（`yarn install --frozen-lockfile`）
 4. Gatsbyでビルド実行
@@ -213,7 +213,7 @@ main/masterブランチへのプッシュまたはマージ時に、GitHub Actio
 ### デプロイ権限
 
 #### 自動デプロイ
-- main/masterブランチへのマージ権限があれば自動的にデプロイされます
+- developブランチへのマージ権限があれば自動的にデプロイされます
 - GitHub Actionsの実行権限は自動的に付与されます
 
 #### 手動デプロイ
@@ -222,12 +222,13 @@ main/masterブランチへのプッシュまたはマージ時に、GitHub Actio
 
 ### GitHub Pagesの設定
 
-初回セットアップ時のみ、リポジトリ設定で以下を確認してください：
+リポジトリ設定で以下を確認してください：
 
 1. Settings → Pages
-2. Source: Deploy from a branch
-3. Branch: master
-4. Folder: / (root)
+2. Source: GitHub Actions
+3. Settings → Environments → github-pages で develop ブランチからのデプロイを許可
+
+**重要**: GitHub Pages の設定で、デプロイメントブランチを develop に変更するか、すべてのブランチからのデプロイを許可する必要があります。
 
 ### カスタムドメイン
 
