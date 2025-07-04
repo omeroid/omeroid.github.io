@@ -1,25 +1,14 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import MessengerCustomerChat from 'react-messenger-customer-chat'
-
 import Layout from '../components/layout'
 import Banner from '../components/Banner'
 import Contact from '../components/Contact'
 
 import bannerImage from '../assets/images/banner.jpg'
-import serviceImage from '../assets/images/service.jpg'
 import newsImage from '../assets/images/news.jpg'
-import memberImage from '../assets/images/member.png'
 import recruitImage from '../assets/images/recruit.jpg'
-import blogImage from '../assets/images/blog.jpg'
 import shopImage from '../assets/images/shop.jpg'
 import logoImage from '../assets/images/logo/omeroid_icon.svg'
-import pic01 from '../assets/images/pic01.jpg'
-import pic02 from '../assets/images/pic02.jpg'
-import pic03 from '../assets/images/pic03.jpg'
-import pic04 from '../assets/images/pic04.jpg'
-import pic05 from '../assets/images/pic05.jpg'
-import pic06 from '../assets/images/pic06.jpg'
 import engineerImage from '../assets/images/service/engineer.jpg'
 import consultantImage from '../assets/images/service/consultant.jpg'
 import productImage from '../assets/images/service.jpg'
@@ -101,7 +90,6 @@ class HomeIndex extends React.Component {
                     </section> */}
                 </div>
                 <Contact />
-                {/* <MessengerCustomerChat pageId="1970520546574914" appId="1634817276825716" /> */}
                 <div id="gpt-site-search" siteId="8f015ee0-7624-4aee-848b-117372387491" />
             </Layout>
         )

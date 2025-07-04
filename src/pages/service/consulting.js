@@ -3,10 +3,8 @@ import React from 'react'
 import Layout from '../../components/layout'
 import Banner from '../../components/Banner'
 import ListItem from '../../components/ListItem'
-import Item from '../../components/Item'
 import Content1 from '../../components/Content1'
 import Content2 from '../../components/Content2'
-import ConsultingExample from '../../components/ConsultingExample'
 import Chart from '../../components/Chart'
 
 import consultantImage from '../../assets/images/service/consultant.jpg'
@@ -24,7 +22,6 @@ const content = '経営・業務コンサルティングサービスについて
 const members = memberData()
 const menus = menuData()
 const strengths = strengthData()
-const examples = exampleData()
 const achievements = achievementData()
 
 const example = [

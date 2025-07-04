@@ -1,13 +1,9 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import Layout from '../components/layout'
 import Banner from '../components/Banner'
 import ListItem from '../components/ListItem'
 
 import newsImage from '../assets/images/news.jpg'
-import pic08 from '../assets/images/pic08.jpg'
-import pic09 from '../assets/images/pic09.jpg'
-import pic10 from '../assets/images/pic10.jpg'
 
 import newsData from '../data/news'
 
