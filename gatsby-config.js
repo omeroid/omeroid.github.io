@@ -52,6 +52,6 @@ module.exports = {
         },
       },
     },
-    'gatsby-plugin-offline',
+    // 'gatsby-plugin-offline', // 一時的に無効化（lodash.template脆弱性のため）
   ],
 }
