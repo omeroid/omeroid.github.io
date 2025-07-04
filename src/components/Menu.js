@@ -36,7 +36,12 @@ const Menu = (props) => (
           </Link>
         </li>
         <li>
-          <a href="https://omeroid.booth.pm/" target="_blank" rel="noopener noreferrer" onClick={props.onToggleMenu}>
+          <a
+            href="https://omeroid.booth.pm/"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={props.onToggleMenu}
+          >
             Shop/ショップ
           </a>
         </li>
