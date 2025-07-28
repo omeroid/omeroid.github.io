@@ -9,7 +9,6 @@ import Chart from '../../components/Chart'
 
 import engineerImage from '../../assets/images/service/engineer.jpg'
 
-import memberData from '../../data/it_member'
 import menuData from '../../data/it_menu'
 import strengthData from '../../data/it_strength'
 import stackData from '../../data/it_stack'
@@ -17,13 +16,12 @@ import achievementData from '../../data/it_achievement'
 
 const title = 'IT Consulting'
 const content = 'ITコンサルティング・システム開発事業について'
-const members = memberData()
 const menues = menuData()
 const strengths = strengthData()
 const stacks = stackData()
 const achievements = achievementData()
 
-const Service = (_props) => (
+const Service = _props => (
   <Layout>
     <Banner title={title} content={content} image={engineerImage} />
 
@@ -34,7 +32,7 @@ const Service = (_props) => (
             <h2>支援内容</h2>
           </header>
           <div className="flex-wrapper">
-            {menues.map((m) => (
+            {menues.map(m => (
               <Content1
                 image={m.image}
                 title={m.title}
@@ -51,7 +49,7 @@ const Service = (_props) => (
             <h2>omeroidの強み</h2>
           </header>
           <div className="flex-wrapper">
-            {strengths.map((m) => (
+            {strengths.map(m => (
               <Content2
                 image={m.image}
                 title={m.title}
@@ -68,7 +66,7 @@ const Service = (_props) => (
             <h2>事例</h2>
           </header>
           <div className="flex-wrapper">
-            {achievements.map((i) => {
+            {achievements.map(i => {
               return <Chart label={i.label} options={i.options} width="700px" />
             })}
           </div>
@@ -80,19 +78,9 @@ const Service = (_props) => (
             <h2>技術スタック例</h2>
           </header>
           <div className="flex-wrapper">
-            {stacks.map((s) => (
+            {stacks.map(s => (
               <Content3 image={s.image} title={s.title} width="300px" />
             ))}
-          </div>
-        </div>
-      </section>
-      <section id="one">
-        <div className="inner">
-          <header className="major">
-            <h2>メンバー</h2>
-          </header>
-          <div>
-            <ListItem items={members} />
           </div>
         </div>
       </section>
