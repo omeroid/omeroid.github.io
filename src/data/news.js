@@ -15,6 +15,21 @@ import ryoko2024Image from '../assets/images/news/ryoko2024.jpg'
 
 const newsData = () => [
   {
+    imageAlt: '加入団体のお知らせ',
+    title: [<small>2026/1</small>, <br />, '加入団体'],
+    content: [
+      'omeroid(企業・メンバー)は以下の団体に加入させていただいています。',
+      <br />,
+      '特定非営利活動法人金融ＩＴ協会®（FITA）',
+      <br />,
+      '一般社団法人アジア経営者連合会',
+      <br />,
+      '一般社団法人東京ニュービジネス協議会',
+      <br />,
+      '東京城西ロータリークラブ',
+    ],
+  },
+  {
     image: ryoko2024Image,
     imageAlt: '社員旅行2024＠北海道',
     to: 'https://note.com/omeroid/n/n59af5f0f7e50',

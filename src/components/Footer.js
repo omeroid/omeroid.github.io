@@ -32,8 +32,18 @@ const Footer = (_props) => (
           情報セキュリティ方針
         </Link>
       </ul>
-      <ul className="copyright">
-        <li>&copy; 2020 omeroid Inc. All rights reserved.</li>
+      <ul className="footer_menu">
+        <div className="footer_joins_title">加入団体</div>
+        <div className="footer_joins_contents">
+          特定非営利活動法人金融ＩＴ協会®（FITA）
+        </div>
+        <div className="footer_joins_contents">
+          一般社団法人アジア経営者連合会
+        </div>
+        <div className="footer_joins_contents">
+          一般社団法人東京ニュービジネス協議会
+        </div>
+        <div className="footer_joins_contents">東京城西ロータリークラブ</div>
       </ul>
     </div>
   </footer>
