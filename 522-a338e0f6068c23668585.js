@@ -1,0 +1,1 @@
+(self.webpackChunkgatsby_starter_forty_v2=self.webpackChunkgatsby_starter_forty_v2||[]).push([[522],{8522:function(){}}]);

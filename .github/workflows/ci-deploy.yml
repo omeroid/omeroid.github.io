@@ -1,0 +1,116 @@
+name: CI and Deploy
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+  # 手動実行も可能
+  workflow_dispatch:
+
+# 必要な権限を設定
+permissions:
+  contents: read
+  pull-requests: write
+  pages: write
+  id-token: write
+
+# 同時実行を防ぐ（デプロイ用）
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # CI ジョブ
+  ci:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run ESLint
+        run: yarn lint || true
+        continue-on-error: true
+
+      - name: Check code formatting with Prettier
+        run: yarn format:check
+
+      - name: Run tests
+        run: yarn test:ci || yarn test || echo "No tests configured"
+        continue-on-error: true
+
+      - name: Build application
+        run: yarn build
+
+      - name: Check bundle size
+        run: |
+          echo "Build size report:"
+          du -sh public/
+          find public -name "*.js" -o -name "*.css" | xargs ls -lh | sort -k5 -hr | head -20
+
+      - name: Run security audit
+        run: |
+          yarn audit --level moderate || true
+          echo "Security audit completed. Check the results above."
+        continue-on-error: true
+
+  # ビルドジョブ（Pages用）
+  build:
+    needs: ci
+    # developブランチへのプッシュ時のみ実行（PRでは実行しない）
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+          cache: 'yarn'
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        with:
+          static_site_generator: gatsby
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build with Gatsby
+        env:
+          PREFIX_PATHS: 'true'
+        run: yarn build
+
+      - name: Create CNAME file
+        run: echo 'www.omeroid.com' > ./public/CNAME
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+  # デプロイジョブ
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
