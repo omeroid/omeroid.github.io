@@ -1,6 +1,6 @@
 import React from 'react'
 
-import '@fontsource-variable/noto-serif-jp'
+import '@fontsource-variable/noto-sans-jp'
 import '../assets/scss/main.scss'
 import Header from './Header'
 import Menu from './Menu'
