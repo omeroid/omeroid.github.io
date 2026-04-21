@@ -8,6 +8,7 @@ import Content3 from '../../components/Content3'
 import Chart from '../../components/Chart'
 
 import engineerImage from '../../assets/images/service/engineer.jpg'
+import techBlogImage from '../../assets/images/news/omeroid-techblog.png'
 
 import menuData from '../../data/it_menu'
 import strengthData from '../../data/it_strength'
@@ -20,6 +21,16 @@ const menues = menuData()
 const strengths = strengthData()
 const stacks = stackData()
 const achievements = achievementData()
+
+const techBlog = [
+  {
+    image: techBlogImage,
+    imageAlt: 'TECH BLOG',
+    to: 'https://zenn.dev/p/omeroid',
+    title: ['TECH BLOG'],
+    content: ['omeroidの技術的な取り組みをZennで発信しています'],
+  },
+]
 
 const Service = (_props) => (
   <Layout>
@@ -82,6 +93,14 @@ const Service = (_props) => (
               <Content3 image={s.image} title={s.title} width="300px" />
             ))}
           </div>
+        </div>
+      </section>
+      <section id="one">
+        <div className="inner">
+          <header className="major">
+            <h2>コンテンツ</h2>
+          </header>
+          <ListItem items={techBlog} />
         </div>
       </section>
     </div>

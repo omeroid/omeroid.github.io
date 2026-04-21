@@ -7,7 +7,7 @@ const blogData = () => [
   {
     image: techBlogImage,
     imageAlt: 'TECH BLOG',
-    to: 'https://omeroid.notion.site/OMEROID-TECH-BLOG-b49535115c1b4316abbc4d579aa153f9',
+    to: 'https://zenn.dev/p/omeroid',
     title: ['TECH BLOG'],
     content: ['omeroidの技術的な取り組み', <br />],
   },

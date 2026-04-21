@@ -48,7 +48,7 @@ module.exports = {
       resolve: 'gatsby-plugin-sass',
       options: {
         sassOptions: {
-          silenceDeprecations: ['legacy-js-api', 'import', 'global-builtin', 'color-functions', 'slash-div', 'new-global', 'elseif'],
+          silenceDeprecations: ['legacy-js-api', 'import', 'global-builtin', 'color-functions', 'slash-div', 'new-global', 'elseif', 'if-function'],
         },
       },
     },
