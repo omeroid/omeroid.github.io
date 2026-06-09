@@ -10,10 +10,21 @@ import wakayamaAdvancementImage from '../assets/images/blog/wakayama-advancement
 import officeTransfer from '../assets/images/blog/office_transfer.jpeg'
 import travel2023Image from '../assets/images/blog/travel2023.webp'
 import gasshuku2024Image from '../assets/images/news/gasshuku2024.webp'
+import gasshuku2026Image from '../assets/images/news/gasshuku2026.png'
 import iso27001Image from '../assets/images/iso27001.png'
 import ryoko2024Image from '../assets/images/news/ryoko2024.jpg'
 
 const newsData = () => [
+  {
+    image: gasshuku2026Image,
+    imageAlt: '社員合宿＠静岡三島',
+    to: 'https://note.com/omeroid/n/n4c69c39ac9f0',
+    title: [<small>2026/05</small>, <br />, '社員合宿＠静岡三島'],
+    content: [
+      '入社1ヶ月のメンバーが、三島での社員合宿の様子をお届けします。',
+      <br />,
+    ],
+  },
   {
     imageAlt: '加入団体のお知らせ',
     title: [<small>2026/1</small>, <br />, '加入団体'],
