@@ -1,0 +1,105 @@
+---
+import CardGrid from '~/components/ui/CardGrid.astro'
+import Section from '~/components/ui/Section.astro'
+import SectionHead from '~/components/ui/SectionHead.astro'
+import {
+  consultingFeatures,
+  dxTheme,
+  themes,
+  themesHeading,
+} from '~/data/consulting'
+---
+
+<Section flush="top">
+  <SectionHead {...themesHeading} />
+  <CardGrid cards={themes} cols={3} titleSize="md" />
+
+  <div class="dx" data-reveal="6">
+    <div>
+      <div class="en dx__eyebrow">{dxTheme.eyebrow}</div>
+      <h3 class="dx__title">{dxTheme.title}</h3>
+    </div>
+    <p class="dx__body">{dxTheme.body}</p>
+  </div>
+
+  <div class="features" data-reveal="7">
+    {
+      consultingFeatures.map((feature) => (
+        <div>
+          <h3 class="features__title">{feature.title}</h3>
+          <p class="features__body">{feature.body}</p>
+        </div>
+      ))
+    }
+  </div>
+</Section>
+
+<style>
+  .dx {
+    margin-top: 22px;
+    padding: clamp(1.75rem, 1.2rem + 1.8vw, 2.75rem)
+      clamp(1.5rem, 1.1rem + 1.4vw, 2.5rem);
+    border-radius: var(--radius);
+    border: 1px dashed rgba(22, 25, 28, 0.22);
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .dx__eyebrow {
+    font-size: var(--fs-eyebrow);
+    letter-spacing: 0.22em;
+    color: var(--ink-45);
+  }
+
+  .dx__title {
+    margin-top: 18px;
+    font-family: var(--font-head);
+    font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.5625rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.6;
+  }
+
+  .dx__body {
+    font-size: var(--fs-body);
+    line-height: 2.05;
+    color: var(--c-text);
+  }
+
+  .features {
+    margin-top: 22px;
+    border-radius: var(--radius);
+    background: var(--c-bg-alt);
+    border: 1px solid var(--line);
+    padding: clamp(2rem, 1.4rem + 2vw, 3.5rem)
+      clamp(1.5rem, 1.1rem + 1.6vw, 3rem);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(2rem, 1rem + 2.4vw, 3rem);
+  }
+
+  .features__title {
+    font-family: var(--font-head);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+  }
+
+  .features__body {
+    margin-top: 18px;
+    font-size: var(--fs-body);
+    line-height: 2.05;
+    color: var(--ink-70);
+  }
+
+  @media (max-width: 900px) {
+    .dx,
+    .features {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 24px;
+    }
+  }
+</style>

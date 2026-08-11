@@ -1,0 +1,76 @@
+---
+import Eyebrow from './Eyebrow.astro'
+
+/** 「英字ラベル + 見出し + リード文」のセット */
+interface Props {
+  eyebrow: string
+  /** 配列を渡すと要素間で改行する */
+  title: string | string[]
+  lead?: string
+  /** 見出しレベル */
+  as?: 'h1' | 'h2'
+  size?: 'md' | 'sm'
+  /** 下マージン */
+  gap?: string
+  class?: string
+}
+
+const {
+  eyebrow,
+  title,
+  lead,
+  as: Tag = 'h2',
+  size = 'md',
+  gap,
+  class: className,
+}: Props = Astro.props
+
+const lines = Array.isArray(title) ? title : [title]
+---
+
+<div
+  class:list={['section-head', className]}
+  style={gap ? `--head-gap:${gap}` : undefined}
+>
+  <Eyebrow label={eyebrow} reveal={0} />
+  <Tag
+    class:list={['heading', 'section-head__title', size === 'sm' && 'is-sm']}
+    data-reveal="1"
+  >
+    {
+      lines.map((line, i) => (
+        <>
+          {i > 0 && <br />}
+          {line}
+        </>
+      ))
+    }
+  </Tag>
+  {
+    lead && (
+      <p class="lead section-head__lead" data-reveal="2">
+        {lead}
+      </p>
+    )
+  }
+</div>
+
+<style>
+  .section-head {
+    margin-bottom: var(--head-gap, clamp(2.25rem, 1rem + 3vw, 3.5rem));
+  }
+
+  .section-head__title {
+    margin: 32px 0 0;
+    font-size: var(--fs-h2);
+  }
+
+  .section-head__title.is-sm {
+    font-size: var(--fs-h2-sm);
+  }
+
+  .section-head__lead {
+    margin-top: 16px;
+    max-width: 34em;
+  }
+</style>

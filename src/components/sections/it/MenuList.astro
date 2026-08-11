@@ -1,0 +1,109 @@
+---
+import Dots from '~/components/ui/Dots.astro'
+import Section from '~/components/ui/Section.astro'
+import SectionHead from '~/components/ui/SectionHead.astro'
+import { itMenu, itMenuHeading } from '~/data/it'
+import { accentStyle } from '~/lib/accent'
+---
+
+<Section>
+  <SectionHead {...itMenuHeading} />
+
+  <div class="menu">
+    {
+      itMenu.map((row, i) => (
+        <div
+          class="menu__row"
+          style={accentStyle(row.accent, row.accentPair)}
+          data-reveal={3 + i}
+        >
+          <Dots
+            accent={row.accent}
+            pair={row.accentPair}
+            size={19}
+            class="menu__dots"
+          />
+          <h3 class="menu__title">{row.title}</h3>
+          <div>
+            <p class="menu__body">{row.body}</p>
+            <p class="en menu__meta">{row.meta}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</Section>
+
+<style>
+  .menu {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--line-mid);
+  }
+
+  .menu__row {
+    display: grid;
+    grid-template-columns: 70px 320px minmax(0, 1fr);
+    gap: 36px;
+    padding: 42px 14px;
+    align-items: start;
+    border-bottom: 1px solid var(--line-mid);
+    transition: background-color 300ms var(--ease);
+  }
+
+  .menu__row:hover {
+    background: rgb(var(--accent-rgb) / 0.07);
+  }
+
+  .menu__row :global(.menu__dots) {
+    margin-top: 6px;
+  }
+
+  .menu__title {
+    font-family: var(--font-head);
+    font-size: var(--fs-h3);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    line-height: 1.5;
+  }
+
+  .menu__body {
+    font-size: 1rem;
+    line-height: 2.1;
+    color: var(--c-text-strong);
+  }
+
+  .menu__meta {
+    margin-top: 14px;
+    font-size: 0.78125rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-45);
+  }
+
+  @media (max-width: 1100px) {
+    .menu__row {
+      grid-template-columns: 60px minmax(0, 1fr);
+      gap: 12px 24px;
+    }
+
+    .menu__title {
+      align-self: center;
+    }
+
+    .menu__row > :last-child {
+      grid-column: 2;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .menu__row {
+      grid-template-columns: minmax(0, 1fr);
+      padding-inline: 0;
+      gap: 16px;
+    }
+
+    .menu__row > :last-child {
+      grid-column: 1;
+    }
+  }
+</style>

@@ -1,0 +1,44 @@
+---
+/** 英字の小見出し。左に短い横線が入る */
+interface Props {
+  label: string
+  /** 横線を出さない（中央寄せの見出しなど） */
+  bare?: boolean
+  reveal?: number
+  class?: string
+}
+
+const { label, bare = false, reveal, class: className } = Astro.props
+---
+
+<div
+  class:list={['eyebrow', bare && 'eyebrow--bare', className]}
+  data-reveal={reveal}
+>
+  {!bare && <span class="eyebrow__rule" />}
+  {label}
+</div>
+
+<style>
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--font-en);
+    font-size: var(--fs-eyebrow);
+    letter-spacing: var(--ls-eyebrow);
+    color: var(--ink-50);
+  }
+
+  .eyebrow--bare {
+    display: block;
+  }
+
+  .eyebrow__rule {
+    width: 40px;
+    height: 1px;
+    background: var(--ink-30);
+    display: block;
+    flex: none;
+  }
+</style>

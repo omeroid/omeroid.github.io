@@ -1,0 +1,17 @@
+---
+import CellGrid from '~/components/ui/CellGrid.astro'
+import Section from '~/components/ui/Section.astro'
+import SectionHead from '~/components/ui/SectionHead.astro'
+import { itIssues } from '~/data/it'
+
+const items = itIssues.items.map((body) => ({ body }))
+---
+
+<Section variant="alt">
+  <SectionHead
+    {...itIssues.heading}
+    size="sm"
+    gap="clamp(2.5rem, 1.5rem + 3vw, 3.5rem)"
+  />
+  <CellGrid items={items} cols={3} />
+</Section>

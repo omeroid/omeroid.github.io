@@ -1,0 +1,194 @@
+---
+import {
+  externalLinks,
+  footerColumns,
+  footerMeta,
+  memberships,
+  site,
+} from '~/data/site'
+import Logo from '~/components/ui/Logo.astro'
+
+const year = new Date().getFullYear()
+const isExternal = (href: string) => /^https?:/.test(href)
+---
+
+<footer class="footer">
+  <div class="container footer__top">
+    <div class="footer__brand">
+      <Logo height="28px" />
+      <p class="footer__tagline">{site.tagline}</p>
+      <a
+        class="footer__social"
+        href={externalLinks.facebook}
+        target="_blank"
+        rel="noopener">Facebook</a
+      >
+    </div>
+
+    {
+      footerColumns.map((col) => (
+        <nav class="footer__col" aria-label={col.label}>
+          <div class="en footer__col-label">{col.label}</div>
+          <ul>
+            {col.links.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  target={isExternal(link.href) ? '_blank' : undefined}
+                  rel={isExternal(link.href) ? 'noopener' : undefined}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ))
+    }
+  </div>
+
+  <div class="container footer__memberships">
+    <div class="en footer__col-label">MEMBERSHIPS ／ 加入団体</div>
+    <ul>
+      {memberships.map((m) => <li>{m}</li>)}
+    </ul>
+  </div>
+
+  <div class="container footer__bottom">
+    <small class="en footer__copy">© {year} omeroid Inc.</small>
+    <ul class="footer__meta">
+      {
+        footerMeta.map((link) => (
+          <li>
+            <a href={link.href} target="_blank" rel="noopener">
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--line);
+    color: var(--c-text);
+  }
+
+  .footer__top {
+    padding-block: 76px 48px;
+    display: grid;
+    grid-template-columns: 1.5fr repeat(3, 1fr);
+    gap: 48px;
+  }
+
+  .footer__brand {
+    color: var(--c-ink);
+  }
+
+  .footer__tagline {
+    margin-top: 24px;
+    font-family: var(--font-head);
+    font-size: 0.9375rem;
+    line-height: 2.1;
+    letter-spacing: 0.04em;
+    max-width: 22em;
+    color: var(--c-ink);
+  }
+
+  .footer__social {
+    display: inline-block;
+    margin-top: 20px;
+    font-family: var(--font-en);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    color: var(--c-text);
+  }
+
+  .footer__social:hover {
+    color: var(--c-accent);
+  }
+
+  .footer__col ul {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    font-size: 0.875rem;
+  }
+
+  .footer__col a {
+    color: var(--c-text);
+  }
+
+  .footer__col a:hover {
+    color: var(--c-accent);
+  }
+
+  .footer__col-label {
+    font-size: 0.6875rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-40);
+    margin-bottom: 18px;
+  }
+
+  .footer__memberships {
+    padding-bottom: 44px;
+  }
+
+  .footer__memberships ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    font-size: 0.8125rem;
+    color: var(--ink-55);
+  }
+
+  .footer__bottom {
+    padding-block: 22px 40px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .footer__copy {
+    font-size: 0.71875rem;
+    letter-spacing: 0.12em;
+  }
+
+  .footer__meta {
+    display: flex;
+    gap: 24px;
+    font-size: 0.8125rem;
+    flex-wrap: wrap;
+  }
+
+  .footer__meta a {
+    color: var(--c-text);
+  }
+
+  .footer__meta a:hover {
+    color: var(--c-accent);
+  }
+
+  @media (max-width: 980px) {
+    .footer__top {
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .footer__brand {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .footer__top {
+      grid-template-columns: 1fr;
+      padding-block: 56px 40px;
+    }
+  }
+</style>

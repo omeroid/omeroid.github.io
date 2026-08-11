@@ -1,0 +1,11 @@
+---
+import CardGrid from '~/components/ui/CardGrid.astro'
+import Section from '~/components/ui/Section.astro'
+import SectionHead from '~/components/ui/SectionHead.astro'
+import { strengthCards, strengthHeading } from '~/data/strength'
+---
+
+<Section bordered>
+  <SectionHead {...strengthHeading} gap="clamp(2.5rem, 1rem + 3.5vw, 3.5rem)" />
+  <CardGrid cards={strengthCards} cols={2} titleSize="lg" />
+</Section>

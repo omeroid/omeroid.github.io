@@ -1,0 +1,95 @@
+---
+import Pill from '~/components/ui/Pill.astro'
+import Section from '~/components/ui/Section.astro'
+import SectionHead from '~/components/ui/SectionHead.astro'
+import { trackRecord } from '~/data/consulting'
+
+const groups = [trackRecord.industries, trackRecord.themes]
+---
+
+<Section variant="tint">
+  <SectionHead
+    {...trackRecord.heading}
+    gap="clamp(2.5rem, 1.5rem + 3vw, 3.5rem)"
+  />
+
+  <div class="record__groups">
+    {
+      groups.map((group, i) => (
+        <div data-reveal={2 + i}>
+          <div class="en record__label">{group.label}</div>
+          <div class="record__tags">
+            {group.items.map((item) => (
+              <Pill size="lg" filled>
+                {item}
+              </Pill>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="grid grid--3 record__cases" data-reveal="4">
+    {
+      trackRecord.cases.map((item) => (
+        <div class="record__case">
+          <div class="record__client">{item.client}</div>
+          <p class="record__body">{item.body}</p>
+        </div>
+      ))
+    }
+  </div>
+</Section>
+
+<style>
+  .record__groups {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(2.5rem, 1.5rem + 3vw, 3.5rem);
+  }
+
+  .record__label {
+    font-size: var(--fs-eyebrow);
+    letter-spacing: 0.2em;
+    color: var(--ink-45);
+  }
+
+  .record__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 26px;
+  }
+
+  .record__cases {
+    margin-top: clamp(2.75rem, 1.5rem + 3vw, 4rem);
+  }
+
+  .record__case {
+    padding: clamp(1.75rem, 1.2rem + 1.4vw, 2.375rem)
+      clamp(1.375rem, 1rem + 1.2vw, 2.125rem);
+    border-radius: var(--radius);
+    background: var(--c-bg);
+    border: 1px solid var(--line);
+  }
+
+  .record__client {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--c-accent);
+  }
+
+  .record__body {
+    margin-top: 16px;
+    font-size: var(--fs-body);
+    line-height: 2;
+    color: var(--c-text);
+  }
+
+  @media (max-width: 900px) {
+    .record__groups {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

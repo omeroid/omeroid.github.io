@@ -1,0 +1,103 @@
+---
+import type { Stat } from '~/types'
+
+/** 罫線で区切った数値実績の横並び */
+interface Props {
+  stats: Stat[]
+  size?: 'lg' | 'md'
+  class?: string
+}
+
+const { stats, size = 'lg', class: className } = Astro.props
+---
+
+<div class:list={['stats', `is-${size}`, className]}>
+  {
+    stats.map((s, i) => (
+      <div class="stats__cell" data-reveal={i}>
+        <div class="stats__value">
+          {s.value}
+          {s.unit && <span class="stats__unit">{s.unit}</span>}
+        </div>
+        <div class="en stats__label">{s.label}</div>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-bottom: 1px solid var(--line);
+  }
+
+  .stats__cell {
+    padding: clamp(2rem, 1rem + 2.6vw, 4rem) 28px;
+    border-right: 1px solid var(--line);
+  }
+
+  .stats__cell:first-child {
+    padding-left: 0;
+  }
+
+  .stats__cell:last-child {
+    padding-right: 0;
+    border-right: none;
+  }
+
+  .stats__value {
+    font-family: var(--font-head);
+    font-size: var(--fs-stat);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.01em;
+  }
+
+  .stats.is-md .stats__value {
+    font-size: var(--fs-stat-sm);
+  }
+
+  .stats__unit {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    margin-left: 8px;
+    color: var(--ink-50);
+  }
+
+  .stats.is-md .stats__unit {
+    font-size: 0.9375rem;
+    margin-left: 6px;
+  }
+
+  .stats__label {
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-45);
+    margin-top: 16px;
+  }
+
+  @media (max-width: 900px) {
+    .stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .stats__cell {
+      padding-inline: 20px;
+    }
+
+    .stats__cell:nth-child(2n) {
+      padding-right: 0;
+      border-right: none;
+    }
+
+    .stats__cell:nth-child(2n + 1) {
+      padding-left: 0;
+      border-right: 1px solid var(--line);
+    }
+
+    .stats__cell:nth-child(n + 3) {
+      border-top: 1px solid var(--line);
+    }
+  }
+</style>

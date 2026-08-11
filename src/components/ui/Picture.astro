@@ -1,0 +1,105 @@
+---
+import { Image } from 'astro:assets'
+import type { Picture } from '~/types'
+
+/**
+ * 写真の枠。data の picture.image が未設定なら差し替え用のプレースホルダーを表示する。
+ */
+interface Props {
+  picture: Picture
+  /** 高さ (CSS値)。レスポンシブにしたい場合は clamp() を渡す */
+  height?: string
+  /** 縦横比（height を指定しない場合に使う） */
+  ratio?: string
+  radius?: string
+  sizes?: string
+  loading?: 'lazy' | 'eager'
+  /** スクロール演出の順番 */
+  reveal?: number
+  class?: string
+}
+
+const {
+  picture,
+  height,
+  ratio,
+  radius = 'var(--radius-sm)',
+  sizes = '(max-width: 736px) 100vw, (max-width: 1100px) 50vw, 700px',
+  loading = 'lazy',
+  reveal,
+  class: className,
+} = Astro.props
+
+const { image, alt, placeholder } = picture
+
+// 元画像より大きい幅は生成しない。実際の表示幅より過大な書き出しも避けるため 1600px で打ち切る
+const CANDIDATE_WIDTHS = [480, 768, 1200, 1600]
+const widths = image
+  ? CANDIDATE_WIDTHS.filter((w) => w <= image.width).length > 0
+    ? CANDIDATE_WIDTHS.filter((w) => w <= image.width)
+    : [image.width]
+  : []
+
+const style = [
+  height ? `--pic-h:${height}` : null,
+  ratio ? `--pic-ratio:${ratio}` : null,
+  `--pic-radius:${radius}`,
+]
+  .filter(Boolean)
+  .join(';')
+---
+
+<div
+  class:list={['pic', !image && 'pic--empty', className]}
+  style={style}
+  data-reveal={reveal}
+>
+  {
+    image ? (
+      <Image
+        src={image}
+        alt={alt}
+        widths={widths}
+        sizes={sizes}
+        loading={loading}
+      />
+    ) : (
+      <span class="pic__label">{placeholder ?? alt}</span>
+    )
+  }
+</div>
+
+<style>
+  .pic {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--pic-radius);
+    height: var(--pic-h, auto);
+    aspect-ratio: var(--pic-ratio, auto);
+    background: rgba(22, 25, 28, 0.05);
+  }
+
+  .pic :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .pic--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 180px;
+    padding: 24px;
+    border: 1px dashed rgba(22, 25, 28, 0.22);
+    background: rgba(22, 25, 28, 0.03);
+  }
+
+  .pic__label {
+    font-size: var(--fs-xs);
+    line-height: 1.9;
+    color: var(--ink-45);
+    text-align: center;
+  }
+</style>

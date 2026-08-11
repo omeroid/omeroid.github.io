@@ -1,333 +1,116 @@
 # omeroid.github.io
 
-株式会社omeroid（オメロイド）の公式ウェブサイトのソースコードです。
+omeroid株式会社のコーポレートサイト（https://www.omeroid.com ）。
 
-## 技術スタック
+Astro 5 による静的サイト生成（SSG）。UIフレームワークは使わず、Astro コンポーネント + 素の CSS +
+最小限の TypeScript で構成しています。
 
-- **フレームワーク**: Gatsby v5.14.5
-- **言語**: JavaScript, React v18.3.1
-- **スタイリング**: SCSS (Sass v1.89.2)
-- **ホスティング**: GitHub Pages
-- **ドメイン**: www.omeroid.com
-- **リンター**: ESLint v9.30.1
-- **フォーマッター**: Prettier v3.6.2
+## セットアップ
 
-## 必要な環境
+Node.js は `.node-version` / `.mise.toml` のバージョンを使用します（mise 利用時は `mise install`）。
 
-- Node.js v20.19.1
-- Yarn（パッケージマネージャー）
-
-### Node.jsのバージョン管理
-
-プロジェクトでは`.node-version`ファイルでNode.jsのバージョンを管理しています。
-[nvm](https://github.com/nvm-sh/nvm)や[nodenv](https://github.com/nodenv/nodenv)を使用している場合は、自動的に適切なバージョンが選択されます。
-
-```bash
-# nvmを使用している場合
-nvm install
-nvm use
-
-# nodenvを使用している場合
-nodenv install
-```
-
-## 開発環境のセットアップ
-
-1. リポジトリをクローン
-```bash
-git clone https://github.com/omeroid/omeroid.github.io.git
-cd omeroid.github.io
-```
-
-2. 依存関係をインストール
 ```bash
 yarn install
+yarn dev        # http://localhost:4321
 ```
 
-3. 開発サーバーを起動
-```bash
-yarn develop
+## コマンド
+
+| コマンド                            | 内容                                                      |
+| ----------------------------------- | --------------------------------------------------------- |
+| `yarn dev`                          | 開発サーバー                                              |
+| `yarn build`                        | プロダクションビルド（`dist/`）                           |
+| `yarn preview`                      | ビルド結果をローカル配信                                  |
+| `yarn typecheck`                    | `astro check`（型・テンプレート検査）。`yarn lint` も同じ |
+| `yarn format` / `yarn format:check` | Prettier                                                  |
+| `yarn clean`                        | `dist` と `.astro` を削除                                 |
+| `yarn deploy`                       | `dist` を master ブランチへ push（通常は CI が実行）      |
+
+> `yarn check` は yarn 1 の組み込みコマンドと衝突するため、型チェックは `yarn typecheck` を使ってください。
+
+## ページ構成
+
+| URL            | ファイル                     | 内容                             |
+| -------------- | ---------------------------- | -------------------------------- |
+| `/`            | `src/pages/index.astro`      | トップ                           |
+| `/consulting/` | `src/pages/consulting.astro` | 戦略・業務コンサルティング       |
+| `/it/`         | `src/pages/it.astro`         | ITコンサルティング・システム開発 |
+| `/product/`    | `src/pages/product.astro`    | 自社プロダクト                   |
+| `/company/`    | `src/pages/company.astro`    | 会社概要・理念                   |
+| `/news/`       | `src/pages/news.astro`       | お知らせ一覧                     |
+| `/contact/`    | `src/pages/contact.astro`    | お問い合わせ                     |
+| `/404`         | `src/pages/404.astro`        | Not Found                        |
+
+## コンテンツの編集
+
+文言・リンク・画像はすべて `src/data/*.ts` に集約しています（CMS なし）。型定義は `src/types.ts`。
+
+```
+src/data/
+├── site.ts        # サイト共通（ナビ、フッター、外部リンク、GA測定ID、加入団体）
+├── home.ts        # トップページ
+├── it.ts          # IT・システム開発ページ
+├── consulting.ts  # コンサルティングページ
+├── product.ts     # 自社プロダクト
+├── company.ts     # 会社概要
+├── news.ts        # お知らせ（配列の先頭に追加）
+├── contact.ts     # お問い合わせ
+└── strength.ts / works.ts / stack.ts / process.ts / faq.ts   # 共通セクション
 ```
 
-開発サーバーは http://localhost:8000 で起動します。
+### 画像の追加・差し替え
 
-## プロジェクト構造
+1. `src/assets/images/` 配下に置く
+2. data ファイルで `import` して `picture: { image: xxx, alt: '説明' }` の形で渡す
 
-```
-├── src/
-│   ├── assets/          # 静的アセット
-│   │   ├── css/         # グローバルスタイルシート
-│   │   ├── fonts/       # FontAwesomeフォント
-│   │   ├── images/      # 画像ファイル
-│   │   └── scss/        # SASSファイル（メインスタイル）
-│   ├── components/      # 再利用可能なReactコンポーネント
-│   ├── data/            # JSONデータファイル
-│   │   ├── blog.json    # ブログ記事データ
-│   │   ├── members.json # メンバー情報
-│   │   └── services.json # サービス情報
-│   └── pages/           # ページコンポーネント
-├── gatsby-*.js          # Gatsby設定ファイル
-├── package.json         # プロジェクト設定と依存関係
-├── .node-version        # Node.jsバージョン指定
-└── README.md            # このファイル
-```
+`image` を省略すると「差し替え待ち」のプレースホルダー枠が表示されます（開発事例の6枚などが現在この状態）。
+画像は `astro:assets` により WebP + 複数解像度へ自動変換されます。
 
-## 利用可能なコマンド
+### お知らせを追加する
 
-### 開発
-```bash
-yarn develop    # 開発サーバーを起動（localhost:8000）
-yarn start      # yarn developのエイリアス
-```
+`src/data/news.ts` の `news` 配列の先頭に追加します。トップページには `homeNewsCount`（既定4）件だけ出ます。
 
-### ビルド
-```bash
-yarn build     # 本番用ビルドを生成
-```
+## お問い合わせフォームについて
 
-### デプロイ
-```bash
-yarn deploy    # GitHub Pagesへデプロイ
-```
+静的サイトのためサーバー処理がありません。`src/data/contact.ts` の `contactForm.endpoint` が `null` の間は、
+送信時に入力内容を `mailto:` に展開してメールソフトを開く動作になります。
 
-### コード品質管理
-```bash
-yarn lint       # ESLintでコードをチェック
-yarn lint:fix   # ESLintでコードを自動修正
-yarn format     # Prettierでコードを整形
-yarn format:check # Prettierでフォーマットをチェック（CIで使用）
-```
+フォーム受付サービス（formrun / SSGform / Google Forms など）を使う場合は `endpoint` にURLを設定すれば
+そのまま POST 送信に切り替わります。
 
-### テスト
-```bash
-yarn test      # テストを実行（現在は未実装）
-yarn test:ci   # CI環境でテストを実行
-```
+## デザインシステム
 
-### その他のコマンド
-```bash
-yarn clean     # Gatsbyキャッシュをクリア
-yarn serve     # ビルド済みサイトをローカルで確認（localhost:9000）
-```
+- デザイントークン（色・フォント・余白・サイズ・ブレークポイント）は `src/styles/tokens.css` に集約
+- 汎用パーツは `src/components/ui/`、セクションは `src/components/sections/`
+- アクセント色は `src/lib/accent.ts` 経由で CSS 変数として割り当てる（コンポーネントに色を直書きしない）
+- 背景の「ぼかし円」のプリセットは `src/lib/blobs.ts`
+- スクロール演出は `data-reveal="<順番>"` 属性で指定（`src/scripts/reveal.ts`）
+- 技術スタックのアイコンは `src/assets/icons/*.svg` に埋め込み済み（外部CDNなし）。
+  追加は `scripts/generate-stack-icons.mjs` の `ICON_SLUGS` にスラッグを足して再実行する
 
-## CI/CD
+### 動きについて
 
-GitHub Actionsを使用して、CI（継続的インテグレーション）とCD（継続的デプロイ）を実装しています。
+デザインの動きはサイトの見た目そのものなので、**OSやブラウザの「動きを減らす」設定に関わらず常に動きます**。
 
-### ワークフロー構成
+| 動き                                                     | 実装                                                     |
+| -------------------------------------------------------- | -------------------------------------------------------- |
+| スクロールで要素が現れる（フェード+30px移動+ぼかし解除） | `src/scripts/reveal.ts` / `data-reveal` 属性             |
+| カードにグラデーションが差し込む                         | `.tint-layer`（`GradientCard` / `Stack`）                |
+| 背景の色の円がゆっくり漂う                               | `src/lib/blobs.ts` + `Blobs.astro`                       |
+| OUR WHY の円・波紋・ロゴの明滅                           | `src/components/sections/home/Why.astro`                 |
+| ヒーロー下のキーワードが横に流れる                       | `src/components/sections/home/Ticker.astro`（64秒で1周） |
+| SCROLL の帯が流れ落ちる                                  | `src/components/sections/home/Hero.astro`                |
 
-`.github/workflows/ci-deploy.yml`で統合ワークフローを定義：
-
-1. **CIジョブ**
-   - プルリクエストとdevelopブランチへのプッシュ時に実行
-   - ESLint v9による静的解析
-   - Prettierによるフォーマットチェック
-   - テストの実行
-   - Gatsbyビルドの成功確認
-   - セキュリティ監査（`yarn audit`）
-
-2. **ビルド・デプロイジョブ**
-   - CIジョブが成功した場合のみ実行
-   - developブランチへのプッシュ時のみ実行（PRでは実行されない）
-   - GitHub Pagesへの自動デプロイ
-
-### ローカルでCIチェックを実行
-
-プッシュ前にローカルで同じチェックを実行できます：
-
-```bash
-# Lintチェック
-yarn lint
-
-# フォーマットチェック
-yarn format:check
-
-# ビルドチェック
-yarn build
-```
+`@media (prefers-reduced-motion: reduce)` で無効にしているのはページ内リンクのスムーススクロールのみです。
+ここにアニメーション停止のルールを足すと動きが失われるので注意してください。
 
 ## デプロイ
 
-このサイトはGitHub Pagesを使用してホスティングされています。
+`develop` ブランチへの push で GitHub Actions がビルドし、GitHub Pages へデプロイします。
+カスタムドメインは `public/CNAME`（www.omeroid.com）で設定しています。
 
-### 自動デプロイ（推奨）
-
-developブランチへのプッシュまたはマージ時に、GitHub Actionsが自動的にビルドとデプロイを実行します。
-
-1. **プルリクエストの作成**
-   ```bash
-   git checkout -b feature/your-feature
-   git add .
-   git commit -m "Your changes"
-   git push origin feature/your-feature
-   ```
-
-2. **GitHubでプルリクエストを作成してマージ**
-   - PRを作成し、レビュー後にdevelopブランチへマージ
-   - GitHub Actionsが自動的にビルドとデプロイを実行
-   - Actionsタブで進行状況を確認可能
-
-3. **デプロイ状況の確認**
-   - リポジトリの「Actions」タブで確認
-   - 緑のチェックマークが表示されれば成功
-
-### 手動デプロイ
-
-緊急時や特別な理由がある場合のみ使用してください。
-
-#### デプロイ前の確認事項
-
-1. **ビルドの確認**
-   ```bash
-   yarn clean      # キャッシュをクリア
-   yarn build      # ビルドを実行
-   yarn serve      # ローカルで動作確認
-   ```
-
-2. **ブランチの確認**
-   ```bash
-   git branch      # 現在のブランチを確認
-   git status      # 変更がコミットされているか確認
-   ```
-
-3. **手動デプロイ実行**
-   ```bash
-   yarn deploy     # GitHub Pagesへデプロイ
-   ```
-
-### デプロイの仕組み
-
-#### 自動デプロイ（GitHub Actions）
-1. developブランチへのプッシュをトリガーに起動
-2. Ubuntu環境でNode.jsをセットアップ
-3. 依存関係をインストール（`yarn install --frozen-lockfile`）
-4. Gatsbyでビルド実行
-5. CNAMEファイルを生成
-6. GitHub Pagesへデプロイ
-
-#### 手動デプロイ
-
-1. `yarn deploy`コマンドを実行すると以下の処理が行われます：
-   - Gatsbyで本番用ビルドを生成
-   - `public/CNAME`ファイルにカスタムドメインを設定
-   - `gh-pages`パッケージを使用してmasterブランチへデプロイ
-
-2. masterブランチの内容がGitHub Pagesで自動的に公開されます
-
-### デプロイ権限
-
-- developブランチへのマージ権限があれば自動的にデプロイされます
-- GitHub Actionsの実行権限は自動的に付与されます
-- 手動デプロイは`workflow_dispatch`イベントで実行可能
-
-### GitHub Pagesの設定
-
-リポジトリ設定で以下を確認してください：
-
-1. **Settings → Pages**
-   - Source: GitHub Actions を選択
-
-2. **Settings → Environments → github-pages**
-   - Deployment branches: developブランチからのデプロイを許可
-   - または「All branches」を選択
-
-**重要**: デフォルトではmasterブランチからのみデプロイが許可されているため、developブランチからデプロイできるように設定変更が必要です。
-
-### カスタムドメイン
-
-サイトは`www.omeroid.com`でアクセス可能です。DNSの設定は別途管理されています。
-
-## 最近の更新
-
-### 2025年7月の更新
-
-1. **依存関係の更新**
-   - Gatsby: v5.13.0 → v5.14.5
-   - React: v18.2.0 → v18.3.1
-   - ESLint: v8.x → v9.30.1（メジャーアップデート）
-   - その他の依存関係も最新版に更新
-
-2. **ESLint設定の更新**
-   - ESLint v9のフラットコンフィグ形式に移行
-   - `eslint.config.js`で設定を管理
-   - `.eslintrc.js`は廃止
-
-3. **CI/CDの改善**
-   - CIとデプロイワークフローを統合
-   - CIが成功した場合のみデプロイを実行
-
-4. **その他の修正**
-   - ssr-windowパッケージを削除（SSR対応のwindowアクセスに変更）
-   - shopページのリンクを外部リンクに修正
-
-## 開発のヒント
-
-### 新しいページの追加
-`src/pages/`ディレクトリに新しいJSファイルを作成すると、自動的にルーティングが設定されます。
-
-### スタイルの編集
-メインのスタイルは`src/assets/scss/`ディレクトリで管理されています。
-
-### データの更新
-メンバー情報、サービス情報、ブログ記事は`src/data/`ディレクトリのJSONファイルで管理されています。
-
-## トラブルシューティング
-
-### ビルドエラーが発生した場合
-
-1. **キャッシュのクリア**
-   ```bash
-   yarn clean
-   rm -rf node_modules yarn.lock
-   yarn install
-   ```
-
-2. **Node.jsバージョンの確認**
-   ```bash
-   node --version  # v20.19.1であることを確認
-   ```
-
-### ESLintエラーが発生した場合
-
-1. **自動修正を試す**
-   ```bash
-   yarn lint:fix
-   ```
-
-2. **ESLint v9への移行に関する問題**
-   - `.eslintignore`ファイルは使用できません
-   - `eslint.config.js`の`ignores`プロパティを使用してください
-
-3. **ポートの競合**
-   - 開発サーバー: 8000番ポート
-   - ビルド確認用: 9000番ポート
-   ```bash
-   # ポートを使用しているプロセスを確認
-   lsof -i :8000
-   lsof -i :9000
-   ```
-
-### デプロイが失敗した場合
-
-1. **Gitの状態を確認**
-   ```bash
-   git status
-   git log --oneline -5
-   ```
-
-2. **手動でデプロイ**
-   ```bash
-   yarn build --prefix-paths
-   echo 'www.omeroid.com' > public/CNAME
-   npx gh-pages --branch master -d public
-   ```
-
-## 参考リンク
-
-- [Gatsby v5公式ドキュメント](https://www.gatsbyjs.com/docs/)
-- [Gatsby v5移行ガイド](https://www.gatsbyjs.com/docs/reference/release-notes/migrating-from-v4-to-v5/)
-- [gatsby-starter-forty](https://github.com/codebushi/gatsby-starter-forty) - ベーステンプレート
+旧サイト（Gatsby版）のURLは `astro.config.mjs` の `redirects` で新URLへ転送しています。
 
 ## ライセンス
 
-このプロジェクトは株式会社omeroidの所有物です。
+MIT

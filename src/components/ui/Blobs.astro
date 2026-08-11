@@ -1,0 +1,40 @@
+---
+import { blobPresets, type BlobPreset, type BlobPresetName } from '~/lib/blobs'
+
+/** セクション背景でゆっくり動く、ぼかした色の円 */
+interface Props {
+  preset: BlobPresetName
+}
+
+const { preset } = Astro.props
+const { inset, blur, opacity, blobs }: BlobPreset = blobPresets[preset]
+---
+
+<div
+  class="blobs"
+  style={`inset:${inset};filter:blur(${blur}px);opacity:${opacity}`}
+  aria-hidden="true"
+>
+  {
+    blobs.map((b) => (
+      <span
+        style={`left:${b.left}%;top:${b.top}%;width:${b.width}%;height:${b.height}%;background:radial-gradient(circle, var(--c-${b.color}) 0%, rgb(var(--c-${b.color}-rgb) / 0) 70%);animation:omeFloat${b.motion} ${b.duration}s ease-in-out infinite${b.reverse ? ' reverse' : ''}`}
+      />
+    ))
+  }
+</div>
+
+<style>
+  .blobs {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .blobs > span {
+    position: absolute;
+    display: block;
+    border-radius: 50%;
+    mix-blend-mode: multiply;
+  }
+</style>

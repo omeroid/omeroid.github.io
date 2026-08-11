@@ -1,0 +1,32 @@
+---
+import Btn from '~/components/ui/Btn.astro'
+import CardGrid from '~/components/ui/CardGrid.astro'
+import Section from '~/components/ui/Section.astro'
+import SectionHead from '~/components/ui/SectionHead.astro'
+import { productTeaser } from '~/data/home'
+---
+
+<Section bordered>
+  <SectionHead
+    eyebrow={productTeaser.eyebrow}
+    title={productTeaser.title}
+    lead={productTeaser.lead}
+  />
+  <CardGrid cards={productTeaser.cards} cols={2} titleSize="md" />
+  <Btn
+    href={productTeaser.cta.href}
+    variant="ghost"
+    arrow
+    class="product-teaser__cta"
+    reveal={6}
+  >
+    {productTeaser.cta.label}
+  </Btn>
+</Section>
+
+<style>
+  /* 子コンポーネント（Btn）の要素なのでスコープを抜ける必要がある */
+  :global(.product-teaser__cta) {
+    margin-top: clamp(2rem, 1.2rem + 2vw, 3rem);
+  }
+</style>

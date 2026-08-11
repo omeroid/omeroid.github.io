@@ -1,0 +1,43 @@
+---
+/** タグ表示用の丸枠ラベル */
+interface Props {
+  size?: 'md' | 'lg'
+  /** 白背景を敷く（色付き面の上に置く場合） */
+  filled?: boolean
+  class?: string
+}
+
+const { size = 'md', filled = false, class: className } = Astro.props
+---
+
+<span
+  class:list={[
+    'pill',
+    size === 'lg' && 'is-lg',
+    filled && 'is-filled',
+    className,
+  ]}
+>
+  <slot />
+</span>
+
+<style>
+  .pill {
+    display: inline-block;
+    font-size: var(--fs-xs);
+    line-height: 1.6;
+    padding: 8px 15px;
+    border-radius: var(--radius-pill);
+    border: 1px solid rgba(22, 25, 28, 0.14);
+  }
+
+  .pill.is-lg {
+    font-size: 0.90625rem;
+    padding: 11px 20px;
+    border-color: var(--line-strong);
+  }
+
+  .pill.is-filled {
+    background: var(--c-bg);
+  }
+</style>

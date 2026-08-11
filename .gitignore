@@ -1,10 +1,14 @@
-# Project dependencies
-.cache
+# dependencies
 node_modules
+.yarn-error.log
 yarn-error.log
 package-lock.json
-yarn.lock
 
-# Build directory
-/public
+# Astro
+dist
+.astro
+
+# misc
 .DS_Store
+.env
+.env.production

@@ -1,0 +1,244 @@
+---
+import { headerCta, nav } from '~/data/site'
+import Logo from '~/components/ui/Logo.astro'
+
+const path = Astro.url.pathname
+
+/** 現在ページかどうか（トップは完全一致、それ以外は前方一致） */
+const isCurrent = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href)
+---
+
+<header class="header">
+  <div class="container header__inner">
+    <a href="/" class="header__logo" aria-label="omeroid ホーム">
+      <Logo height="26px" />
+    </a>
+
+    <nav class="header__nav" aria-label="グローバルナビゲーション">
+      <ul class="header__list">
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class:list={[
+                  'header__link',
+                  isCurrent(item.href) && 'is-current',
+                ]}
+                aria-current={isCurrent(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a href={headerCta.href} class="header__cta">{headerCta.label}</a>
+    </nav>
+
+    <button
+      class="header__toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+      aria-label="メニューを開く"
+    >
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div class="header__drawer" id="mobile-nav" hidden>
+    <ul class="header__drawer-list">
+      {
+        nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={[isCurrent(item.href) && 'is-current']}
+              aria-current={isCurrent(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <a href={headerCta.href} class="header__cta header__cta--drawer">
+      {headerCta.label}
+    </a>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background: rgba(251, 250, 247, 0.72);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(22, 25, 28, 0.08);
+  }
+
+  .header__inner {
+    height: var(--header-h);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .header__logo {
+    display: flex;
+    align-items: center;
+    color: var(--c-ink);
+    flex: none;
+  }
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .header__list {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .header__link {
+    display: block;
+    padding: 9px 15px;
+    font-size: 0.84375rem;
+    font-weight: 500;
+    color: var(--c-text);
+    white-space: nowrap;
+    transition: color 200ms var(--ease);
+  }
+
+  .header__link:hover,
+  .header__link.is-current {
+    color: var(--c-ink);
+  }
+
+  .header__cta {
+    padding: 13px 26px;
+    border-radius: var(--radius-pill);
+    background: var(--c-ink);
+    color: var(--c-bg);
+    font-size: 0.84375rem;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: background-color 220ms var(--ease);
+  }
+
+  .header__cta:hover {
+    background: var(--c-accent);
+    color: var(--c-bg);
+  }
+
+  /* --- ハンバーガー --- */
+  .header__toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    position: relative;
+    margin-right: -10px;
+  }
+
+  .header__toggle span {
+    position: absolute;
+    left: 11px;
+    width: 22px;
+    height: 1.5px;
+    background: var(--c-ink);
+    transition: transform 260ms var(--ease);
+  }
+
+  .header__toggle span:first-child {
+    top: 18px;
+  }
+
+  .header__toggle span:last-child {
+    top: 25px;
+  }
+
+  .header__toggle[aria-expanded='true'] span:first-child {
+    transform: translateY(3.5px) rotate(45deg);
+  }
+
+  .header__toggle[aria-expanded='true'] span:last-child {
+    transform: translateY(-3.5px) rotate(-45deg);
+  }
+
+  .header__drawer {
+    display: none;
+    padding: 12px var(--gutter) 28px;
+    border-top: 1px solid var(--line);
+  }
+
+  .header__drawer-list a {
+    display: block;
+    padding: 16px 2px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--c-ink);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header__drawer-list a.is-current {
+    color: var(--c-accent);
+  }
+
+  .header__cta--drawer {
+    display: block;
+    margin-top: 24px;
+    text-align: center;
+  }
+
+  @media (max-width: 1080px) {
+    .header__nav {
+      display: none;
+    }
+
+    .header__toggle {
+      display: block;
+    }
+
+    .header__drawer {
+      display: block;
+    }
+
+    .header__drawer[hidden] {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.header__toggle')
+  const drawer = document.querySelector<HTMLElement>('#mobile-nav')
+
+  if (toggle && drawer) {
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') === 'true'
+      toggle.setAttribute('aria-expanded', String(!open))
+      toggle.setAttribute(
+        'aria-label',
+        open ? 'メニューを開く' : 'メニューを閉じる'
+      )
+      drawer.hidden = open
+    })
+
+    // 画面幅がデスクトップに戻ったら閉じる
+    window.matchMedia('(min-width: 1081px)').addEventListener('change', (e) => {
+      if (e.matches) {
+        toggle.setAttribute('aria-expanded', 'false')
+        drawer.hidden = true
+      }
+    })
+  }
+</script>

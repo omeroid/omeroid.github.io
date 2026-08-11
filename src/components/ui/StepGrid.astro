@@ -1,0 +1,101 @@
+---
+import type { Step } from '~/types'
+
+/** 縦罫線で区切ったステップの横並び */
+interface Props {
+  steps: Step[]
+  revealFrom?: number
+}
+
+const { steps, revealFrom = 3 } = Astro.props
+---
+
+<ol class="steps">
+  {
+    steps.map((step, i) => (
+      <li class="steps__item" data-reveal={revealFrom + i}>
+        <div class="en steps__no">{step.step}</div>
+        <h3 class="steps__title">{step.title}</h3>
+        <p class="steps__body">{step.body}</p>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid var(--line-mid);
+  }
+
+  .steps__item {
+    padding: 40px 28px 44px;
+    border-right: 1px solid var(--line);
+  }
+
+  .steps__item:first-child {
+    padding-left: 0;
+  }
+
+  .steps__item:last-child {
+    padding-right: 0;
+    border-right: none;
+  }
+
+  .steps__no {
+    font-size: var(--fs-eyebrow);
+    letter-spacing: 0.2em;
+    color: var(--ink-45);
+  }
+
+  .steps__title {
+    margin-top: 20px;
+    font-family: var(--font-head);
+    font-size: clamp(1.125rem, 1rem + 0.5vw, 1.3125rem);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+  }
+
+  .steps__body {
+    margin-top: 14px;
+    font-size: var(--fs-sm);
+    line-height: 2;
+    color: var(--c-text);
+  }
+
+  @media (max-width: 900px) {
+    .steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .steps__item:nth-child(2n) {
+      padding-right: 0;
+      border-right: none;
+    }
+
+    .steps__item:nth-child(2n + 1) {
+      padding-left: 0;
+    }
+
+    .steps__item:nth-child(n + 3) {
+      border-top: 1px solid var(--line);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .steps {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .steps__item {
+      padding-inline: 0;
+      border-right: none;
+    }
+
+    .steps__item + .steps__item {
+      border-top: 1px solid var(--line);
+    }
+  }
+</style>

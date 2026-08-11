@@ -1,0 +1,126 @@
+---
+import Blobs from '~/components/ui/Blobs.astro'
+import Btn from '~/components/ui/Btn.astro'
+import Eyebrow from '~/components/ui/Eyebrow.astro'
+import type { BlobPresetName } from '~/lib/blobs'
+import type { LinkItem } from '~/types'
+
+/** 下層ページ共通のヒーロー。slot に写真や実績バンドを追加できる */
+interface Props {
+  eyebrow: string
+  title: string[]
+  lead: string
+  blobs: BlobPresetName
+  cta?: LinkItem
+  ctaNote?: string
+  align?: 'left' | 'center'
+  size?: 'lg' | 'md'
+}
+
+const {
+  eyebrow,
+  title,
+  lead,
+  blobs,
+  cta,
+  ctaNote,
+  align = 'left',
+  size = 'lg',
+} = Astro.props
+---
+
+<section class:list={['hero', align === 'center' && 'is-center']}>
+  <Blobs preset={blobs} />
+  <div class="container hero__inner">
+    <Eyebrow label={eyebrow} bare={align === 'center'} reveal={0} />
+    <h1
+      class:list={['heading', 'hero__title', size === 'md' && 'is-md']}
+      data-reveal="1"
+    >
+      {
+        title.map((line, i) => (
+          <>
+            {i > 0 && <br />}
+            {line}
+          </>
+        ))
+      }
+    </h1>
+    <p class="lead hero__lead" data-reveal="2">{lead}</p>
+
+    {
+      cta && (
+        <div class="hero__actions" data-reveal="3">
+          <Btn href={cta.href} variant="solid">
+            {cta.label}
+          </Btn>
+          {ctaNote && <span class="hero__note">{ctaNote}</span>}
+        </div>
+      )
+    }
+
+    <slot />
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero__inner {
+    position: relative;
+    z-index: 1;
+    padding-block: clamp(4rem, 2rem + 5vw, 7.375rem)
+      clamp(4rem, 2rem + 5vw, 6.5rem);
+  }
+
+  .hero__title {
+    margin-top: 38px;
+    font-size: var(--fs-page-title);
+    line-height: 1.62;
+    max-width: 18em;
+  }
+
+  .hero__title.is-md {
+    font-size: clamp(1.875rem, 1.2rem + 3vw, 3.5rem);
+  }
+
+  .hero__lead {
+    margin-top: 40px;
+    font-size: clamp(1rem, 0.94rem + 0.25vw, 1.0625rem);
+  }
+
+  .hero__actions {
+    display: flex;
+    gap: 18px;
+    margin-top: 48px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .hero__note {
+    font-size: 0.84375rem;
+    color: var(--ink-55);
+  }
+
+  .hero.is-center {
+    text-align: center;
+  }
+
+  .hero.is-center .hero__title,
+  .hero.is-center .hero__lead {
+    margin-inline: auto;
+  }
+
+  .hero.is-center .hero__lead {
+    max-width: 32em;
+  }
+
+  .hero.is-center .hero__title {
+    letter-spacing: 0.06em;
+    line-height: 1.66;
+    max-width: 22em;
+  }
+</style>

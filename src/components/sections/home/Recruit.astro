@@ -1,0 +1,103 @@
+---
+import Btn from '~/components/ui/Btn.astro'
+import Eyebrow from '~/components/ui/Eyebrow.astro'
+import Picture from '~/components/ui/Picture.astro'
+import Pill from '~/components/ui/Pill.astro'
+import { recruit } from '~/data/home'
+---
+
+<section class="section section--alt">
+  <div class="container recruit">
+    <div>
+      <Eyebrow label={recruit.eyebrow} reveal={0} />
+      <h2 class="heading recruit__title" data-reveal="1">
+        {
+          recruit.title.map((line, i) => (
+            <>
+              {i > 0 && <br />}
+              {line}
+            </>
+          ))
+        }
+      </h2>
+      <p class="lead recruit__lead" data-reveal="2">{recruit.lead}</p>
+      <div class="recruit__tags" data-reveal="3">
+        {recruit.tags.map((tag) => <Pill>{tag}</Pill>)}
+      </div>
+      <Btn
+        href={recruit.cta.href}
+        variant="solid"
+        arrow
+        class="recruit__cta"
+        reveal={4}
+      >
+        {recruit.cta.label}
+      </Btn>
+    </div>
+
+    <div class="recruit__gallery">
+      {
+        recruit.pictures.map((picture, i) => (
+          <Picture
+            picture={picture}
+            height="100%"
+            radius="var(--radius)"
+            sizes="(max-width: 900px) 50vw, 25vw"
+            class={`recruit__pic recruit__pic--${i + 1}`}
+            reveal={2 + i}
+          />
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .recruit {
+    padding-block: var(--section-y);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(2.5rem, 1rem + 4vw, 4.5rem);
+    align-items: center;
+  }
+
+  .recruit__title {
+    margin-top: 32px;
+    font-size: var(--fs-h2-sm);
+  }
+
+  .recruit__lead {
+    margin-top: 32px;
+    color: var(--ink-62);
+    max-width: 30em;
+  }
+
+  .recruit__tags {
+    margin-top: 36px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* 子コンポーネント（Btn）の要素なのでスコープを抜ける必要がある */
+  .recruit :global(.recruit__cta) {
+    margin-top: 44px;
+  }
+
+  .recruit__gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, clamp(130px, 14vw, 180px));
+    gap: 16px;
+  }
+
+  .recruit__gallery :global(.recruit__pic--1) {
+    grid-row: span 2;
+  }
+
+  @media (max-width: 900px) {
+    .recruit {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

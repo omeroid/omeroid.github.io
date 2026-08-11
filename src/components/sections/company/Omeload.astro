@@ -1,0 +1,11 @@
+---
+import CellGrid from '~/components/ui/CellGrid.astro'
+import Section from '~/components/ui/Section.astro'
+import SectionHead from '~/components/ui/SectionHead.astro'
+import { omeload } from '~/data/company'
+---
+
+<Section variant="alt">
+  <SectionHead {...omeload.heading} size="sm" />
+  <CellGrid items={omeload.items} cols={2} revealFrom={3} />
+</Section>

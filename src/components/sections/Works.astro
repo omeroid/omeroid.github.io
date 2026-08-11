@@ -1,0 +1,88 @@
+---
+import Picture from '~/components/ui/Picture.astro'
+import Section from '~/components/ui/Section.astro'
+import SectionHead from '~/components/ui/SectionHead.astro'
+import { works, worksFootnote, worksHeading } from '~/data/works'
+---
+
+<Section variant="alt" bordered>
+  <SectionHead {...worksHeading} />
+
+  <div class="works">
+    {
+      works.map((work, i) => (
+        <article class="works__item" data-reveal={3 + i}>
+          <Picture
+            picture={work.picture}
+            height="clamp(160px, 18vw, 200px)"
+            sizes="(max-width: 736px) 100vw, 33vw"
+          />
+          <div class="en works__category">{work.category}</div>
+          <h3 class="works__title">{work.title}</h3>
+          <p class="works__body">{work.body}</p>
+          <div class="en works__role">{work.role}</div>
+        </article>
+      ))
+    }
+  </div>
+
+  <p class="en works__footnote" data-reveal="9">{worksFootnote}</p>
+</Section>
+
+<style>
+  .works {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 26px;
+  }
+
+  .works__category {
+    font-size: 0.6875rem;
+    letter-spacing: 0.2em;
+    color: var(--c-accent);
+    margin-top: 24px;
+  }
+
+  .works__title {
+    margin-top: 14px;
+    font-family: var(--font-head);
+    font-size: var(--fs-h3-sm);
+    font-weight: 700;
+    line-height: 1.65;
+    letter-spacing: 0.03em;
+  }
+
+  .works__body {
+    margin-top: 14px;
+    font-size: var(--fs-sm);
+    line-height: 2;
+    color: var(--c-text);
+  }
+
+  .works__role {
+    margin-top: 18px;
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-45);
+  }
+
+  .works__footnote {
+    margin-top: 32px;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-45);
+  }
+
+  @media (max-width: 980px) {
+    .works {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .works {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 44px;
+    }
+  }
+</style>

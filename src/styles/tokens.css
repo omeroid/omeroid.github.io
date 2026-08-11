@@ -1,0 +1,83 @@
+/*
+ * デザイントークン
+ * 色・フォント・余白・レイアウト幅の一次情報。数値を変えるとサイト全体に反映される。
+ */
+:root {
+  /* --- ベースカラー --- */
+  --c-ink: #16191c;
+  --c-bg: #fbfaf7;
+  --c-bg-alt: #f2efe7;
+  --c-white: #ffffff;
+  --c-text: #4a5459;
+  --c-text-strong: #3b4448;
+  --c-accent: #1f7a6b;
+  --c-accent-hover: #125246;
+
+  /* --- アクセント（グラデーション・ドット用） --- */
+  --c-orange: #ff8a3d;
+  --c-amber: #ffc46b;
+  --c-teal: #2fc5b6;
+  --c-blue: #4a7be8;
+  --c-green: #7bd98f;
+  --c-purple: #9b8ce8;
+
+  /* 半透明で使うための RGB 値（rgb(var(--c-*-rgb) / 0.2) の形で使う） */
+  --c-orange-rgb: 255 138 61;
+  --c-amber-rgb: 255 196 107;
+  --c-teal-rgb: 47 197 182;
+  --c-blue-rgb: 74 123 232;
+  --c-green-rgb: 123 217 143;
+  --c-purple-rgb: 155 140 232;
+
+  /* --- 罫線・面 --- */
+  --line: rgba(22, 25, 28, 0.1);
+  --line-mid: rgba(22, 25, 28, 0.14);
+  --line-strong: rgba(22, 25, 28, 0.16);
+  --line-hover: rgba(22, 25, 28, 0.34);
+  --ink-70: rgba(22, 25, 28, 0.7);
+  --ink-62: rgba(22, 25, 28, 0.62);
+  --ink-55: rgba(22, 25, 28, 0.55);
+  --ink-50: rgba(22, 25, 28, 0.5);
+  --ink-45: rgba(22, 25, 28, 0.45);
+  --ink-40: rgba(22, 25, 28, 0.4);
+  --ink-30: rgba(22, 25, 28, 0.3);
+
+  /* --- フォント --- */
+  --font-body:
+    'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+  --font-head: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+  --font-en: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+
+  /* --- タイポグラフィ（clamp で 375px〜1400px に追従） --- */
+  --fs-hero: clamp(2.25rem, 1.05rem + 5.1vw, 4.75rem); /* 36 → 76px */
+  --fs-page-title: clamp(2rem, 1.1rem + 3.8vw, 3.875rem); /* 32 → 62px */
+  --fs-h2: clamp(1.75rem, 1.2rem + 2.3vw, 2.75rem); /* 28 → 44px */
+  --fs-h2-sm: clamp(1.625rem, 1.2rem + 1.8vw, 2.5rem); /* 26 → 40px */
+  --fs-h3: clamp(1.25rem, 1.05rem + 0.85vw, 1.6875rem); /* 20 → 27px */
+  --fs-h3-sm: clamp(1.1875rem, 1.05rem + 0.6vw, 1.4375rem); /* 19 → 23px */
+  --fs-stat: clamp(2.5rem, 1.4rem + 4.6vw, 4rem); /* 40 → 64px */
+  --fs-stat-sm: clamp(2.125rem, 1.4rem + 3vw, 3.25rem); /* 34 → 52px */
+  --fs-lead: clamp(1rem, 0.96rem + 0.18vw, 1.03rem); /* 16 → 16.5px */
+  --fs-body: 0.96875rem; /* 15.5px */
+  --fs-sm: 0.90625rem; /* 14.5px */
+  --fs-xs: 0.78125rem; /* 12.5px */
+  --fs-eyebrow: 0.71875rem; /* 11.5px */
+
+  --lh-body: 2.1;
+  --ls-head: 0.04em;
+  --ls-eyebrow: 0.26em;
+
+  /* --- レイアウト --- */
+  --container: 1400px;
+  --gutter: clamp(1.25rem, 0.5rem + 2.4vw, 2.25rem); /* 20 → 36px */
+  --section-y: clamp(4.5rem, 2rem + 7vw, 8.125rem); /* 72 → 130px */
+  --header-h: 76px;
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+
+  /* --- 演出 --- */
+  --ease: cubic-bezier(0.16, 0.86, 0.24, 1);
+  --shadow-card: 0 24px 60px rgba(22, 25, 28, 0.07);
+}

@@ -1,0 +1,19 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import ContactCta from '~/components/sections/ContactCta.astro'
+import NewsList from '~/components/ui/NewsList.astro'
+import Section from '~/components/ui/Section.astro'
+import SectionHead from '~/components/ui/SectionHead.astro'
+import { news, newsHeading } from '~/data/news'
+---
+
+<BaseLayout
+  title="お知らせ"
+  description="omeroid のプレスリリース・ブログ・プロダクトの更新情報の一覧です。"
+>
+  <Section>
+    <SectionHead {...newsHeading} as="h1" />
+    <NewsList items={news} showBody revealFrom={3} />
+  </Section>
+  <ContactCta />
+</BaseLayout>

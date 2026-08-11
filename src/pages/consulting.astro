@@ -1,0 +1,67 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import ContactCta from '~/components/sections/ContactCta.astro'
+import Faq from '~/components/sections/Faq.astro'
+import PageHero from '~/components/sections/PageHero.astro'
+import Contents from '~/components/sections/consulting/Contents.astro'
+import Themes from '~/components/sections/consulting/Themes.astro'
+import TrackRecord from '~/components/sections/consulting/TrackRecord.astro'
+import Picture from '~/components/ui/Picture.astro'
+import Section from '~/components/ui/Section.astro'
+import SectionHead from '~/components/ui/SectionHead.astro'
+import StatBand from '~/components/ui/StatBand.astro'
+import StepGrid from '~/components/ui/StepGrid.astro'
+import {
+  consultingHero,
+  consultingStats,
+  consultingSteps,
+  consultingStepsHeading,
+} from '~/data/consulting'
+---
+
+<BaseLayout
+  title="戦略・業務コンサルティング"
+  description="ビジネス戦略・営業/マーケティング戦略・データ戦略の3テーマで伴走。エンジニアが同じ社内にいるからこそ、実装可能な戦略を描き、実行まで見届けます。"
+>
+  <PageHero
+    eyebrow={consultingHero.eyebrow}
+    title={consultingHero.title}
+    lead={consultingHero.lead}
+    cta={consultingHero.cta}
+    ctaNote={consultingHero.ctaNote}
+    blobs="consulting"
+  >
+    <Picture
+      picture={consultingHero.picture}
+      height="clamp(220px, 28vw, 400px)"
+      radius="10px"
+      sizes="(max-width: 1400px) 100vw, 1400px"
+      loading="eager"
+      class="hero-picture"
+      reveal={4}
+    />
+    <StatBand stats={consultingStats} size="md" class="hero-stats" />
+  </PageHero>
+
+  <Themes />
+  <TrackRecord />
+
+  <Section>
+    <SectionHead {...consultingStepsHeading} />
+    <StepGrid steps={consultingSteps} />
+  </Section>
+
+  <Contents />
+  <Faq />
+  <ContactCta />
+</BaseLayout>
+
+<style>
+  :global(.hero-picture) {
+    margin-top: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
+  }
+
+  :global(.hero-stats) {
+    margin-top: 16px;
+  }
+</style>

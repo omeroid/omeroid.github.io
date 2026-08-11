@@ -1,0 +1,57 @@
+---
+import ArrowLink from '~/components/ui/ArrowLink.astro'
+import Eyebrow from '~/components/ui/Eyebrow.astro'
+import NewsList from '~/components/ui/NewsList.astro'
+import { homeNewsCount, news } from '~/data/news'
+
+const items = news.slice(0, homeNewsCount)
+---
+
+<section class="section section--bordered">
+  <div class="container news-preview">
+    <div class="news-preview__head">
+      <Eyebrow label="NEWS" reveal={0} />
+      <h2 class="heading news-preview__title" data-reveal="1">お知らせ</h2>
+      <ArrowLink href="/news/" class="news-preview__link" reveal={2}>
+        ニュース一覧
+      </ArrowLink>
+    </div>
+    <NewsList items={items} />
+  </div>
+</section>
+
+<style>
+  .news-preview {
+    padding-block: var(--section-y);
+    display: grid;
+    grid-template-columns: 340px minmax(0, 1fr);
+    gap: 72px;
+    align-items: start;
+  }
+
+  .news-preview__head {
+    position: sticky;
+    top: calc(var(--header-h) + 36px);
+  }
+
+  .news-preview__title {
+    margin-top: 32px;
+    font-size: var(--fs-h2-sm);
+  }
+
+  /* 子コンポーネント（ArrowLink）の要素なのでスコープを抜ける必要がある */
+  .news-preview__head :global(.news-preview__link) {
+    margin-top: 32px;
+  }
+
+  @media (max-width: 980px) {
+    .news-preview {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 36px;
+    }
+
+    .news-preview__head {
+      position: static;
+    }
+  }
+</style>

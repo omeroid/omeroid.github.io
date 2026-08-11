@@ -1,0 +1,51 @@
+---
+/** 「詳しく見る →」のテキストリンク。href なしなら span（親がリンクの場合） */
+interface Props {
+  href?: string
+  size?: 'md' | 'sm'
+  reveal?: number
+  class?: string
+}
+
+const { href, size = 'md', reveal, class: className } = Astro.props
+const isExternal = !!href && /^https?:/.test(href)
+const Tag = href ? 'a' : 'span'
+---
+
+<Tag
+  class:list={['arrow-link', size === 'sm' && 'is-sm', className]}
+  href={href}
+  target={isExternal ? '_blank' : undefined}
+  rel={isExternal ? 'noopener' : undefined}
+  data-reveal={reveal}
+>
+  <slot />
+  <span class="en arrow-link__mark" aria-hidden="true">→</span>
+</Tag>
+
+<style>
+  .arrow-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--c-accent);
+    cursor: pointer;
+  }
+
+  .arrow-link.is-sm {
+    font-size: var(--fs-sm);
+    gap: 10px;
+  }
+
+  .arrow-link__mark {
+    transition: transform 260ms var(--ease);
+  }
+
+  .arrow-link:hover .arrow-link__mark,
+  :global(a:hover) > .arrow-link__mark,
+  :global(a:hover) .arrow-link .arrow-link__mark {
+    transform: translateX(8px);
+  }
+</style>
