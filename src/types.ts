@@ -21,6 +21,14 @@ export interface LinkItem {
   href: string
 }
 
+/** ヘッダーのナビ項目。children を持たせるとドロップダウンになる */
+export interface NavItem {
+  label: string
+  /** ドロップダウンの親（children あり）では省略できる */
+  href?: string
+  children?: LinkItem[]
+}
+
 /** セクション見出し（英字ラベル + 見出し + リード文） */
 export interface SectionHeading {
   eyebrow: string
@@ -65,13 +73,40 @@ export interface MenuRow {
   meta: string
 }
 
-/** 開発事例1件 */
-export interface Work {
+/** WORKS 上部の数値タイル */
+export interface WorkStat {
+  label: string
+  /** 数字はカウントアップ演出の対象になる */
+  value: number
+  unit: string
+  /** 「2年1ヶ月」のように数字が2つ並ぶ場合の2つめ */
+  value2?: number
+  unit2?: string
+  note: string
+  /** アクセント色地の反転表示にする */
+  featured?: boolean
+}
+
+/**
+ * 開発事例1件（WORKS の1行）。
+ * 守秘義務のため取引先名は伏せ、業種・支援内容・期間のみ掲載する。
+ */
+export interface WorkRow {
+  /** 英字ラベル（SI / ENTERPRISE など） */
   category: string
-  title: string
+  /** 伏せた取引先の呼称（システムインテグレーター など） */
+  client: string
+  /** 絞り込みの「業種」 */
+  industry: string
+  /** 絞り込みの「技術・テーマ」 */
+  tags: string[]
   body: string
-  role: string
-  picture: Picture
+  /** 支援月数。期間表記と期間バーの長さはここから計算する */
+  months: number
+  /** 開始年 */
+  start: number
+  /** 終了年。継続中は省略する */
+  end?: number
 }
 
 /** 技術スタックの1グループ */
@@ -88,18 +123,8 @@ export interface StackItem {
   icon?: string
   /** アイコンを黒で描画する（明るいブランドカラー対策） */
   darkIcon?: boolean
-  /** アイコンが無い場合の代替表示 */
-  fallback?: 'text' | 'server'
-}
-
-/** 進め方（プロセス）の1ステップ */
-export interface ProcessStep {
-  step: string
-  title: string
-  body: string
-  /** バーのグラデーション色（from → to） */
-  from: AccentKey
-  to: AccentKey
+  /** アイコンが無い場合、名前の先頭3文字を四角で表示する */
+  fallback?: 'text'
 }
 
 /** 罫線区切りのステップ（4カラム） */
@@ -107,6 +132,12 @@ export interface Step {
   step: string
   title: string
   body: string
+}
+
+/** 上端にグラデーションバーが乗るステップ（PROCESS） */
+export interface ProcessStep extends Step {
+  from: AccentKey
+  to: AccentKey
 }
 
 /** よくあるご質問 */
@@ -157,9 +188,4 @@ export interface CompanyRow {
 export interface Guideline {
   title: string
   body: string
-}
-
-/** お問い合わせフォームの選択トピック */
-export interface ContactTopic {
-  label: string
 }

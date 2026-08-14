@@ -2,15 +2,22 @@
 import Section from '~/components/ui/Section.astro'
 import SectionHead from '~/components/ui/SectionHead.astro'
 import { gradientBarStyle } from '~/lib/accent'
-import { processHeading, processPromises, processSteps } from '~/data/process'
+import {
+  consultingProcessHeading,
+  consultingProcessPromises,
+  consultingProcessSteps,
+} from '~/data/consulting'
 ---
 
 <Section bordered>
-  <SectionHead {...processHeading} gap="clamp(2.5rem, 1rem + 3.8vw, 3.75rem)" />
+  <SectionHead
+    {...consultingProcessHeading}
+    gap="clamp(2.5rem, 1rem + 3.8vw, 3.75rem)"
+  />
 
-  <ol class="process">
+  <ol class="process" style={`--steps:${consultingProcessSteps.length}`}>
     {
-      processSteps.map((step, i) => (
+      consultingProcessSteps.map((step, i) => (
         <li class="process__item" data-reveal={3 + i}>
           <div
             class="process__bar"
@@ -24,9 +31,12 @@ import { processHeading, processPromises, processSteps } from '~/data/process'
     }
   </ol>
 
-  <div class="grid grid--3 process__promises" data-reveal="8">
+  <div
+    class="grid grid--3 process__promises"
+    data-reveal={3 + consultingProcessSteps.length}
+  >
     {
-      processPromises.map((promise) => (
+      consultingProcessPromises.map((promise) => (
         <div class="process__promise">
           <h4 class="process__promise-title">{promise.title}</h4>
           <p class="process__body">{promise.body}</p>
@@ -39,7 +49,7 @@ import { processHeading, processPromises, processSteps } from '~/data/process'
 <style>
   .process {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(var(--steps), minmax(0, 1fr));
     gap: 24px;
   }
 
@@ -73,6 +83,7 @@ import { processHeading, processPromises, processSteps } from '~/data/process'
 
   .process__promises {
     margin-top: clamp(2.75rem, 1.5rem + 3vw, 4.5rem);
+    gap: 22px;
   }
 
   .process__promise {
@@ -92,14 +103,14 @@ import { processHeading, processPromises, processSteps } from '~/data/process'
 
   @media (max-width: 1100px) {
     .process {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 36px 24px;
     }
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 560px) {
     .process {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 </style>

@@ -3,6 +3,13 @@ import Blobs from '~/components/ui/Blobs.astro'
 import ContactForm from '~/components/ui/ContactForm.astro'
 import Eyebrow from '~/components/ui/Eyebrow.astro'
 import { contactCta } from '~/data/contact'
+
+/** 各ページ下部のCTA。お問い合わせページでは唯一の内容になるので見出しを h1 にする */
+interface Props {
+  as?: 'h1' | 'h2'
+}
+
+const { as: Tag = 'h2' }: Props = Astro.props
 ---
 
 <section class="section section--bordered contact-cta">
@@ -10,7 +17,7 @@ import { contactCta } from '~/data/contact'
   <div class="container contact-cta__inner">
     <div>
       <Eyebrow label={contactCta.eyebrow} reveal={0} />
-      <h2 class="heading contact-cta__title" data-reveal="1">
+      <Tag class="heading contact-cta__title" data-reveal="1">
         {
           contactCta.title.map((line, i) => (
             <>
@@ -19,10 +26,10 @@ import { contactCta } from '~/data/contact'
             </>
           ))
         }
-      </h2>
+      </Tag>
       <p class="lead contact-cta__lead" data-reveal="2">{contactCta.lead}</p>
     </div>
-    <ContactForm variant="compact" reveal={3} />
+    <ContactForm reveal={3} />
   </div>
 </section>
 

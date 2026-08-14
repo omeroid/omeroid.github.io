@@ -1,5 +1,5 @@
 ---
-import { contactForm, contactTopics } from '~/data/contact'
+import { contactForm, contactTypes } from '~/data/contact'
 
 /**
  * お問い合わせフォーム。
@@ -7,111 +7,58 @@ import { contactForm, contactTopics } from '~/data/contact'
  * 入力内容をメール本文に展開してメールソフトを開く（静的サイトのため）。
  */
 interface Props {
-  /** compact: 下部CTA用の簡易版 / full: お問い合わせページ用 */
-  variant?: 'compact' | 'full'
   reveal?: number
 }
 
-const { variant = 'compact', reveal } = Astro.props
+const { reveal } = Astro.props
 const { endpoint, mailto, submitLabel } = contactForm
 const isMailto = !endpoint
 ---
 
 <form
-  class:list={['cform', `cform--${variant}`]}
+  class="cform"
   method="post"
   action={endpoint ?? undefined}
   data-mailto={isMailto ? mailto : undefined}
   data-reveal={reveal}
 >
-  {
-    variant === 'compact' ? (
-      <>
-        <input
-          type="text"
-          name="company"
-          placeholder="会社名"
-          aria-label="会社名"
-          autocomplete="organization"
-        />
-        <input
-          type="text"
-          name="name"
-          placeholder="お名前"
-          aria-label="お名前"
-          autocomplete="name"
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="メールアドレス"
-          aria-label="メールアドレス"
-          autocomplete="email"
-          required
-        />
-        <textarea
-          name="detail"
-          rows="4"
-          placeholder="ご相談内容（箇条書きで構いません）"
-          aria-label="ご相談内容"
-          required
-        />
-      </>
-    ) : (
-      <>
-        <label class="cform__field">
-          <span class="en cform__label">COMPANY</span>
-          <input
-            type="text"
-            name="company"
-            placeholder="omeroid株式会社"
-            autocomplete="organization"
-          />
-        </label>
-        <label class="cform__field">
-          <span class="en cform__label">NAME</span>
-          <input
-            type="text"
-            name="name"
-            placeholder="山田 太郎"
-            autocomplete="name"
-            required
-          />
-        </label>
-        <label class="cform__field">
-          <span class="en cform__label">EMAIL</span>
-          <input
-            type="email"
-            name="email"
-            placeholder="you@example.com"
-            autocomplete="email"
-            required
-          />
-        </label>
-        <fieldset class="cform__field cform__fieldset">
-          <legend class="en cform__label">TOPIC</legend>
-          <div class="cform__topics">
-            {contactTopics.map((topic) => (
-              <label class="cform__topic">
-                <input type="checkbox" name="topic" value={topic.label} />
-                <span>{topic.label}</span>
-              </label>
-            ))}
-          </div>
-        </fieldset>
-        <label class="cform__field">
-          <span class="en cform__label">DETAIL</span>
-          <textarea
-            name="detail"
-            rows="5"
-            placeholder="現状の課題、実現したいこと、時期などをお書きください。箇条書きで構いません。"
-            required
-          />
-        </label>
-      </>
-    )
-  }
+  <select name="type" aria-label="お問い合わせ種別" class="cform__select">
+    <option value="">{contactTypes.placeholder}</option>
+    {
+      contactTypes.options.map((option) => (
+        <option value={option}>{option}</option>
+      ))
+    }
+  </select>
+  <input
+    type="text"
+    name="company"
+    placeholder="会社名"
+    aria-label="会社名"
+    autocomplete="organization"
+  />
+  <input
+    type="text"
+    name="name"
+    placeholder="お名前"
+    aria-label="お名前"
+    autocomplete="name"
+    required
+  />
+  <input
+    type="email"
+    name="email"
+    placeholder="メールアドレス"
+    aria-label="メールアドレス"
+    autocomplete="email"
+    required
+  />
+  <textarea
+    name="detail"
+    rows="4"
+    placeholder="ご相談内容（箇条書きで構いません）"
+    aria-label="ご相談内容"
+    required></textarea>
 
   <button type="submit" class="cform__submit">{submitLabel}</button>
 
@@ -129,26 +76,18 @@ const isMailto = !endpoint
   .cform {
     display: flex;
     flex-direction: column;
+    gap: 16px;
+    padding: clamp(1.75rem, 1.2rem + 2vw, 2.875rem)
+      clamp(1.5rem, 1rem + 1.8vw, 2.625rem);
     background: var(--c-white);
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-card);
   }
 
-  .cform--compact {
-    gap: 16px;
-    padding: clamp(1.75rem, 1.2rem + 2vw, 2.875rem)
-      clamp(1.5rem, 1rem + 1.8vw, 2.625rem);
-  }
-
-  .cform--full {
-    gap: 24px;
-    padding: clamp(1.75rem, 1.2rem + 2.2vw, 3rem)
-      clamp(1.5rem, 1rem + 2vw, 2.75rem);
-  }
-
   input[type='text'],
   input[type='email'],
+  select,
   textarea {
     width: 100%;
     padding: 16px 18px;
@@ -167,72 +106,25 @@ const isMailto = !endpoint
   }
 
   input:focus,
+  select:focus,
   textarea:focus {
     border-color: var(--c-accent);
   }
 
-  .cform__field {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    border: none;
-    padding: 0;
-    margin: 0;
-    min-width: 0;
-  }
-
-  .cform__label {
-    font-size: var(--fs-eyebrow);
-    letter-spacing: 0.18em;
-    color: var(--ink-50);
-    padding: 0;
-  }
-
-  .cform__fieldset {
-    gap: 12px;
-  }
-
-  .cform__topics {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .cform__topic input {
-    position: absolute;
-    opacity: 0;
-    width: 1px;
-    height: 1px;
-  }
-
-  .cform__topic span {
-    display: inline-block;
-    font-size: 0.84375rem;
-    padding: 9px 16px;
-    border-radius: var(--radius-pill);
-    border: 1px solid rgba(22, 25, 28, 0.18);
-    color: var(--c-ink);
+  /* 素の select は環境差が大きいので、矢印だけ自前で描く */
+  .cform__select {
+    appearance: none;
     cursor: pointer;
-    transition:
-      border-color 200ms var(--ease),
-      color 200ms var(--ease),
-      background-color 200ms var(--ease);
-  }
-
-  .cform__topic span:hover {
-    border-color: var(--c-accent);
-    color: var(--c-accent);
-  }
-
-  .cform__topic input:checked + span {
-    border-color: var(--c-accent);
-    background: rgb(var(--c-teal-rgb) / 0.12);
-    color: var(--c-accent);
-  }
-
-  .cform__topic input:focus-visible + span {
-    outline: 2px solid var(--c-accent);
-    outline-offset: 2px;
+    background-image:
+      linear-gradient(45deg, transparent 50%, var(--ink-50) 50%),
+      linear-gradient(135deg, var(--ink-50) 50%, transparent 50%);
+    background-position:
+      calc(100% - 22px) 50%,
+      calc(100% - 16px) 50%;
+    background-size:
+      6px 6px,
+      6px 6px;
+    background-repeat: no-repeat;
   }
 
   .cform__submit {
@@ -260,10 +152,10 @@ const isMailto = !endpoint
 <script>
   // endpoint 未設定時は入力内容を mailto: に展開して送信する
   const LABELS: Record<string, string> = {
+    type: 'お問い合わせ種別',
     company: '会社名',
     name: 'お名前',
     email: 'メールアドレス',
-    topic: 'ご相談内容',
     detail: '詳細',
   }
 

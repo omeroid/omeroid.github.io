@@ -1,30 +1,16 @@
 /** 会社概要ページのコンテンツ */
-import type {
-  CompanyRow,
-  Guideline,
-  Member,
-  Picture,
-  SectionHeading,
-} from '~/types'
+import type { CompanyRow, Guideline, Member, SectionHeading } from '~/types'
+import { memberships } from './site'
 
-import officeImage from '~/assets/images/blog/office_transfer.jpeg'
-import wakayamaImage from '~/assets/images/blog/wakayama-advancement.png'
-import matsunoImage from '~/assets/images/member/matsuno.jpg'
-import kiyotaImage from '~/assets/images/member/kiyota.jpg'
-import wadaImage from '~/assets/images/member/wada.jpg'
+import matsunoImage from '~/assets/images/member/matsuno.webp'
+import kiyotaImage from '~/assets/images/member/kiyota.webp'
+import wadaImage from '~/assets/images/member/wada.webp'
 
 export const companyHero = {
   eyebrow: 'OUR PHILOSOPHY',
   title: ['個性を重ねて、', '新しい価値を世の中に提供する。'],
-  lead: 'omeroid は 2019年、松野・清田・和田の3名で創業。自己資本のみで経営し、コンサルタントとエンジニアが同じ屋根の下で働くプロフェッショナル集団です。',
+  lead: 'コンサルタントとエンジニアが同じ屋根の下で働くプロフェッショナル集団です。',
 }
-
-// 和歌山オフィスの写真がまだ無いため、進出時のビジュアルを暫定で使用している。
-// 撮影後は image を差し替える。
-export const officePictures: Picture[] = [
-  { image: officeImage, alt: '東京オフィス' },
-  { image: wakayamaImage, alt: '和歌山オフィス／和歌山県への進出' },
-]
 
 /** 行動指針 omeload */
 export const omeload = {
@@ -66,13 +52,13 @@ export const members: Member[] = [
   {
     role: 'CEO',
     name: '松野 貞之',
-    body: '大手SIerの技術部門でOSSセキュリティツールの開発チームに所属。SaaSのバックエンド開発リーダーを経て創業。平日はほとんどコーディングをしている代表。得意言語は Golang。',
+    body: '上智大学卒業後、フューチャーアーキテクト株式会社の技術部門でOSSセキュリティツールの開発チームに所属。SaaSのバックエンド開発リーダーを経て創業。平日はほとんどコーディングをしている代表。得意言語は Golang。',
     picture: { image: matsunoImage, alt: '松野 貞之' },
   },
   {
     role: 'COO / IT DIVISION LEAD',
     name: '清田 侑',
-    body: '大手運送会社へのITコンサルティング、R&D部署での新規サービス開発、IT教育事業などを担当。要件定義から設計・開発、フロント/バック/インフラまで一通り担うジェネラリスト。',
+    body: '筑波大学卒業後、フューチャーアーキテクト株式会社で大手運送会社案件、R&D部署での新規サービス開発、IT教育事業などを担当。要件定義から設計・開発、フロント/バック/インフラまで一通り担うジェネラリスト。',
     picture: { image: kiyotaImage, alt: '清田 侑' },
   },
   {
@@ -86,13 +72,13 @@ export const members: Member[] = [
 /** 会社概要テーブル */
 export const companyRows: CompanyRow[] = [
   { label: 'COMPANY', value: ['omeroid株式会社（omeroid Inc.）'] },
-  { label: 'FOUNDED', value: ['2019年（松野・清田・和田の3名で起業）'] },
+  { label: 'FOUNDED', value: ['2019年（休眠会社を社名変更）'] },
   { label: 'CEO', value: ['代表取締役社長 松野 貞之'] },
   {
     label: 'OFFICES',
     value: [
       '東京事務所：東京都中央区八丁堀3-1-7 永井ビル2階',
-      '和歌山事務所：和歌山県和歌山市湊紺屋町1-20 Kinowa 201号',
+      '和歌山事務所：和歌山県和歌山市湊紺屋町1-20 Kinowa（キノワ）201号',
     ],
   },
   { label: 'CAPITAL', value: ['自己資本のみで経営'] },
@@ -104,4 +90,5 @@ export const companyRows: CompanyRow[] = [
     label: 'CERTIFICATION',
     value: ['ISO/IEC 27001:2022（情報セキュリティマネジメントシステム）'],
   },
+  { label: 'MEMBERSHIPS', value: memberships },
 ]

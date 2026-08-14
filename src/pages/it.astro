@@ -2,21 +2,28 @@
 import BaseLayout from '~/layouts/BaseLayout.astro'
 import ContactCta from '~/components/sections/ContactCta.astro'
 import Faq from '~/components/sections/Faq.astro'
+import Issues from '~/components/sections/Issues.astro'
+import MenuList from '~/components/sections/MenuList.astro'
 import PageHero from '~/components/sections/PageHero.astro'
-import Process from '~/components/sections/Process.astro'
 import Stack from '~/components/sections/Stack.astro'
 import Strength from '~/components/sections/Strength.astro'
 import Works from '~/components/sections/Works.astro'
-import Issues from '~/components/sections/it/Issues.astro'
-import MenuList from '~/components/sections/it/MenuList.astro'
-import Picture from '~/components/ui/Picture.astro'
-import Section from '~/components/ui/Section.astro'
-import { itHero } from '~/data/it'
+import { faqs } from '~/data/faq'
+import { itHero, itIssues, itMenu, itMenuHeading } from '~/data/it'
+import { strengthCards, strengthHeading } from '~/data/strength'
+import {
+  works,
+  worksFilterLabels,
+  worksFootnotes,
+  worksHeading,
+  worksListHeading,
+  workStats,
+} from '~/data/works'
 ---
 
 <BaseLayout
   title="ITコンサルティング・システム開発"
-  description="要件定義から設計・フルスクラッチ開発・運用まで一気通貫。「何をつくるべきか」から一緒に決める開発会社です。IT戦略策定・社内DX推進・システム開発・内製化支援・運用保守を提供します。"
+  description="要件定義から設計・フルスクラッチ開発・運用まで一気通貫。ビジネスを支えるITパートナーになれる開発会社です。IT戦略策定・社内DX推進・システム開発・内製化支援・運用保守を提供します。"
 >
   <PageHero
     eyebrow={itHero.eyebrow}
@@ -27,23 +34,18 @@ import { itHero } from '~/data/it'
     blobs="it"
   />
 
-  <Section flush="top">
-    <Picture
-      picture={itHero.picture}
-      height="clamp(220px, 30vw, 420px)"
-      radius="10px"
-      sizes="(max-width: 1400px) 100vw, 1400px"
-      loading="eager"
-      reveal={0}
-    />
-  </Section>
-
-  <Issues />
-  <MenuList />
-  <Strength />
-  <Works />
-  <Process />
+  <Issues {...itIssues} />
+  <MenuList heading={itMenuHeading} rows={itMenu} />
+  <Strength heading={strengthHeading} cards={strengthCards} />
+  <Works
+    heading={worksHeading}
+    stats={workStats}
+    listHeading={worksListHeading}
+    filterLabels={worksFilterLabels}
+    works={works}
+    footnotes={worksFootnotes}
+  />
   <Stack />
-  <Faq />
+  <Faq items={faqs} />
   <ContactCta />
 </BaseLayout>

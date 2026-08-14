@@ -25,7 +25,7 @@ src/
 ├── components/
 │   ├── layout/       # Header / Footer
 │   ├── ui/           # 汎用パーツ（Section, SectionHead, Btn, GradientCard, Picture …）
-│   └── sections/     # ページのセクション。共通のものは直下、固有は it/ consulting/ company/ product/ home/
+│   └── sections/     # ページのセクション。共通のものは直下、固有は consulting/ company/ product/ home/
 ├── data/             # ★コンテンツはすべてここ（TypeScript）
 ├── lib/              # 表示ロジック（アクセント色・背景ブロブのプリセット）
 ├── scripts/          # クライアントJS（スクロール演出）
@@ -41,22 +41,41 @@ CMS は使っていない。文言・リンク・画像はすべて `src/data/*.
 
 | ファイル | 内容 |
 |---------|------|
-| `site.ts` | サイト名・説明・GA測定ID・ナビ・フッター・外部リンク・加入団体 |
+| `site.ts` | サイト名・説明・GA測定ID・ナビ（`children` でドロップダウン）・フッター・外部リンク・加入団体 |
 | `home.ts` | トップページ（ヒーロー、OUR WHY、サービス、実績数値、哲学、写真、プロダクト、ブログ、採用） |
 | `it.ts` | IT・システム開発ページ（ヒーロー、ご相談例、支援メニュー） |
-| `consulting.ts` | コンサルティングページ（ヒーロー、3テーマ、支援実績、進め方、事例とレポート） |
-| `strength.ts` `works.ts` `stack.ts` `process.ts` `faq.ts` | 複数ページで使う共通セクション |
+| `consulting.ts` | コンサルティングページ（ヒーロー、ご相談例、支援メニュー、強み、支援実績、進め方、事例とレポート、FAQ） |
+| `strength.ts` `works.ts` `stack.ts` `faq.ts` | IT・システム開発ページのセクション |
 | `product.ts` | 自社プロダクト |
-| `company.ts` | 会社概要（理念、omeload、経営メンバー、会社データ） |
+| `company.ts` | 会社概要（理念、omeload、経営メンバー、会社データ。MEMBERSHIPS 行は `site.ts` の `memberships` を参照） |
 | `news.ts` | お知らせ（先頭に追加する。トップは `homeNewsCount` 件だけ表示） |
-| `contact.ts` | お問い合わせ（フォーム送信先、CTA文言、トピック選択肢） |
+| `contact.ts` | お問い合わせ（フォーム送信先、CTA文言、お問い合わせ種別、トピック選択肢） |
+
+### WORKS（開発事例）
+
+`works.ts`（IT部門）と `consulting.ts` の `consultingWorks`（コンサル部門）は、どちらも freee の
+請求データ（取引先分析レポート）が出典。取引先名は守秘義務のため伏せ、業種・支援内容・支援期間だけを
+載せている。行の期間表記（`7年6ヶ月`）と期間バーの長さは `months` から `Works.astro` が計算するので、
+データ側に持たせない。絞り込みチップと件数も `industry` / `tags` から自動生成される。数字を直す場合は
+トップページの実績数値（`home.ts` の `stats`）と食い違わないようにする。
+
+`Works.astro` / `Issues.astro` / `MenuList.astro` / `Strength.astro` / `Faq.astro` は
+IT・コンサルの両ページで使う共通セクション。データは import せず、ページ側から props で渡す
+（同じ見た目で中身だけが違うため）。
 
 ### 画像
 
-`src/assets/images/` に置いて data ファイルから `import` する。`Picture` 型の `image` を省略すると
-「差し替え待ち」のプレースホルダー枠が表示される（開発事例など、写真が未用意の箇所で使用中）。
+`src/assets/images/` に置いて data ファイルから `import` する。トップの写真は `images/home/`、
+経営メンバーは `images/member/` にある（デザインの画像スロットから書き出した webp）。
+`Picture` 型の `image` を省略すると「差し替え待ち」のプレースホルダー枠が表示される
+（現在は自社プロダクトの 5noobs のみ）。
 
 ### お問い合わせフォーム
+
+フォームは `ContactForm` の1種類だけ。「お問い合わせ種別」（`contactTypes`）のセレクトから始まる。
+各ページ下部の `ContactCta` がこれを内包しており、**お問い合わせページ（`/contact/`）も中身は
+`ContactCta` そのもの**。ページ側は `as="h1"` を渡して見出しレベルだけ上げている。
+なおトップページにはフォームを置いていない（`index.astro` に `ContactCta` は入れない）。
 
 静的サイトなのでサーバーがない。`contact.ts` の `contactForm.endpoint` が `null` の間は、
 送信時に入力内容を `mailto:` に展開してメールソフトを開く。フォーム受付サービス
@@ -88,7 +107,7 @@ CMS は使っていない。文言・リンク・画像はすべて `src/data/*.
 ## 動きの実装
 
 動きはサイトの見た目そのものなので、**OS/ブラウザの設定に関わらず常に動かす**（デザイン側にも
-`prefers-reduced-motion` の分岐は無い）。内訳は5種類。
+`prefers-reduced-motion` の分岐は無い）。内訳は6種類。
 
 1. **スクロール出現演出** — `data-reveal="<順番>"` を付けた要素が画面に入るとフェード+上方向移動(30px)+ぼかし解除(6px)で現れる
    （`src/scripts/reveal.ts` + `global.css` の `[data-reveal]`）。値は同一セクション内の表示順（遅延インデックス、110ms刻み・上限9）。
@@ -99,6 +118,8 @@ CMS は使っていない。文言・リンク・画像はすべて `src/data/*.
 4. **キーワードのティッカー** — `home/Ticker.astro`。`omeTicker` 64s linear infinite。同じ並びを2セット置いて
    `-50%` まで動かすことで途切れずループする（**片方だけ増減させると継ぎ目がずれる**）。
 5. **SCROLL誘導ライン** — `home/Hero.astro`。1pxの縦線の中を `omeCue` 2.4s で細い帯が流れ落ちる。
+6. **WORKS のカウントアップと期間バー** — `sections/Works.astro`。セクションが画面に入ったら数値を1.2秒でカウントアップし、
+   期間バーを60msずつずらして伸ばす（1回だけ）。分類チップの絞り込みも同じスクリプト内にある。
 
 > `@media (prefers-reduced-motion: reduce)` で止めているのはページ内リンクのスムーススクロールだけ。
 > **ここに `animation: none` 等を足すと「動きが失われた」状態に戻る**ので注意（過去に同じ原因で2回指摘を受けている）。

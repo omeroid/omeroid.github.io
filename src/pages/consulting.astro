@@ -2,26 +2,33 @@
 import BaseLayout from '~/layouts/BaseLayout.astro'
 import ContactCta from '~/components/sections/ContactCta.astro'
 import Faq from '~/components/sections/Faq.astro'
+import Issues from '~/components/sections/Issues.astro'
+import MenuList from '~/components/sections/MenuList.astro'
 import PageHero from '~/components/sections/PageHero.astro'
+import Strength from '~/components/sections/Strength.astro'
+import Works from '~/components/sections/Works.astro'
 import Contents from '~/components/sections/consulting/Contents.astro'
-import Themes from '~/components/sections/consulting/Themes.astro'
-import TrackRecord from '~/components/sections/consulting/TrackRecord.astro'
-import Picture from '~/components/ui/Picture.astro'
-import Section from '~/components/ui/Section.astro'
-import SectionHead from '~/components/ui/SectionHead.astro'
-import StatBand from '~/components/ui/StatBand.astro'
-import StepGrid from '~/components/ui/StepGrid.astro'
+import Process from '~/components/sections/consulting/Process.astro'
 import {
+  consultingFaqs,
   consultingHero,
-  consultingStats,
-  consultingSteps,
-  consultingStepsHeading,
+  consultingIssues,
+  consultingMenu,
+  consultingMenuHeading,
+  consultingStrengthCards,
+  consultingStrengthHeading,
+  consultingWorks,
+  consultingWorksFilterLabels,
+  consultingWorksFootnotes,
+  consultingWorksHeading,
+  consultingWorksListHeading,
+  consultingWorkStats,
 } from '~/data/consulting'
 ---
 
 <BaseLayout
   title="戦略・業務コンサルティング"
-  description="ビジネス戦略・営業/マーケティング戦略・データ戦略の3テーマで伴走。エンジニアが同じ社内にいるからこそ、実装可能な戦略を描き、実行まで見届けます。"
+  description="経営・業務戦略、DX・AI戦略、データ戦略の3テーマで伴走。エンジニアが同じ社内にいるからこそ、実装可能な戦略を描き、実行まで見届けます。"
 >
   <PageHero
     eyebrow={consultingHero.eyebrow}
@@ -30,38 +37,24 @@ import {
     cta={consultingHero.cta}
     ctaNote={consultingHero.ctaNote}
     blobs="consulting"
-  >
-    <Picture
-      picture={consultingHero.picture}
-      height="clamp(220px, 28vw, 400px)"
-      radius="10px"
-      sizes="(max-width: 1400px) 100vw, 1400px"
-      loading="eager"
-      class="hero-picture"
-      reveal={4}
-    />
-    <StatBand stats={consultingStats} size="md" class="hero-stats" />
-  </PageHero>
+  />
 
-  <Themes />
-  <TrackRecord />
-
-  <Section>
-    <SectionHead {...consultingStepsHeading} />
-    <StepGrid steps={consultingSteps} />
-  </Section>
-
+  <Issues {...consultingIssues} />
+  <MenuList heading={consultingMenuHeading} rows={consultingMenu} />
+  <Strength
+    heading={consultingStrengthHeading}
+    cards={consultingStrengthCards}
+  />
+  <Works
+    heading={consultingWorksHeading}
+    stats={consultingWorkStats}
+    listHeading={consultingWorksListHeading}
+    filterLabels={consultingWorksFilterLabels}
+    works={consultingWorks}
+    footnotes={consultingWorksFootnotes}
+  />
+  <Process />
   <Contents />
-  <Faq />
+  <Faq items={consultingFaqs} />
   <ContactCta />
 </BaseLayout>
-
-<style>
-  :global(.hero-picture) {
-    margin-top: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
-  }
-
-  :global(.hero-stats) {
-    margin-top: 16px;
-  }
-</style>

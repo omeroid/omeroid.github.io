@@ -1,6 +1,14 @@
 ---
 import Eyebrow from '~/components/ui/Eyebrow.astro'
-import { faqHeading, faqs } from '~/data/faq'
+import { faqHeading } from '~/data/faq'
+import type { Faq } from '~/types'
+
+/** よくあるご質問。設問はページごとに差し替える */
+interface Props {
+  items: Faq[]
+}
+
+const { items } = Astro.props
 ---
 
 <section class="section section--bordered">
@@ -21,7 +29,7 @@ import { faqHeading, faqs } from '~/data/faq'
 
     <dl class="faq__list">
       {
-        faqs.map((faq, i) => (
+        items.map((faq, i) => (
           <div class="faq__row" data-reveal={2 + i}>
             <div class="en faq__no">Q{i + 1}</div>
             <div>

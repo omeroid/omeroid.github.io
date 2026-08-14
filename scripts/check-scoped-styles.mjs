@@ -23,10 +23,28 @@ const walk = (dir, out = []) => {
   return out
 }
 
+/**
+ * import している名前を集める。
+ * 大文字始まりでも `const Tag = 'h1'` のようなタグ名の変数は普通の要素として
+ * 出力されスコープ属性も付くので、import されたものだけを子コンポーネントとみなす。
+ */
+const importedNames = (src) => {
+  const found = new Set()
+  for (const line of src.matchAll(/^import\s+([^'"]+?)\s+from\s+['"]/gm)) {
+    for (const name of line[1].replace(/[{}]/g, ' ').split(',')) {
+      const local = name.trim().split(/\s+as\s+/).pop()
+      if (local) found.add(local)
+    }
+  }
+  return found
+}
+
 /** そのファイルが子コンポーネントに渡しているクラス名を集める */
 const classesPassedToComponents = (src) => {
   const found = new Set()
+  const components = importedNames(src)
   for (const tag of src.matchAll(/<([A-Z][A-Za-z0-9]*)\b([^>]*?)\/?>/gs)) {
+    if (!components.has(tag[1])) continue
     for (const attr of tag[2].matchAll(
       /class(?::list)?=(?:"([^"]*)"|\{`([^`]*)`\})/g
     )) {

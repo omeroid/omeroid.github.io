@@ -1,11 +1,5 @@
 ---
-import {
-  externalLinks,
-  footerColumns,
-  footerMeta,
-  memberships,
-  site,
-} from '~/data/site'
+import { externalLinks, footerColumns, footerMeta, site } from '~/data/site'
 import Logo from '~/components/ui/Logo.astro'
 
 const year = new Date().getFullYear()
@@ -47,13 +41,6 @@ const isExternal = (href: string) => /^https?:/.test(href)
     }
   </div>
 
-  <div class="container footer__memberships">
-    <div class="en footer__col-label">MEMBERSHIPS ／ 加入団体</div>
-    <ul>
-      {memberships.map((m) => <li>{m}</li>)}
-    </ul>
-  </div>
-
   <div class="container footer__bottom">
     <small class="en footer__copy">© {year} omeroid Inc.</small>
     <ul class="footer__meta">
@@ -79,7 +66,7 @@ const isExternal = (href: string) => /^https?:/.test(href)
   .footer__top {
     padding-block: 76px 48px;
     display: grid;
-    grid-template-columns: 1.5fr repeat(3, 1fr);
+    grid-template-columns: 1.4fr repeat(3, 1fr);
     gap: 48px;
   }
 
@@ -132,18 +119,6 @@ const isExternal = (href: string) => /^https?:/.test(href)
     margin-bottom: 18px;
   }
 
-  .footer__memberships {
-    padding-bottom: 44px;
-  }
-
-  .footer__memberships ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 24px;
-    font-size: 0.8125rem;
-    color: var(--ink-55);
-  }
-
   .footer__bottom {
     padding-block: 22px 40px;
     border-top: 1px solid var(--line);
@@ -174,9 +149,10 @@ const isExternal = (href: string) => /^https?:/.test(href)
     color: var(--c-accent);
   }
 
+  /* ブランドを1行目に逃がし、リンク3列を下に並べる */
   @media (max-width: 980px) {
     .footer__top {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 40px;
     }
 
@@ -185,10 +161,17 @@ const isExternal = (href: string) => /^https?:/.test(href)
     }
   }
 
-  @media (max-width: 560px) {
+  @media (max-width: 640px) {
     .footer__top {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 420px) {
+    .footer__top {
+      grid-template-columns: minmax(0, 1fr);
       padding-block: 56px 40px;
+      gap: 32px;
     }
   }
 </style>

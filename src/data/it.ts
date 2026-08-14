@@ -1,18 +1,12 @@
 /** IT・システム開発ページのコンテンツ */
-import type { MenuRow, Picture, SectionHeading } from '~/types'
-
-import engineerImage from '~/assets/images/service/engineer.jpg'
+import type { MenuRow, SectionHeading } from '~/types'
 
 export const itHero = {
   eyebrow: 'IT CONSULTING & ENGINEERING',
-  title: ['「何をつくるべきか」から、', '一緒に決められる開発会社。'],
-  lead: '要件が固まっていなくても大丈夫です。事業の課題を整理するところから、設計・フルスクラッチ開発・運用まで、同じチームが最後まで担当します。',
+  title: ['ビジネスを支えるITパートナーになれる開発会社。'],
+  lead: '要件が固まっていなくても大丈夫です。事業の課題を整理するところから、設計・フルスクラッチ開発・運用まで、同じチームが最後まで担当します。またシステムは一度作って終わりではありません。ビジネスの変革に伴い常に改善・改修を繰り返す必要があります。omeroidはビジネスの変革をパートナーとしてサポートします。',
   cta: { label: '無料で相談する', href: '/contact/' },
   ctaNote: 'まずは30分。要件が曖昧な段階のご相談が最も多いです。',
-  picture: {
-    image: engineerImage,
-    alt: '開発チーム／オフィスの様子',
-  } satisfies Picture,
 }
 
 /** ISSUES（こんなご相談をいただいています） */

@@ -2,7 +2,7 @@
  * サイト全体の設定・ナビゲーション・外部リンク。
  * 新しいページを追加したら nav / footer にも追記する。
  */
-import type { LinkItem } from '~/types'
+import type { LinkItem, NavItem } from '~/types'
 
 export const site = {
   name: 'omeroid株式会社',
@@ -17,20 +17,6 @@ export const site = {
   gaId: 'G-ECYH2GSXFH',
   email: 'inquiry@omeroid.com',
 } as const
-
-/** ヘッダーのグローバルナビ */
-export const nav: LinkItem[] = [
-  { label: 'ホーム', href: '/' },
-  { label: 'コンサルティング', href: '/consulting/' },
-  { label: 'IT・システム開発', href: '/it/' },
-  { label: '会社概要', href: '/company/' },
-]
-
-/** ヘッダー右端のCTA */
-export const headerCta: LinkItem = {
-  label: 'お問い合わせ',
-  href: '/contact/',
-}
 
 /** 外部サービスのURL */
 export const externalLinks = {
@@ -49,6 +35,32 @@ export const externalLinks = {
     'https://omeroid.notion.site/1fb26d41019d804ba455fd8c1602611f?v=1fb26d41019d8041a5de000c1e073b58',
 } as const
 
+/** ヘッダーのグローバルナビ。children を付けるとドロップダウンになる */
+export const nav: NavItem[] = [
+  { label: 'ホーム', href: '/' },
+  { label: 'コンサルティング', href: '/consulting/' },
+  { label: 'IT・システム開発', href: '/it/' },
+  { label: 'プロダクト', href: '/product/' },
+  { label: '採用情報', href: externalLinks.recruit },
+  {
+    label: '会社情報',
+    children: [
+      { label: '会社概要', href: '/company/' },
+      { label: 'お知らせ', href: '/news/' },
+      { label: 'Company Blog', href: externalLinks.companyBlog },
+      { label: 'Tech Blog', href: externalLinks.techBlog },
+      { label: 'プライバシーポリシー', href: externalLinks.privacyPolicy },
+      { label: '情報セキュリティ方針', href: externalLinks.securityPolicy },
+    ],
+  },
+]
+
+/** ヘッダー右端のCTA */
+export const headerCta: LinkItem = {
+  label: 'お問い合わせ',
+  href: '/contact/',
+}
+
 /** フッターのリンク列 */
 export const footerColumns: { label: string; links: LinkItem[] }[] = [
   {
@@ -56,7 +68,7 @@ export const footerColumns: { label: string; links: LinkItem[] }[] = [
     links: [
       { label: 'コンサルティング', href: '/consulting/' },
       { label: 'IT・システム開発', href: '/it/' },
-      { label: '自社プロダクト', href: '/product/' },
+      { label: 'プロダクト', href: '/product/' },
     ],
   },
   {
@@ -73,7 +85,6 @@ export const footerColumns: { label: string; links: LinkItem[] }[] = [
     links: [
       { label: 'Company Blog', href: externalLinks.companyBlog },
       { label: 'Tech Blog', href: externalLinks.techBlog },
-      { label: 'omeroid SHOP', href: externalLinks.shop },
     ],
   },
 ]
@@ -84,7 +95,7 @@ export const footerMeta: LinkItem[] = [
   { label: '情報セキュリティ方針', href: externalLinks.securityPolicy },
 ]
 
-/** 加入団体 */
+/** 加入団体（会社概要ページの MEMBERSHIPS 行で使用） */
 export const memberships: string[] = [
   '特定非営利活動法人金融ＩＴ協会®（FITA）',
   '一般社団法人アジア経営者連合会',

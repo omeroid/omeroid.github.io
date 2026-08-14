@@ -2,14 +2,14 @@
 import type { AccentCard, LinkItem, Picture, Stat } from '~/types'
 import { externalLinks } from './site'
 
-import engineerImage from '~/assets/images/service/engineer.jpg'
-import consultantImage from '~/assets/images/consulting/teamwork-in-a-office.jpeg'
-import officeImage from '~/assets/images/blog/office_transfer.jpeg'
-import gasshukuImage from '~/assets/images/news/gasshuku2024.webp'
-import travel2023Image from '~/assets/images/blog/travel2023.webp'
-import partyImage from '~/assets/images/blog/party2021.jpg'
-import ryokoImage from '~/assets/images/news/ryoko2024.jpg'
-import travel2020Image from '~/assets/images/blog/travel2020.jpg'
+import serviceItImage from '~/assets/images/home/service-it.webp'
+import serviceConsultingImage from '~/assets/images/home/service-consulting.webp'
+import cultureOfficeImage from '~/assets/images/home/culture-office.webp'
+import cultureLoungeImage from '~/assets/images/home/culture-lounge.webp'
+import culturePartyImage from '~/assets/images/home/culture-party.webp'
+import recruitWorkImage from '~/assets/images/home/recruit-work.webp'
+import recruitStudyImage from '~/assets/images/home/recruit-study.webp'
+import recruitPartyImage from '~/assets/images/home/recruit-party.webp'
 
 /** ファーストビュー */
 export const hero = {
@@ -69,7 +69,7 @@ export const services = {
       tags: ['事業戦略', '営業・マーケ戦略', 'データ戦略', '新規事業立案'],
       href: '/consulting/',
       picture: {
-        image: consultantImage,
+        image: serviceConsultingImage,
         alt: 'ディスカッションの様子',
       } satisfies Picture,
     },
@@ -86,7 +86,7 @@ export const services = {
       ],
       href: '/it/',
       picture: {
-        image: engineerImage,
+        image: serviceItImage,
         alt: '開発チームの様子',
       } satisfies Picture,
     },
@@ -95,8 +95,8 @@ export const services = {
 
 /** 数値実績 */
 export const stats: Stat[] = [
-  { value: '16', unit: '社', label: 'DEV PROJECTS' },
-  { value: '7', unit: '業界+', label: 'INDUSTRIES' },
+  { value: '24', unit: '社', label: 'DEV PROJECTS' },
+  { value: '8', unit: '業種', label: 'INDUSTRIES' },
   { value: '100', unit: '%', label: 'SELF-FUNDED' },
   { value: '2', unit: '拠点', label: 'TOKYO / WAKAYAMA' },
 ]
@@ -133,22 +133,22 @@ export const philosophy = {
 
 /** 哲学セクション下の写真3枚 */
 export const culturePictures: Picture[] = [
-  { image: officeImage, alt: 'オフィスの風景' },
-  { image: gasshukuImage, alt: '社員合宿＠静岡三島' },
-  { image: travel2023Image, alt: '社員旅行＠韓国' },
+  { image: cultureOfficeImage, alt: 'オフィスの風景' },
+  { image: cultureLoungeImage, alt: '談笑するメンバー' },
+  { image: culturePartyImage, alt: '創立記念パーティーの集合写真' },
 ]
 
 /** PRODUCT（トップページのティザー） */
 export const productTeaser = {
   eyebrow: 'PRODUCT',
   title: 'つくりたいものを、自分たちでもつくる。',
-  lead: '社内R&D制度「RoiD」では、年2回のピッチで採択されたプロジェクトが、半年でMVPをつくり事業化を目指します。受託だけでなく、自分たちの手で価値を生み出す場です。',
+  lead: '社内R&D制度「RoiD」では、年1回のピッチで採択されたプロジェクトが、半年でMVPをつくり事業化を目指します。受託だけでなく、自分たちの手で価値を生み出す場です。',
   cards: [
     {
       accent: 'orange',
       eyebrow: 'IN-HOUSE R&D',
       title: 'RoiD',
-      body: '年2回の社内ピッチで採択されたプロジェクトに、予算と半年間の時間を割り当てる社内R&D制度。ここから生まれたプロダクトを、事業として育てています。',
+      body: '年1回の社内ピッチで採択されたプロジェクトに、予算と半年間の時間を割り当てる社内R&D制度。ここから生まれたプロダクトを、事業として育てています。',
     },
     {
       accent: 'blue',
@@ -194,12 +194,14 @@ export const blogs = {
 export const recruit = {
   eyebrow: 'RECRUIT',
   title: ['あなたの個性が、', '次の価値になる。'],
-  lead: '祝日も休みにして有給25日以上、旅行手当、2台目PCの自由選択、社内R&D制度。「自分の考えを持つこと」を大事にする人が働きやすい環境を、制度からつくっています。',
+  lead: '休み方を自由にするために祝日は勤務日にし有給25日以上、旅行手当、社内R&D制度、社内文化や制度をメンバーで決めていくCorpoRoiD。「自分の考えを持つこと」を大事にする人が働きやすい環境を、制度からつくっています。',
   tags: [
     '有給25日以上',
     '旅行手当',
     '書籍・資格補助',
     '社内R&D制度',
+    '社員旅行・合宿',
+    'サークル活動',
     '東京／和歌山',
   ],
   cta: {
@@ -207,8 +209,8 @@ export const recruit = {
     href: externalLinks.recruit,
   } satisfies LinkItem,
   pictures: [
-    { image: partyImage, alt: '創立記念パーティーの様子' },
-    { image: ryokoImage, alt: '社員旅行＠北海道' },
-    { image: travel2020Image, alt: '社員旅行2020' },
+    { image: recruitWorkImage, alt: '合宿で作業するメンバー' },
+    { image: recruitStudyImage, alt: '勉強会の様子' },
+    { image: recruitPartyImage, alt: '懇親会の様子' },
   ] satisfies Picture[],
 }

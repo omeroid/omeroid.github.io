@@ -2,16 +2,24 @@
 import Dots from '~/components/ui/Dots.astro'
 import Section from '~/components/ui/Section.astro'
 import SectionHead from '~/components/ui/SectionHead.astro'
-import { itMenu, itMenuHeading } from '~/data/it'
 import { accentStyle } from '~/lib/accent'
+import type { MenuRow, SectionHeading } from '~/types'
+
+/** MENU（支援メニュー）。IT事業・コンサルティングで使う */
+interface Props {
+  heading: SectionHeading
+  rows: MenuRow[]
+}
+
+const { heading, rows } = Astro.props
 ---
 
 <Section>
-  <SectionHead {...itMenuHeading} />
+  <SectionHead {...heading} />
 
   <div class="menu">
     {
-      itMenu.map((row, i) => (
+      rows.map((row, i) => (
         <div
           class="menu__row"
           style={accentStyle(row.accent, row.accentPair)}

@@ -8,7 +8,7 @@ import type { SectionHeading, StackGroup } from '~/types'
 export const stackHeading: SectionHeading = {
   eyebrow: 'TECH STACK',
   title: '技術スタック',
-  lead: 'ほとんどの案件がフルスクラッチのため、インフラからバックエンド、フロントエンドまで全てを担当します。近年は Go と React の案件が中心です。',
+  lead: 'ほとんどの案件がフルスクラッチのため、インフラからバックエンド、フロントエンドまで全てを担当します。システムは長期で育てていくものと考え、長期で使用できる新しい技術を活用しています。',
 }
 
 export const stackGroups: StackGroup[] = [
@@ -17,18 +17,19 @@ export const stackGroups: StackGroup[] = [
     label: 'BACKEND',
     items: [
       { name: 'Go', icon: 'go' },
-      { name: 'Rust', icon: 'rust', darkIcon: true },
       { name: 'Node.js', icon: 'nodedotjs' },
+      { name: 'Rust', icon: 'rust', darkIcon: true },
       { name: 'PostgreSQL', icon: 'postgresql' },
+      { name: 'MySQL', icon: 'mysql' },
     ],
   },
   {
     accent: 'teal',
     label: 'FRONTEND',
     items: [
-      { name: 'React', icon: 'react' },
       { name: 'TypeScript', icon: 'typescript' },
-      { name: 'Next.js', icon: 'nextdotjs', darkIcon: true },
+      { name: 'React', icon: 'react' },
+      { name: 'Vue.js', icon: 'vuedotjs' },
     ],
   },
   {
@@ -38,7 +39,7 @@ export const stackGroups: StackGroup[] = [
       { name: 'AWS', fallback: 'text' },
       { name: 'Terraform', icon: 'terraform' },
       { name: 'Docker', icon: 'docker' },
-      { name: 'On-premise', fallback: 'server' },
+      { name: 'AWS Amplify', fallback: 'text' },
     ],
   },
   {
