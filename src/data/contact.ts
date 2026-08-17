@@ -14,7 +14,7 @@ export const contactForm = {
    */
   endpoint:
     'https://script.google.com/macros/s/AKfycbz78dLI8vIzJlYGlkn4HA_Qu-rhdgNFghb-jDDh18K62D-nXMvK4piVF2S_jSSyf5mFAQ/exec' as
-    string | null,
+      string | null,
   /**
    * Cloudflare Turnstile の Site Key（スパム対策）。
    * 公開して問題ない値。対になる Secret Key は Apps Script の
