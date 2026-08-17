@@ -95,7 +95,7 @@ export const services = {
 
 /** 数値実績 */
 export const stats: Stat[] = [
-  { value: '24', unit: '社', label: 'DEV PROJECTS' },
+  { value: '45', unit: '社', label: 'CUSTOMERS' },
   { value: '8', unit: '業種', label: 'INDUSTRIES' },
   { value: '100', unit: '%', label: 'SELF-FUNDED' },
   { value: '2', unit: '拠点', label: 'TOKYO / WAKAYAMA' },
