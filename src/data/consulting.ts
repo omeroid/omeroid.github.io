@@ -113,8 +113,10 @@ export const consultingStrengthCards: AccentCard[] = [
  * works.ts と同じく freee の請求データ（2019-02-28 〜 2026-08-31 /
  * 取引先一覧_部門別.csv）のコンサル部門を出典とする。実績対象外の1件を除いた
  * 22社が母数で、3ヶ月以上の19社を一覧に載せ、1〜2ヶ月の短期3社は footnote に
- * まとめている。守秘義務のため取引先名・案件名は伏せ、業種・支援内容・支援期間
- * のみ掲載する。期間表記と期間バーは months から自動で組み立てる。
+ * まとめている。守秘義務のため取引先名・案件名は伏せ、業種・支援内容のみ掲載する。
+ *
+ * IT側（works.ts）と違い、支援期間は見せない（`Works` に layout="cards" を渡す）。
+ * そのため WorkRow の months / start / end は持たせない。
  */
 export const consultingWorksHeading: SectionHeading = {
   eyebrow: 'WORKS',
@@ -125,30 +127,22 @@ export const consultingWorksHeading: SectionHeading = {
 export const consultingWorkStats: WorkStat[] = [
   {
     label: 'PROJECTS',
-    value: 22,
-    unit: '社',
-    note: '支援した企業・団体数（2019年〜）',
+    value: 50,
+    suffix: '+',
+    unit: '件',
+    note: 'これまでに支援したプロジェクト数（2019年〜）',
   },
   {
     label: 'INDUSTRIES',
     value: 7,
     unit: '業種',
-    note: '専門サービス・流通・製造・公共ほか',
-  },
-  {
-    label: 'AVG. DURATION',
-    value: 1,
-    unit: '年',
-    value2: 4,
-    unit2: 'ヶ月',
-    note: '1社あたりの平均継続支援期間',
+    note: '製造・流通・ヘルスケア・公共など',
     featured: true,
   },
 ]
 
 export const consultingWorksListHeading = {
   title: '主なプロジェクト事例',
-  legend: 'DURATION',
   range: '2019 — 2026',
 }
 
@@ -166,9 +160,6 @@ export const consultingWorks: WorkRow[] = [
     industry: '専門サービス',
     tags: ['事業戦略', '業務設計'],
     body: 'エンドクライアント向けの事業計画策定とプロジェクト推進、商品企画チームの運営支援、会計システム刷新に向けた現行業務の整理まで。',
-    months: 74,
-    start: 2019,
-    end: 2025,
   },
   {
     category: 'HR / MEDIA',
@@ -176,9 +167,6 @@ export const consultingWorks: WorkRow[] = [
     industry: 'サービス',
     tags: ['営業・マーケティング', '組織設計'],
     body: '人材派遣領域を担う事業ユニットの戦略検討と付帯業務を、マネージャー・コンサルタントの複数名体制で支援。',
-    months: 50,
-    start: 2020,
-    end: 2024,
   },
   {
     category: 'DX CONSULTING',
@@ -186,8 +174,6 @@ export const consultingWorks: WorkRow[] = [
     industry: '専門サービス',
     tags: ['DX推進', 'PMO'],
     body: 'DXプロジェクトのPMO支援を中心に、財務業務の分析と将来像設計、基幹システム更改の伴走支援まで。',
-    months: 30,
-    start: 2024,
   },
   {
     category: 'PHARMA DISTRIBUTION',
@@ -195,8 +181,6 @@ export const consultingWorks: WorkRow[] = [
     industry: '卸売・小売',
     tags: ['事業戦略', '新規事業'],
     body: '再生医療・予防医療・美容医療・動物医療の各領域で、事業戦略の設計から新規事業の検討・推進までを継続支援。',
-    months: 27,
-    start: 2024,
   },
   {
     category: 'NEW BUSINESS',
@@ -204,9 +188,6 @@ export const consultingWorks: WorkRow[] = [
     industry: '専門サービス',
     tags: ['新規事業', '事業戦略'],
     body: 'ヘルスケア領域の新規事業開発に参画。戦略策定からMVP検証の詳細設計、規制対応のディレクションまで。',
-    months: 27,
-    start: 2021,
-    end: 2024,
   },
   {
     category: 'PUBLIC / REGION',
@@ -214,9 +195,6 @@ export const consultingWorks: WorkRow[] = [
     industry: '公共',
     tags: ['人材育成', '地域振興'],
     body: '地域のIT人材育成を目的としたハッカソンの企画・運営支援。講師・進行支援や開発環境の提供も担当。',
-    months: 25,
-    start: 2024,
-    end: 2026,
   },
   {
     category: 'INDUSTRIAL TRADE',
@@ -224,9 +202,6 @@ export const consultingWorks: WorkRow[] = [
     industry: '卸売・小売',
     tags: ['DX推進', '業務設計'],
     body: 'DX・システムの将来像設計から構築支援までをフェーズを分けて推進し、業務・システム改革の全体構想づくりを支援。',
-    months: 23,
-    start: 2024,
-    end: 2026,
   },
   {
     category: 'REAL ESTATE',
@@ -234,9 +209,6 @@ export const consultingWorks: WorkRow[] = [
     industry: '不動産',
     tags: ['新規事業', '営業・マーケティング'],
     body: '独自の専門人材認定制度の設計と認知拡大の助言、会員向けコミュニティアプリの運用管理まで。',
-    months: 23,
-    start: 2024,
-    end: 2026,
   },
   {
     category: 'FINANCIAL ADVISORY',
@@ -244,9 +216,6 @@ export const consultingWorks: WorkRow[] = [
     industry: '専門サービス',
     tags: ['DX推進'],
     body: 'IT領域の顧問としてマネージャーが継続参画し、IT活用に関する助言を月次で提供。',
-    months: 20,
-    start: 2023,
-    end: 2024,
   },
   {
     category: 'MATCHING SAAS',
@@ -254,9 +223,6 @@ export const consultingWorks: WorkRow[] = [
     industry: '情報通信',
     tags: ['調査・分析', '新規事業'],
     body: 'M&A・事業承継領域のレポート作成支援を中心に、複数のクライアント企業へのプロジェクト支援を提供。',
-    months: 11,
-    start: 2020,
-    end: 2021,
   },
   {
     category: 'HR SERVICE',
@@ -264,9 +230,6 @@ export const consultingWorks: WorkRow[] = [
     industry: 'サービス',
     tags: ['営業・マーケティング', '業務設計'],
     body: '営業企画・推進の支援に加え、データ活用組織の効率化や依頼受付フローの設計まで、営業と組織運営の両面から改革を支援。',
-    months: 9,
-    start: 2025,
-    end: 2025,
   },
   {
     category: 'MANUFACTURING',
@@ -274,8 +237,6 @@ export const consultingWorks: WorkRow[] = [
     industry: '製造',
     tags: ['業務設計', '基幹刷新構想'],
     body: '生産管理システム刷新の方針検討から、周辺システムの要件定義・設計、RFP作成・パッケージ選定まで。',
-    months: 6,
-    start: 2026,
   },
   {
     category: 'GLOBAL CONSULTING',
@@ -283,9 +244,6 @@ export const consultingWorks: WorkRow[] = [
     industry: '専門サービス',
     tags: ['調査・分析'],
     body: '次世代通信領域における国際標準化の事例調査と、国際標準化機関での標準化活動の推進支援。',
-    months: 6,
-    start: 2021,
-    end: 2022,
   },
   {
     category: 'TRADING COMPANY',
@@ -293,9 +251,6 @@ export const consultingWorks: WorkRow[] = [
     industry: '卸売・小売',
     tags: ['業務設計', '基幹刷新構想'],
     body: '基幹システム刷新に向けた業務分析。現行業務の整理・分析で検討に必要な業務要件を可視化。',
-    months: 5,
-    start: 2024,
-    end: 2025,
   },
   {
     category: 'BUILDING SERVICE',
@@ -303,8 +258,6 @@ export const consultingWorks: WorkRow[] = [
     industry: 'サービス',
     tags: ['基幹刷新構想'],
     body: '基幹システム見直しの診断と再計画から、要件整理を踏まえたRFP作成・ベンダー選定まで段階的に支援。',
-    months: 5,
-    start: 2026,
   },
   {
     category: 'DATA STRATEGY',
@@ -312,9 +265,6 @@ export const consultingWorks: WorkRow[] = [
     industry: '専門サービス',
     tags: ['データ戦略', '新規事業'],
     body: '大手メディア企業のデータガバナンス構築PMO支援、データ利活用会議の運営支援、合弁会社の設立支援。',
-    months: 5,
-    start: 2024,
-    end: 2024,
   },
   {
     category: 'HR / MEDIA',
@@ -322,9 +272,6 @@ export const consultingWorks: WorkRow[] = [
     industry: 'サービス',
     tags: ['営業・マーケティング'],
     body: '事業統合に伴う営業推進の支援に複数名体制で参画し、営業活動の推進と付帯業務の設計・実行を支援。',
-    months: 4,
-    start: 2024,
-    end: 2025,
   },
   {
     category: 'RESEARCH',
@@ -332,9 +279,6 @@ export const consultingWorks: WorkRow[] = [
     industry: 'サービス',
     tags: ['調査・分析'],
     body: '官公庁向けの調査請負プロジェクトに参画し、次世代通信技術の国際標準化動向や市場動向の調査・分析を担当。',
-    months: 3,
-    start: 2021,
-    end: 2021,
   },
   {
     category: 'CORPORATE',
@@ -342,15 +286,12 @@ export const consultingWorks: WorkRow[] = [
     industry: '情報通信',
     tags: ['業務設計'],
     body: 'クライアント企業向けのコーポレート機能整備プロジェクトに参画し、管理部門の機能・業務基盤づくりを支援。',
-    months: 3,
-    start: 2020,
-    end: 2021,
   },
 ]
 
 export const consultingWorksFootnotes: string[] = [
-  '上記のほか、1〜2ヶ月の短期プロジェクト（スポット調査・研修講師など）を3社で実施しています。',
-  '※ 支援期間は2019年2月〜2026年8月の実績にもとづきます。取引先名・案件名は守秘義務のため掲載していません。詳細は個別のご相談時に、お伝えできる範囲でご説明します。',
+  '上記のほか、短期プロジェクト（市場調査・営業資料の強化・研修講師など）を3社で実施しています。',
+  '※ 2019年3月〜2026年8月の実績にもとづきます。取引先名・案件名は守秘義務のため掲載していません。詳細は個別のご相談時に、お伝えできる範囲でご説明します。',
 ]
 
 /** PROCESS（支援の進め方） */

@@ -12,6 +12,7 @@
   --c-text-strong: #3b4448;
   --c-accent: #1f7a6b;
   --c-accent-hover: #125246;
+  --c-error: #c4453a;
 
   /* --- アクセント（グラデーション・ドット用） --- */
   --c-orange: #ff8a3d;
@@ -28,6 +29,7 @@
   --c-blue-rgb: 74 123 232;
   --c-green-rgb: 123 217 143;
   --c-purple-rgb: 155 140 232;
+  --c-error-rgb: 196 69 58;
 
   /* --- 罫線・面 --- */
   --line: rgba(22, 25, 28, 0.1);

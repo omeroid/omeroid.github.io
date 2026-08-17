@@ -54,10 +54,20 @@ CMS は使っていない。文言・リンク・画像はすべて `src/data/*.
 ### WORKS（開発事例）
 
 `works.ts`（IT部門）と `consulting.ts` の `consultingWorks`（コンサル部門）は、どちらも freee の
-請求データ（取引先分析レポート）が出典。取引先名は守秘義務のため伏せ、業種・支援内容・支援期間だけを
-載せている。行の期間表記（`7年6ヶ月`）と期間バーの長さは `months` から `Works.astro` が計算するので、
-データ側に持たせない。絞り込みチップと件数も `industry` / `tags` から自動生成される。数字を直す場合は
-トップページの実績数値（`home.ts` の `stats`）と食い違わないようにする。
+請求データ（取引先分析レポート）が出典。取引先名は守秘義務のため伏せ、業種・支援内容だけを載せている。
+絞り込みチップと件数は `industry` / `tags` から自動生成される。数字を直す場合はトップページの実績数値
+（`home.ts` の `stats`）と食い違わないようにする。
+
+`Works.astro` は `layout` で見せ方が2種類ある。**両ページの唯一の違いがここ**なので、片方を直すとき
+もう片方に波及していないか確認する。
+
+| | `layout="rows"`（IT） | `layout="cards"`（コンサル） |
+|---|---|---|
+| 一覧 | 1件1行。支援期間の数値と期間バーを並べる | カードのグリッド。期間は出さない |
+| データ | `months` / `start` / `end` が必要 | 3つとも持たせない（`WorkRow` では optional） |
+| 期間表記 | `7年6ヶ月` と期間バーの長さを `months` から計算するのでデータ側に持たせない | — |
+| 数値タイル | 3枚（PROJECTS / INDUSTRIES / AVG. DURATION） | 2枚（PROJECTS / INDUSTRIES）。列数は `stats` の件数から決まる |
+| 凡例 | `listHeading.legend`（`DURATION`）＋ 年の範囲 | `legend` を省くと年の範囲だけになる |
 
 `Works.astro` / `Issues.astro` / `MenuList.astro` / `Strength.astro` / `Faq.astro` は
 IT・コンサルの両ページで使う共通セクション。データは import せず、ページ側から props で渡す
@@ -77,9 +87,25 @@ IT・コンサルの両ページで使う共通セクション。データは im
 `ContactCta` そのもの**。ページ側は `as="h1"` を渡して見出しレベルだけ上げている。
 なおトップページにはフォームを置いていない（`index.astro` に `ContactCta` は入れない）。
 
-静的サイトなのでサーバーがない。`contact.ts` の `contactForm.endpoint` が `null` の間は、
-送信時に入力内容を `mailto:` に展開してメールソフトを開く。フォーム受付サービス
-（formrun / SSGform / Google Forms 等）を使う場合は `endpoint` にURLを入れるだけで POST 送信に切り替わる。
+静的サイトなのでサーバーがない。送信先は自前の **Google Apps Script ウェブアプリ**
+（`contact.ts` の `contactForm.endpoint`）で、受信内容はスプレッドシートに記録され、担当者への
+通知メールと送信者への自動返信メールが飛ぶ。スパム対策は **Cloudflare Turnstile**
+（`contactForm.turnstileSiteKey`。対になる Secret Key は Apps Script のスクリプトプロパティ側）と
+ハニーポット（`company_website`）と経過時間（3秒未満は弾かれる）の3段構え。
+`endpoint` を `null` に戻すと、入力内容を `mailto:` に展開してメールソフトを開く動作になる。
+
+**サーバー側と対になっていて、片方だけ直すと受信できなくなるもの**:
+
+| 対になっているもの | HTML側 | Apps Script側 |
+|---|---|---|
+| 項目名 | `name` 属性（`type` / `company` / `name` / `email` / `message`） | `HEADERS`・`appendRecord_`・バリデーション・メール本文 |
+| お問い合わせ種別の選択肢 | `contactTypes.options` | `TYPE_OPTIONS`（中黒は全角 `・` U+30FB、括弧は全角 `（）`） |
+| ハニーポット | `name="company_website"` | `data.company_website` |
+| Turnstile | Site Key | スクリプトプロパティ `TURNSTILE_SECRET`（本番とテスト用を混ぜると必ず失敗する） |
+
+Apps Script のコードを直したときは「デプロイを管理」→**「新バージョン」**で再デプロイする。
+「新しいデプロイ」を押すとURLが変わり、HTML側の `endpoint` は旧コードを指したままになる
+（修正が反映されない典型的な原因）。
 
 ## スタイルの方針
 
@@ -119,7 +145,8 @@ IT・コンサルの両ページで使う共通セクション。データは im
    `-50%` まで動かすことで途切れずループする（**片方だけ増減させると継ぎ目がずれる**）。
 5. **SCROLL誘導ライン** — `home/Hero.astro`。1pxの縦線の中を `omeCue` 2.4s で細い帯が流れ落ちる。
 6. **WORKS のカウントアップと期間バー** — `sections/Works.astro`。セクションが画面に入ったら数値を1.2秒でカウントアップし、
-   期間バーを60msずつずらして伸ばす（1回だけ）。分類チップの絞り込みも同じスクリプト内にある。
+   期間バーを60msずつずらして伸ばす（1回だけ）。期間バーは `layout="rows"`（IT）だけにあり、コンサルはカウントアップのみ。
+   分類チップの絞り込みも同じスクリプト内にある（対象は `[data-ind]` なので行・カードのどちらでも動く）。
 
 > `@media (prefers-reduced-motion: reduce)` で止めているのはページ内リンクのスムーススクロールだけ。
 > **ここに `animation: none` 等を足すと「動きが失われた」状態に戻る**ので注意（過去に同じ原因で2回指摘を受けている）。

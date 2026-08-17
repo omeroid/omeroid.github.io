@@ -79,6 +79,8 @@ export interface WorkStat {
   /** 数字はカウントアップ演出の対象になる */
   value: number
   unit: string
+  /** 「50+件」のように数字のすぐ後ろに付ける記号 */
+  suffix?: string
   /** 「2年1ヶ月」のように数字が2つ並ぶ場合の2つめ */
   value2?: number
   unit2?: string
@@ -88,8 +90,11 @@ export interface WorkStat {
 }
 
 /**
- * 開発事例1件（WORKS の1行）。
- * 守秘義務のため取引先名は伏せ、業種・支援内容・期間のみ掲載する。
+ * 事例1件（WORKS の1件）。
+ * 守秘義務のため取引先名は伏せ、業種・支援内容（と、期間を出す場合は期間）のみ掲載する。
+ *
+ * months / start / end は `Works.astro` の layout="rows"（IT・システム開発）でのみ使う。
+ * layout="cards"（コンサルティング）は期間を表示しないので省略する。
  */
 export interface WorkRow {
   /** 英字ラベル（SI / ENTERPRISE など） */
@@ -102,9 +107,9 @@ export interface WorkRow {
   tags: string[]
   body: string
   /** 支援月数。期間表記と期間バーの長さはここから計算する */
-  months: number
+  months?: number
   /** 開始年 */
-  start: number
+  start?: number
   /** 終了年。継続中は省略する */
   end?: number
 }

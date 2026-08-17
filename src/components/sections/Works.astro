@@ -3,11 +3,19 @@ import Section from '~/components/ui/Section.astro'
 import SectionHead from '~/components/ui/SectionHead.astro'
 import type { SectionHeading, WorkRow, WorkStat } from '~/types'
 
-/** WORKS（実績）。IT事業・コンサルティングで、それぞれの実績を渡して使う */
+/**
+ * WORKS（実績）。IT事業・コンサルティングで、それぞれの実績を渡して使う。
+ *
+ * layout で見せ方が2種類ある。
+ * ・rows  … 1件1行。支援期間の数値と期間バーを並べる（IT・システム開発）
+ * ・cards … カードのグリッド。期間は出さない（コンサルティング）
+ */
 interface Props {
   heading: SectionHeading
+  layout?: 'rows' | 'cards'
   stats: WorkStat[]
-  listHeading: { title: string; legend: string; range: string }
+  /** legend（期間バーの凡例）は layout="rows" のみ */
+  listHeading: { title: string; legend?: string; range: string }
   filterLabels: {
     lead: string
     all: string
@@ -20,6 +28,7 @@ interface Props {
 
 const {
   heading: worksHeading,
+  layout = 'rows',
   stats: workStats,
   listHeading: worksListHeading,
   filterLabels: worksFilterLabels,
@@ -28,7 +37,7 @@ const {
 } = Astro.props
 
 /** 期間バーの基準になる最長プロジェクト */
-const maxMonths = Math.max(...works.map((w) => w.months))
+const maxMonths = Math.max(...works.map((w) => w.months ?? 0), 1)
 
 /** 90 → 7年6ヶ月 / 9 → 9ヶ月 */
 const duration = (months: number) =>
@@ -61,7 +70,11 @@ const tags = countBy((row) => row.tags)
   <SectionHead {...worksHeading} gap="clamp(2.5rem, 1.5rem + 3vw, 4rem)" />
 
   <div class="works" data-works>
-    <div class="works__stats" data-reveal="3">
+    <div
+      class="works__stats"
+      data-reveal="3"
+      style={`--works-stat-cols:${workStats.length}`}
+    >
       {
         workStats.map((stat) => (
           <div class:list={['works__stat', stat.featured && 'is-featured']}>
@@ -70,6 +83,9 @@ const tags = countBy((row) => row.tags)
               <span class="en works__stat-num" data-countup={stat.value}>
                 {stat.value}
               </span>
+              {stat.suffix && (
+                <span class="en works__stat-suffix">{stat.suffix}</span>
+              )}
               <span class="works__stat-unit">{stat.unit}</span>
               {stat.value2 !== undefined && (
                 <>
@@ -92,10 +108,17 @@ const tags = countBy((row) => row.tags)
     <div class="works__list-head" data-reveal="4">
       <h3 class="works__list-title">{worksListHeading.title}</h3>
       <div class="en works__legend">
-        <span class="works__legend-item">
-          <span class="works__legend-bar"></span>{worksListHeading.legend}
+        {
+          worksListHeading.legend && (
+            <span class="works__legend-item">
+              <span class="works__legend-bar" />
+              {worksListHeading.legend}
+            </span>
+          )
+        }
+        <span>
+          {worksListHeading.legend && '／ '}{worksListHeading.range}
         </span>
-        <span>／ {worksListHeading.range}</span>
       </div>
     </div>
 
@@ -148,51 +171,72 @@ const tags = countBy((row) => row.tags)
       }
     </div>
 
-    <div class="works__rows" data-reveal="5">
-      {
-        works.map((row) => (
-          <article
-            class="works__row"
-            data-ind={row.industry}
-            data-tags={row.tags.join('|')}
-          >
-            <div>
+    {
+      layout === 'rows' ? (
+        <div class="works__rows" data-reveal="5">
+          {works.map((row) => (
+            <article
+              class="works__row"
+              data-ind={row.industry}
+              data-tags={row.tags.join('|')}
+            >
+              <div>
+                <div class="en works__category">{row.category}</div>
+                <h4 class="works__client">{row.client}</h4>
+                <div class="works__tags">
+                  {row.tags.map((tag) => (
+                    <span class="works__tag">{tag}</span>
+                  ))}
+                </div>
+              </div>
+              <p class="works__body">{row.body}</p>
+              <div>
+                <div class="works__duration">
+                  <span class="works__months">{duration(row.months ?? 0)}</span>
+                  <span
+                    class:list={[
+                      'en',
+                      'works__period',
+                      row.end === undefined && 'is-ongoing',
+                    ]}
+                  >
+                    {period(row)}
+                  </span>
+                </div>
+                <div class="works__track">
+                  <div
+                    class:list={[
+                      'works__bar',
+                      row.end === undefined && 'is-ongoing',
+                    ]}
+                    data-bar={Math.round(((row.months ?? 0) / maxMonths) * 100)}
+                  />
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div class="works__cards" data-reveal="5">
+          {works.map((row) => (
+            <article
+              class="works__card"
+              data-ind={row.industry}
+              data-tags={row.tags.join('|')}
+            >
               <div class="en works__category">{row.category}</div>
               <h4 class="works__client">{row.client}</h4>
+              <p class="works__body">{row.body}</p>
               <div class="works__tags">
                 {row.tags.map((tag) => (
                   <span class="works__tag">{tag}</span>
                 ))}
               </div>
-            </div>
-            <p class="works__body">{row.body}</p>
-            <div>
-              <div class="works__duration">
-                <span class="works__months">{duration(row.months)}</span>
-                <span
-                  class:list={[
-                    'en',
-                    'works__period',
-                    row.end === undefined && 'is-ongoing',
-                  ]}
-                >
-                  {period(row)}
-                </span>
-              </div>
-              <div class="works__track">
-                <div
-                  class:list={[
-                    'works__bar',
-                    row.end === undefined && 'is-ongoing',
-                  ]}
-                  data-bar={Math.round((row.months / maxMonths) * 100)}
-                />
-              </div>
-            </div>
-          </article>
-        ))
-      }
-    </div>
+            </article>
+          ))}
+        </div>
+      )
+    }
 
     <p class="works__empty" data-works-empty hidden>
       該当するプロジェクトがありません。
@@ -212,7 +256,7 @@ const tags = countBy((row) => row.tags)
   /* --- 数値タイル --- */
   .works__stats {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(var(--works-stat-cols, 3), minmax(0, 1fr));
     gap: 1px;
     background: var(--line-strong);
     border: 1px solid var(--line-strong);
@@ -256,6 +300,12 @@ const tags = countBy((row) => row.tags)
 
   .works__stat-num.is-sub {
     font-size: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+  }
+
+  .works__stat-suffix {
+    font-size: clamp(1.375rem, 0.95rem + 1.7vw, 2rem);
+    font-weight: 500;
+    line-height: 1;
   }
 
   .works__stat-unit {
@@ -455,6 +505,55 @@ const tags = countBy((row) => row.tags)
     display: none;
   }
 
+  /* --- 実績のカード（layout="cards"。期間は出さない） --- */
+  .works__cards {
+    display: grid;
+    /* 375px 幅でも溢れないよう min() で下限を頭打ちにする */
+    grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
+    gap: 14px;
+    align-items: stretch;
+  }
+
+  .works__card {
+    display: flex;
+    flex-direction: column;
+    padding: 26px 26px 24px;
+    background: var(--c-bg);
+    border: 1px solid var(--line-mid);
+    border-radius: var(--radius-sm);
+    transition:
+      border-color 250ms var(--ease),
+      box-shadow 250ms var(--ease),
+      transform 250ms var(--ease);
+  }
+
+  .works__card:hover {
+    border-color: color-mix(in srgb, var(--c-accent) 50%, transparent);
+    box-shadow: 0 8px 22px rgba(22, 25, 28, 0.07);
+    transform: translateY(-2px);
+  }
+
+  .works__card[hidden] {
+    display: none;
+  }
+
+  .works__card .works__client {
+    margin-top: 10px;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* 本文で高さを吸収して、タグを下端に揃える */
+  .works__card .works__body {
+    flex: 1;
+    margin-top: 14px;
+    font-size: 0.84375rem;
+  }
+
+  .works__card .works__tags {
+    margin-top: 20px;
+  }
+
   .works__category {
     font-size: 0.65625rem;
     letter-spacing: 0.18em;
@@ -583,6 +682,10 @@ const tags = countBy((row) => row.tags)
       padding: 22px 20px;
       gap: 18px;
     }
+
+    .works__card {
+      padding: 22px 20px 20px;
+    }
   }
 </style>
 
@@ -615,7 +718,8 @@ const tags = countBy((row) => row.tags)
   }
 
   const wireFilters = (root: HTMLElement) => {
-    const rows = [...root.querySelectorAll<HTMLElement>('.works__row')]
+    /* layout="rows" の .works__row と layout="cards" の .works__card の両方 */
+    const rows = [...root.querySelectorAll<HTMLElement>('[data-ind]')]
     const chips = [...root.querySelectorAll<HTMLElement>('[data-filter]')]
     const counter = root.querySelector<HTMLElement>('[data-works-count]')
     const empty = root.querySelector<HTMLElement>('[data-works-empty]')
