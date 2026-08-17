@@ -13,8 +13,8 @@ export const contactForm = {
    * メールソフトの作成画面（mailto:）を開く動作に戻る。
    */
   endpoint:
-    'https://script.google.com/macros/s/AKfycbw8xdymadJ_K-xMReZpDq5bGB_fbqbjLFuHRiNRbWIWQpBxVeciEtDvsvTlSLdw4y1xhw/exec' as
-      string | null,
+    'https://script.google.com/macros/s/AKfycbz78dLI8vIzJlYGlkn4HA_Qu-rhdgNFghb-jDDh18K62D-nXMvK4piVF2S_jSSyf5mFAQ/exec' as
+    string | null,
   /**
    * Cloudflare Turnstile の Site Key（スパム対策）。
    * 公開して問題ない値。対になる Secret Key は Apps Script の
