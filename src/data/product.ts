@@ -14,20 +14,20 @@ export const productHero = {
 export const products: Product[] = [
   {
     label: 'PRODUCT / 提供中',
-    title: 'dac',
-    body: 'リモート化でのOJTを助ける進捗報告ツール。リモートで部下の状況がつかめていない、上司への報告がうまくいっていない、という現場におすすめです。',
-    href: 'https://www.dac-work.com/',
-    linkLabel: '詳細を見る',
-    picture: { image: dacImage, alt: 'dac のプロダクト画面' },
-  },
-  {
-    label: 'PRODUCT / 提供中',
     title: '5noobs',
     body: 'ゲーマーがグループ・チーム・イベントを見つけるためのプラットフォーム。一緒に遊ぶ仲間との出会いを、もっと簡単にします。',
     href: 'https://www.five-noobs.com/ja',
     linkLabel: '詳細を見る',
     picture: { alt: '5noobs', placeholder: '5noobs のプロダクト画面' },
     reverse: true,
+  },
+  {
+    label: 'PRODUCT / 提供中',
+    title: 'dac',
+    body: 'リモート化でのOJTを助ける進捗報告ツール。リモートで部下の状況がつかめていない、上司への報告がうまくいっていない、という現場におすすめです。',
+    href: 'https://www.dac-work.com/',
+    linkLabel: '詳細を見る',
+    picture: { image: dacImage, alt: 'dac のプロダクト画面' },
   },
   {
     label: 'SERVICE / 提供中',
