@@ -1,0 +1,55 @@
+---
+import { accentStyle } from '~/lib/accent'
+import type { AccentKey } from '~/types'
+
+/** 2色が重なった丸アイコン。ブランドの「重なり」を表すモチーフ */
+interface Props {
+  accent: AccentKey
+  pair?: AccentKey
+  /** 円の直径 (px) */
+  size?: number
+  class?: string
+}
+
+const { accent, pair, size = 22, class: className } = Astro.props
+---
+
+<span
+  class:list={['dots', className]}
+  style={`${accentStyle(accent, pair)};--dot:${size}px`}
+  aria-hidden="true"
+>
+  <span class="dots__a"></span>
+  <span class="dots__b"></span>
+</span>
+
+<style>
+  .dots {
+    position: relative;
+    display: block;
+    flex: none;
+    width: calc(var(--dot) * 1.82);
+    height: var(--dot);
+  }
+
+  .dots__a,
+  .dots__b {
+    position: absolute;
+    top: 0;
+    width: var(--dot);
+    height: var(--dot);
+    border-radius: 50%;
+    mix-blend-mode: multiply;
+    opacity: 0.9;
+  }
+
+  .dots__a {
+    left: 0;
+    background: var(--accent);
+  }
+
+  .dots__b {
+    left: calc(var(--dot) * 0.64);
+    background: var(--accent-2);
+  }
+</style>

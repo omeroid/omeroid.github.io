@@ -1,0 +1,89 @@
+---
+/** 1px の罫線で仕切られたセルの集合（相談内容の一覧・行動指針など） */
+interface Props {
+  items: { title?: string; body: string }[]
+  cols?: 2 | 3
+  revealFrom?: number
+  class?: string
+}
+
+const { items, cols = 3, revealFrom = 1, class: className } = Astro.props
+---
+
+<div class:list={['cells', `cells--${cols}`, className]}>
+  {
+    items.map((item, i) => (
+      <div class="cells__item" data-reveal={revealFrom + i}>
+        {item.title && <h3 class="cells__title">{item.title}</h3>}
+        <p class:list={['cells__body', !item.title && 'is-lead']}>
+          {item.body}
+        </p>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .cells {
+    display: grid;
+    gap: 1px;
+    background: var(--line-strong);
+    border: 1px solid var(--line-strong);
+  }
+
+  .cells--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cells--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .cells__item {
+    background: var(--c-bg);
+    padding: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem)
+      clamp(1.375rem, 1rem + 1.4vw, 2.375rem);
+    transition: background-color 260ms var(--ease);
+  }
+
+  .cells__item:hover {
+    background: var(--c-white);
+  }
+
+  .cells__title {
+    font-family: var(--font-head);
+    font-size: clamp(1.125rem, 1rem + 0.5vw, 1.3125rem);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+  }
+
+  .cells__body {
+    font-size: var(--fs-body);
+    line-height: 2.05;
+    color: var(--ink-62);
+  }
+
+  .cells__title + .cells__body {
+    margin-top: 16px;
+  }
+
+  .cells__body.is-lead {
+    font-size: 1rem;
+    line-height: 2;
+    color: var(--c-ink);
+  }
+
+  @media (max-width: 980px) {
+    .cells--3 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .cells--2,
+    .cells--3 {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

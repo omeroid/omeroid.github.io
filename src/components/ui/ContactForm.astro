@@ -1,0 +1,560 @@
+---
+import { contactForm, contactFormMessages, contactTypes } from '~/data/contact'
+
+/**
+ * お問い合わせフォーム。
+ *
+ * contactForm.endpoint が設定されていれば Apps Script のウェブアプリへ JSON で
+ * POST する（Turnstile によるスパム対策つき）。未設定なら入力内容をメール本文に
+ * 展開してメールソフトを開く（静的サイトのためサーバーがない）。
+ *
+ * 項目名（name 属性）と送信するキーは Apps Script 側の実装と対になっている。
+ * 片方だけ変えると受信できなくなるので、必ず両方あわせて直すこと。
+ */
+interface Props {
+  reveal?: number
+}
+
+const { reveal } = Astro.props
+const { endpoint, turnstileSiteKey, mailto, submitLabel } = contactForm
+const isMailto = !endpoint
+
+/**
+ * スクリプトは別バンドルになりフロントマターを直接読めないので、
+ * 設定と文言は data 属性に JSON で渡す。
+ */
+const config = JSON.stringify({
+  endpoint,
+  mailto: isMailto ? mailto : null,
+  messages: contactFormMessages,
+})
+---
+
+{
+  !isMailto && (
+    <script
+      is:inline
+      async
+      defer
+      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+    />
+  )
+}
+
+<form
+  class="cform"
+  method="post"
+  novalidate
+  data-cform
+  data-config={config}
+  data-reveal={reveal}
+>
+  <div class="cform__fields">
+    <select
+      name="type"
+      required
+      aria-label="お問い合わせ種別"
+      class="cform__select"
+    >
+      <option value="" disabled selected>{contactTypes.placeholder}</option>
+      {
+        contactTypes.options.map((option) => (
+          <option value={option}>{option}</option>
+        ))
+      }
+    </select>
+    <input
+      type="text"
+      name="company"
+      placeholder="会社名"
+      aria-label="会社名"
+      autocomplete="organization"
+      maxlength="100"
+      required
+    />
+    <input
+      type="text"
+      name="name"
+      placeholder="お名前"
+      aria-label="お名前"
+      autocomplete="name"
+      maxlength="100"
+      required
+    />
+    <input
+      type="email"
+      name="email"
+      placeholder="メールアドレス"
+      aria-label="メールアドレス"
+      autocomplete="email"
+      maxlength="254"
+      required
+    />
+    <textarea
+      name="message"
+      rows="4"
+      placeholder="ご相談内容（箇条書きで構いません）"
+      aria-label="ご相談内容"
+      maxlength="5000"
+      required></textarea>
+
+    {/* ハニーポット。人には見えず、埋まっていたらスパムとして扱われる */}
+    <div class="cform__trap" aria-hidden="true">
+      <label>
+        Webサイト
+        <input
+          type="text"
+          name="company_website"
+          tabindex="-1"
+          autocomplete="off"
+        />
+      </label>
+    </div>
+
+    {
+      !isMailto && (
+        <div
+          class="cf-turnstile cform__captcha"
+          data-sitekey={turnstileSiteKey}
+          data-language="ja"
+          data-theme="light"
+        />
+      )
+    }
+
+    <p class="cform__status" role="status" aria-live="polite" hidden></p>
+
+    <button type="submit" class="cform__submit">{submitLabel}</button>
+
+    {
+      isMailto && (
+        <p class="cform__note">
+          送信ボタンを押すとメールソフトの作成画面が開きます。開かない場合は
+          <a href={`mailto:${mailto}`}>{mailto}</a> へ直接お送りください。
+        </p>
+      )
+    }
+
+    <noscript>
+      <p class="cform__note">
+        このフォームの送信には JavaScript が必要です。
+        <a href={`mailto:${mailto}`}>{mailto}</a> へ直接お送りください。
+      </p>
+    </noscript>
+  </div>
+
+  <div class="cform__done" tabindex="-1" hidden>
+    <p class="cform__done-title">{contactFormMessages.doneTitle}</p>
+    <p class="cform__done-body">{contactFormMessages.doneBody}</p>
+  </div>
+</form>
+
+<style>
+  .cform {
+    padding: clamp(1.75rem, 1.2rem + 2vw, 2.875rem)
+      clamp(1.5rem, 1rem + 1.8vw, 2.625rem);
+    background: var(--c-white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+  }
+
+  .cform__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cform__fields[hidden] {
+    display: none;
+  }
+
+  input[type='text'],
+  input[type='email'],
+  select,
+  textarea {
+    width: 100%;
+    padding: 16px 18px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    background: var(--c-bg);
+    color: var(--c-ink);
+    outline: none;
+    transition: border-color 200ms var(--ease);
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: var(--c-accent);
+  }
+
+  /* 素の select は環境差が大きいので、矢印だけ自前で描く */
+  .cform__select {
+    appearance: none;
+    cursor: pointer;
+    background-image:
+      linear-gradient(45deg, transparent 50%, var(--ink-50) 50%),
+      linear-gradient(135deg, var(--ink-50) 50%, transparent 50%);
+    background-position:
+      calc(100% - 22px) 50%,
+      calc(100% - 16px) 50%;
+    background-size:
+      6px 6px,
+      6px 6px;
+    background-repeat: no-repeat;
+  }
+
+  /* 未選択（プレースホルダー）のあいだだけ薄く見せる */
+  .cform__select:invalid {
+    color: var(--ink-45);
+  }
+
+  /*
+   * 上の `input[type='text']` 等より詳細度を上げておく必要がある。
+   * `.is-error` 単独だと型セレクタに負けて枠が赤くならない。
+   */
+  .cform .is-error {
+    border-color: var(--c-error);
+    background: rgb(var(--c-error-rgb) / 0.05);
+  }
+
+  /* ハニーポット。display:none だと入力を避けるボットがいるので画面外に逃がす */
+  .cform__trap {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  /*
+   * Turnstile のウィジェットは幅300px固定で、狭い画面では器に収まらない。
+   * 親（.contact-cta）が overflow:hidden なので放っておくと右側の
+   * Cloudflare表記ごと切り落とされる。余白を詰めたうえで、それでも
+   * 足りない分は横スクロールで見せる。min-height は読み込み中のガタつき止め。
+   */
+  .cform__captcha {
+    min-height: 65px;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  @media (max-width: 420px) {
+    .cform {
+      padding-inline: 1rem;
+    }
+  }
+
+  .cform__status {
+    font-size: var(--fs-xs);
+    line-height: 1.9;
+    color: var(--c-error);
+  }
+
+  .cform__status[hidden] {
+    display: none;
+  }
+
+  .cform__submit {
+    margin-top: 8px;
+    padding: 19px;
+    border-radius: var(--radius-pill);
+    background: var(--c-ink);
+    color: var(--c-bg);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    transition: background-color 220ms var(--ease);
+  }
+
+  .cform__submit:hover {
+    background: var(--c-accent);
+  }
+
+  .cform__submit:disabled {
+    background: var(--ink-40);
+    cursor: default;
+  }
+
+  .cform__note {
+    font-size: 0.75rem;
+    line-height: 1.9;
+    color: var(--ink-55);
+  }
+
+  .cform__done {
+    padding: 12px 0;
+    outline: none;
+  }
+
+  .cform__done[hidden] {
+    display: none;
+  }
+
+  .cform__done-title {
+    font-family: var(--font-head);
+    font-size: var(--fs-h3-sm);
+    font-weight: 700;
+    letter-spacing: var(--ls-head);
+    color: var(--c-accent);
+  }
+
+  .cform__done-body {
+    margin-top: 20px;
+    font-size: var(--fs-sm);
+    line-height: var(--lh-body);
+    color: var(--c-text);
+  }
+</style>
+
+<script>
+  /**
+   * フォーム送信。endpoint があれば Apps Script へ JSON を POST し、
+   * なければ mailto: を開く。
+   */
+  interface Turnstile {
+    getResponse: (el: Element) => string | undefined
+    reset: (el: Element) => void
+  }
+
+  interface Config {
+    endpoint: string | null
+    mailto: string | null
+    messages: Record<string, string>
+  }
+
+  /** 必須項目。Apps Script 側のバリデーションと対 */
+  const REQUIRED = ['type', 'company', 'name', 'email', 'message'] as const
+
+  /**
+   * Apps Script が返すエラーコードと入力欄の対応。
+   * 通常はブラウザ側の検証で止まるが、選択肢が Apps Script の TYPE_OPTIONS と
+   * ずれたとき（invalid_type）などはここを通る。文言だけ出して欄が赤くならないと
+   * どこを直せばいいのか分からなくなるため、対応する欄を印付けする。
+   */
+  const ERROR_FIELD: Record<string, string> = {
+    required_type: 'type',
+    invalid_type: 'type',
+    required_company: 'company',
+    required_name: 'name',
+    required_email: 'email',
+    invalid_email: 'email',
+    required_message: 'message',
+  }
+
+  /** mailto: に展開するときの見出し */
+  const LABELS: Record<string, string> = {
+    type: 'お問い合わせ種別',
+    company: '会社名',
+    name: 'お名前',
+    email: 'メールアドレス',
+    message: 'ご相談内容',
+  }
+
+  const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+  document.querySelectorAll<HTMLFormElement>('form[data-cform]').forEach(init)
+
+  function init(form: HTMLFormElement) {
+    const config: Config = JSON.parse(form.dataset.config ?? '{}')
+    const { endpoint, mailto, messages } = config
+
+    const fieldsEl = form.querySelector<HTMLElement>('.cform__fields')!
+    const doneEl = form.querySelector<HTMLElement>('.cform__done')!
+    const doneBodyEl = form.querySelector<HTMLElement>('.cform__done-body')!
+    const statusEl = form.querySelector<HTMLElement>('.cform__status')!
+    const submitEl = form.querySelector<HTMLButtonElement>('.cform__submit')!
+    const captchaEl = form.querySelector<HTMLElement>('.cf-turnstile')
+    const submitLabel = submitEl.textContent ?? ''
+
+    /**
+     * 表示からの経過ミリ秒。3秒未満の送信はサーバー側でボットとして弾かれる。
+     */
+    const openedAt = Date.now()
+    let sending = false
+
+    const field = (name: string) =>
+      form.elements.namedItem(name) as HTMLInputElement | null
+
+    function setError(el: HTMLInputElement, bad: boolean) {
+      el.classList.toggle('is-error', bad)
+      if (bad) el.setAttribute('aria-invalid', 'true')
+      else el.removeAttribute('aria-invalid')
+    }
+
+    function showStatus(text: string) {
+      statusEl.textContent = text
+      statusEl.hidden = false
+    }
+
+    function clearStatus() {
+      statusEl.hidden = true
+      statusEl.textContent = ''
+    }
+
+    /** 直したそばからエラー表示を消す */
+    REQUIRED.forEach((name) => {
+      const el = field(name)
+      el?.addEventListener('input', () => setError(el, false))
+      el?.addEventListener('change', () => setError(el, false))
+    })
+
+    function validate(): HTMLInputElement | null {
+      let firstBad: HTMLInputElement | null = null
+      REQUIRED.forEach((name) => {
+        const el = field(name)
+        if (!el) return
+        const value = el.value.trim()
+        const bad =
+          value === '' || (name === 'email' && !EMAIL_PATTERN.test(value))
+        setError(el, bad)
+        if (bad && !firstBad) firstBad = el
+      })
+      return firstBad
+    }
+
+    function value(name: string) {
+      return field(name)?.value.trim() ?? ''
+    }
+
+    function turnstile(): Turnstile | undefined {
+      return (window as unknown as { turnstile?: Turnstile }).turnstile
+    }
+
+    function captchaToken(): string {
+      const api = turnstile()
+      if (api && captchaEl) {
+        try {
+          const token = api.getResponse(captchaEl)
+          if (token) return token
+        } catch {
+          // ウィジェットの描画前。下のhidden inputで拾えることがある
+        }
+      }
+      const input = form.querySelector<HTMLInputElement>(
+        'input[name="cf-turnstile-response"]'
+      )
+      return input?.value ?? ''
+    }
+
+    /** トークンは1度しか使えないので、失敗のたびに引き直す */
+    function resetCaptcha() {
+      const api = turnstile()
+      if (!api || !captchaEl) return
+      try {
+        api.reset(captchaEl)
+      } catch {
+        // 未描画なら何もしなくてよい
+      }
+    }
+
+    function setSending(on: boolean) {
+      sending = on
+      submitEl.disabled = on
+      submitEl.textContent = on ? messages.sending : submitLabel
+    }
+
+    function openMailto() {
+      const lines = REQUIRED.map((name) => {
+        const v = value(name)
+        return v ? `${LABELS[name]}: ${v}` : null
+      }).filter(Boolean)
+
+      const subject = `【お問い合わせ】${value('name')}`
+      window.location.href =
+        `mailto:${mailto}?subject=${encodeURIComponent(subject)}` +
+        `&body=${encodeURIComponent(lines.join('\n'))}`
+    }
+
+    /**
+     * 完了表示。本文はサーバーが返した文言を優先する。
+     * 自動返信を送るかどうか（AUTO_REPLY）はサーバー側の設定なので、
+     * 決め打ちの文言だと「確認メールをお送りしました」が嘘になりうる。
+     */
+    function showDone(serverMessage?: string) {
+      if (serverMessage) doneBodyEl.textContent = serverMessage
+      fieldsEl.hidden = true
+      doneEl.hidden = false
+      /*
+       * focus() 任せに読み上げ位置へ飛ばすと、入力欄が畳まれた分だけ
+       * 追従スクロールが起きて固定ヘッダーの下に見出しが隠れる。
+       * スクロールは自分で中央に寄せる。
+       */
+      doneEl.focus({ preventScroll: true })
+      form.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault()
+      if (sending) return
+
+      const firstBad = validate()
+      if (firstBad) {
+        showStatus(messages.invalid)
+        firstBad.focus()
+        return
+      }
+      clearStatus()
+
+      if (!endpoint) {
+        openMailto()
+        return
+      }
+
+      const token = captchaToken()
+      if (!token) {
+        showStatus(messages.captchaPending)
+        return
+      }
+
+      setSending(true)
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          // text/plain にしてプリフライト（CORS）を避ける。Apps Script はJSONを直接読む
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({
+            type: value('type'),
+            company: value('company'),
+            name: value('name'),
+            email: value('email'),
+            message: value('message'),
+            company_website: value('company_website'),
+            'cf-turnstile-response': token,
+            // 表示から送信までの経過ミリ秒。3秒未満はボットとして弾かれる
+            elapsed: Date.now() - openedAt,
+            page: window.location.href,
+            ua: window.navigator.userAgent,
+          }),
+        })
+
+        const result = await response.json().catch(() => null)
+        if (result?.ok) {
+          showDone(result.message)
+          return
+        }
+        showStatus(result?.message || messages.serverError)
+        const badName = ERROR_FIELD[result?.error]
+        const badEl = badName ? field(badName) : null
+        if (badEl) {
+          setError(badEl, true)
+          badEl.focus()
+        }
+      } catch {
+        showStatus(messages.networkError)
+      } finally {
+        // 送信できていなければ、引き直したトークンで再送信できるようにする
+        if (doneEl.hidden) {
+          resetCaptcha()
+          setSending(false)
+        }
+      }
+    })
+  }
+</script>

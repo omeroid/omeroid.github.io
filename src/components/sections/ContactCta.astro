@@ -1,0 +1,68 @@
+---
+import Blobs from '~/components/ui/Blobs.astro'
+import ContactForm from '~/components/ui/ContactForm.astro'
+import Eyebrow from '~/components/ui/Eyebrow.astro'
+import { contactCta } from '~/data/contact'
+
+/** 各ページ下部のCTA。お問い合わせページでは唯一の内容になるので見出しを h1 にする */
+interface Props {
+  as?: 'h1' | 'h2'
+}
+
+const { as: Tag = 'h2' }: Props = Astro.props
+---
+
+<section class="section section--bordered contact-cta">
+  <Blobs preset="contactCta" />
+  <div class="container contact-cta__inner">
+    <div>
+      <Eyebrow label={contactCta.eyebrow} reveal={0} />
+      <Tag class="heading contact-cta__title" data-reveal="1">
+        {
+          contactCta.title.map((line, i) => (
+            <>
+              {i > 0 && <br />}
+              {line}
+            </>
+          ))
+        }
+      </Tag>
+      <p class="lead contact-cta__lead" data-reveal="2">{contactCta.lead}</p>
+    </div>
+    <ContactForm reveal={3} />
+  </div>
+</section>
+
+<style>
+  .contact-cta {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-cta__inner {
+    position: relative;
+    z-index: 1;
+    padding-block: var(--section-y);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(2.5rem, 1rem + 4vw, 4.5rem);
+    align-items: center;
+  }
+
+  .contact-cta__title {
+    margin-top: 32px;
+    font-size: clamp(1.875rem, 1.2rem + 2.6vw, 2.875rem);
+    line-height: 1.62;
+  }
+
+  .contact-cta__lead {
+    margin-top: 32px;
+    max-width: 30em;
+  }
+
+  @media (max-width: 900px) {
+    .contact-cta__inner {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

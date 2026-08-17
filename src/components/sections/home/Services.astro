@@ -1,0 +1,119 @@
+---
+import ArrowLink from '~/components/ui/ArrowLink.astro'
+import Eyebrow from '~/components/ui/Eyebrow.astro'
+import Picture from '~/components/ui/Picture.astro'
+import Pill from '~/components/ui/Pill.astro'
+import { services } from '~/data/home'
+---
+
+<section class="section section--alt">
+  <div class="container services">
+    <Eyebrow label={services.eyebrow} reveal={0} />
+    <h2 class="heading services__title" data-reveal="1">
+      {
+        services.title.map((line, i) => (
+          <>
+            {i > 0 && <br />}
+            {line}
+          </>
+        ))
+      }
+    </h2>
+
+    <div class="grid grid--2 services__grid">
+      {
+        services.items.map((item, i) => (
+          <a class="services__card" href={item.href} data-reveal={2 + i}>
+            <Picture
+              picture={item.picture}
+              height="clamp(200px, 24vw, 290px)"
+              loading={i === 0 ? 'eager' : 'lazy'}
+            />
+            <div class="services__head">
+              <span class="en services__no">{item.no}</span>
+              <h3 class="services__name">{item.title}</h3>
+            </div>
+            <p class="services__body">{item.body}</p>
+            <div class="services__tags">
+              {item.tags.map((tag) => (
+                <Pill>{tag}</Pill>
+              ))}
+            </div>
+            <ArrowLink class="services__link">詳しく見る</ArrowLink>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    padding-block: var(--section-y);
+  }
+
+  .services__title {
+    margin: 32px 0 clamp(2.5rem, 1.5rem + 3vw, 4rem);
+    font-size: var(--fs-h2);
+  }
+
+  .services__grid {
+    gap: 28px;
+  }
+
+  .services__card {
+    display: block;
+    color: inherit;
+  }
+
+  .services__card:hover {
+    color: inherit;
+  }
+
+  .services__head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-top: 30px;
+  }
+
+  .services__no {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-50);
+  }
+
+  .services__name {
+    font-family: var(--font-head);
+    font-size: clamp(1.375rem, 1.1rem + 1.1vw, 1.875rem);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    line-height: 1.5;
+  }
+
+  .services__body {
+    margin-top: 20px;
+    font-size: var(--fs-body);
+    line-height: 2.05;
+    color: var(--ink-62);
+    max-width: 34em;
+  }
+
+  .services__tags {
+    margin-top: 26px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* 子コンポーネント（ArrowLink）の要素なのでスコープを抜ける必要がある */
+  .services__card :global(.services__link) {
+    margin-top: 30px;
+  }
+
+  @media (max-width: 736px) {
+    .services__grid {
+      gap: 56px;
+    }
+  }
+</style>

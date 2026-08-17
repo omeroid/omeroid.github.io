@@ -1,0 +1,61 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import Hero from '~/components/sections/home/Hero.astro'
+import NewsPreview from '~/components/sections/home/NewsPreview.astro'
+import ProductTeaser from '~/components/sections/home/ProductTeaser.astro'
+import Recruit from '~/components/sections/home/Recruit.astro'
+import Services from '~/components/sections/home/Services.astro'
+import Ticker from '~/components/sections/home/Ticker.astro'
+import Why from '~/components/sections/home/Why.astro'
+import CardGrid from '~/components/ui/CardGrid.astro'
+import PictureRow from '~/components/ui/PictureRow.astro'
+import Section from '~/components/ui/Section.astro'
+import SectionHead from '~/components/ui/SectionHead.astro'
+import StatBand from '~/components/ui/StatBand.astro'
+import { blogs, culturePictures, philosophy, stats } from '~/data/home'
+import { site } from '~/data/site'
+---
+
+<BaseLayout description={site.description}>
+  <Hero />
+  <Ticker />
+  <Why />
+  <Services />
+
+  <section class="section">
+    <div class="container">
+      <StatBand stats={stats} />
+    </div>
+  </section>
+
+  <Section>
+    <SectionHead
+      eyebrow={philosophy.eyebrow}
+      title={philosophy.title}
+      lead={philosophy.lead}
+    />
+    <CardGrid cards={philosophy.cards} cols={3} strength={0.24} />
+  </Section>
+
+  <Section flush="top">
+    <PictureRow
+      pictures={culturePictures}
+      columns="1.4fr 1fr 1fr"
+      height="clamp(200px, 24vw, 340px)"
+    />
+  </Section>
+
+  <NewsPreview />
+  <ProductTeaser />
+
+  <Section bordered>
+    <SectionHead
+      eyebrow={blogs.eyebrow}
+      title={blogs.title}
+      lead={blogs.lead}
+    />
+    <CardGrid cards={blogs.cards} cols={2} titleSize="md" strength={0.2} />
+  </Section>
+
+  <Recruit />
+</BaseLayout>

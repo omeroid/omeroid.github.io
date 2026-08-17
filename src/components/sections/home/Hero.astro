@@ -1,0 +1,122 @@
+---
+import Blobs from '~/components/ui/Blobs.astro'
+import Btn from '~/components/ui/Btn.astro'
+import { hero } from '~/data/home'
+---
+
+<section class="hero">
+  <Blobs preset="hero" />
+
+  <div class="hero__inner">
+    <h1 class="heading hero__title" data-reveal="0">
+      {
+        hero.title.map((line, i) => (
+          <>
+            {i > 0 && <br />}
+            {line}
+          </>
+        ))
+      }
+    </h1>
+    <p class="en hero__subtitle" data-reveal="2">{hero.subtitle}</p>
+    <div class="hero__actions" data-reveal="3">
+      {
+        hero.buttons.map((button) => (
+          <Btn href={button.href} variant={button.variant ?? 'outline'}>
+            {button.label}
+          </Btn>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="hero__cue" aria-hidden="true">
+    <span class="en hero__cue-label">SCROLL</span>
+    <span class="hero__cue-line"><span></span></span>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero__inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: clamp(5rem, 3rem + 6vw, 7.5rem) var(--gutter);
+  }
+
+  .hero__title {
+    font-size: var(--fs-hero);
+    line-height: 1.62;
+    letter-spacing: 0.06em;
+  }
+
+  .hero__subtitle {
+    margin-top: 36px;
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: 0.16em;
+    color: var(--ink-62);
+  }
+
+  .hero__actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    margin-top: clamp(2.5rem, 1.5rem + 2.5vw, 3.5rem);
+    flex-wrap: wrap;
+  }
+
+  .hero__cue {
+    position: absolute;
+    bottom: 34px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 1;
+  }
+
+  .hero__cue-label {
+    font-size: 0.65625rem;
+    letter-spacing: 0.24em;
+    color: var(--ink-45);
+  }
+
+  .hero__cue-line {
+    width: 1px;
+    height: 52px;
+    background: rgba(22, 25, 28, 0.16);
+    position: relative;
+    overflow: hidden;
+    display: block;
+  }
+
+  .hero__cue-line span {
+    position: absolute;
+    inset: 0;
+    background: var(--c-ink);
+    animation: omeCue 2.4s ease-in-out infinite;
+    display: block;
+  }
+
+  @media (max-width: 736px) {
+    .hero {
+      min-height: 78vh;
+    }
+
+    .hero__cue {
+      display: none;
+    }
+  }
+</style>

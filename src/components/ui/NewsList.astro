@@ -1,0 +1,122 @@
+---
+import type { NewsItem } from '~/types'
+
+/** 罫線区切りのお知らせ一覧 */
+interface Props {
+  items: NewsItem[]
+  /** 全件の本文を表示する（一覧ページ用） */
+  showBody?: boolean
+  revealFrom?: number
+}
+
+const { items, showBody = false, revealFrom = 2 } = Astro.props
+
+/**
+ * 本文を出すかどうか。
+ * リンク先が無い項目は「続きを読む先」が無いので、showBody に関係なく本文まで表示する
+ * （例: 加入団体のお知らせ）。
+ */
+const shouldShowBody = (item: NewsItem) =>
+  Boolean(item.body) && (showBody || !item.href)
+---
+
+<div class="news">
+  {
+    items.map((item, i) => {
+      const Tag = item.href ? 'a' : 'div'
+      return (
+        <Tag
+          class:list={['news__row', item.href && 'is-link']}
+          href={item.href}
+          target={item.href ? '_blank' : undefined}
+          rel={item.href ? 'noopener' : undefined}
+          data-reveal={revealFrom + i}
+        >
+          <div class="news__main">
+            <div class="news__meta">
+              <span class="en news__date">{item.date}</span>
+              <span class="news__category">{item.category}</span>
+            </div>
+            <span class="news__title">{item.title}</span>
+            {shouldShowBody(item) && <p class="news__body">{item.body}</p>}
+          </div>
+          <span class="en news__mark" aria-hidden="true">
+            {item.href ? '→' : ''}
+          </span>
+        </Tag>
+      )
+    })
+  }
+</div>
+
+<style>
+  .news {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--line-mid);
+  }
+
+  .news__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 30px;
+    gap: 16px;
+    padding: 28px 8px;
+    align-items: center;
+    border-bottom: 1px solid var(--line-mid);
+    color: inherit;
+    transition: background-color 260ms var(--ease);
+  }
+
+  .news__row.is-link:hover {
+    background: rgb(var(--c-teal-rgb) / 0.07);
+    color: inherit;
+  }
+
+  .news__main {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .news__meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .news__date {
+    font-size: 0.84375rem;
+    color: var(--ink-50);
+  }
+
+  .news__category {
+    font-size: var(--fs-eyebrow);
+    letter-spacing: 0.08em;
+    padding: 5px 12px;
+    border-radius: var(--radius-pill);
+    border: 1px solid rgba(22, 25, 28, 0.2);
+  }
+
+  .news__title {
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .news__body {
+    font-size: var(--fs-sm);
+    line-height: 2;
+    color: var(--c-text);
+  }
+
+  .news__mark {
+    color: var(--ink-40);
+    text-align: right;
+    transition: transform 260ms var(--ease);
+  }
+
+  .news__row.is-link:hover .news__mark {
+    transform: translateX(4px);
+  }
+</style>

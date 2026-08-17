@@ -1,0 +1,23 @@
+---
+import CellGrid from '~/components/ui/CellGrid.astro'
+import Section from '~/components/ui/Section.astro'
+import SectionHead from '~/components/ui/SectionHead.astro'
+import type { SectionHeading } from '~/types'
+
+/** ISSUES（こんなご相談をいただいています）。IT事業・コンサルティングで使う */
+interface Props {
+  heading: SectionHeading
+  items: string[]
+}
+
+const { heading, items } = Astro.props
+---
+
+<Section variant="alt">
+  <SectionHead
+    {...heading}
+    size="sm"
+    gap="clamp(2.5rem, 1.5rem + 3vw, 3.5rem)"
+  />
+  <CellGrid items={items.map((body) => ({ body }))} cols={3} />
+</Section>

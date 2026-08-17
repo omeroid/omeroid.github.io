@@ -1,70 +1,38 @@
 {
-  "name": "gatsby-starter-forty-v2",
-  "description": "Gatsby Starter - Forty V2",
-  "version": "1.0.0",
-  "author": "Hunter Chang",
-  "dependencies": {
-    "@fontsource-variable/noto-sans-jp": "^5.2.10",
-    "classnames": "^2.3.2",
-    "echarts": "^5.4.3",
-    "echarts-for-react": "^3.0.6",
-    "gatsby": "^5.16.1",
-    "gatsby-plugin-google-gtag": "^5.16.0",
-    "gatsby-plugin-manifest": "^5.16.0",
-    "gatsby-plugin-sass": "^6.16.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-helmet": "^6.1.0",
-    "sass": "^1.99.0"
-  },
-  "keywords": [
-    "gatsby"
-  ],
+  "name": "omeroid-corporate-site",
+  "description": "omeroid株式会社 コーポレートサイト (Astro / SSG)",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
   "license": "MIT",
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
   "scripts": {
-    "build": "NODE_NO_WARNINGS=1 gatsby build",
-    "develop": "NODE_NO_WARNINGS=1 gatsby develop",
-    "deploy": "NODE_NO_WARNINGS=1 gatsby build --prefix-paths && echo 'www.omeroid.com' > public/CNAME && gh-pages --branch master -d public",
-    "start": "yarn develop",
-    "clean": "NODE_NO_WARNINGS=1 gatsby clean",
-    "serve": "NODE_NO_WARNINGS=1 gatsby serve",
-    "format": "prettier --write --single-quote \"src/**/*.js\"",
-    "format:check": "prettier --check --single-quote \"src/**/*.js\"",
-    "lint": "eslint src --ext .js,.jsx",
-    "lint:fix": "eslint src --ext .js,.jsx --fix",
-    "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\"",
-    "test:ci": "yarn test"
+    "dev": "astro dev",
+    "develop": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "serve": "astro preview",
+    "typecheck": "astro check",
+    "check:styles": "node scripts/check-scoped-styles.mjs",
+    "lint": "node scripts/check-scoped-styles.mjs && astro check",
+    "format": "prettier --write \"src/**/*.{astro,ts,js,css,json}\" \"*.{mjs,json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{astro,ts,js,css,json}\" \"*.{mjs,json,md}\"",
+    "clean": "rm -rf dist .astro node_modules/.astro",
+    "deploy": "astro build && gh-pages --branch master --dotfiles -d dist",
+    "test": "astro check",
+    "test:ci": "astro check"
+  },
+  "dependencies": {
+    "astro": "^5.6.1",
+    "sharp": "^0.34.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.4",
-    "eslint": "^9.39.4",
-    "eslint-config-react-app": "^7.0.1",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
+    "@astrojs/check": "^0.9.4",
     "gh-pages": "^6.3.0",
-    "globals": "^16.5.0",
-    "prettier": "^3.8.3"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
-  },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
-  "resolutions": {
-    "postcss": "^8.5.10",
-    "cookie": "^0.7.0",
-    "path-to-regexp": "^0.1.13",
-    "lodash.template": "^4.18.1",
-    "follow-redirects": "^1.16.0",
-    "axios": "^1.15.0",
-    "picomatch": "^2.3.2",
-    "flatted": "^3.4.2",
-    "socket.io-parser": "^4.2.6",
-    "multer": "^2.1.1",
-    "svgo": "^2.8.2",
-    "@isaacs/brace-expansion": "^5.0.1",
-    "lodash": "^4.17.23",
-    "form-data": "^4.0.4"
+    "prettier": "^3.5.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "simple-icons": "^16.28.0",
+    "typescript": "^5.8.3"
   }
 }

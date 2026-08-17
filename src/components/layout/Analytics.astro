@@ -1,0 +1,25 @@
+---
+import { site } from '~/data/site'
+
+/**
+ * Google Analytics 4 の計測タグ。
+ * site.gaId が空の場合は何も出力しない。
+ */
+const gaId = site.gaId
+
+// is:inline なスクリプトには define:vars が効かないため、文字列を組み立てて set:html で埋め込む
+const gtagInit = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config',${JSON.stringify(gaId)},{anonymize_ip:true});`
+---
+
+{
+  gaId && (
+    <Fragment>
+      <script
+        is:inline
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+      />
+      <script is:inline set:html={gtagInit} />
+    </Fragment>
+  )
+}

@@ -1,0 +1,62 @@
+---
+import Picture from '~/components/ui/Picture.astro'
+import Section from '~/components/ui/Section.astro'
+import SectionHead from '~/components/ui/SectionHead.astro'
+import { members } from '~/data/company'
+---
+
+<Section>
+  <SectionHead
+    eyebrow="MEMBERS"
+    title="経営メンバー"
+    size="sm"
+    gap="clamp(2.25rem, 1.5rem + 2.6vw, 3.25rem)"
+  />
+
+  <div class="grid grid--3 members">
+    {
+      members.map((member, i) => (
+        <article data-reveal={2 + i}>
+          <Picture
+            picture={member.picture}
+            height="clamp(260px, 28vw, 320px)"
+            radius="var(--radius)"
+            sizes="(max-width: 736px) 100vw, 33vw"
+          />
+          <div class="en members__role">{member.role}</div>
+          <h3 class="members__name">{member.name}</h3>
+          <p class="members__body">{member.body}</p>
+        </article>
+      ))
+    }
+  </div>
+</Section>
+
+<style>
+  .members {
+    gap: 28px;
+  }
+
+  .members__role {
+    font-size: var(--fs-eyebrow);
+    letter-spacing: 0.2em;
+    color: var(--ink-50);
+    margin-top: 26px;
+  }
+
+  .members__name {
+    margin-top: 12px;
+    font-family: var(--font-head);
+    font-size: var(--fs-h3);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+  }
+
+  .members__body {
+    margin-top: 16px;
+    font-size: var(--fs-sm);
+    line-height: 2.05;
+    color: var(--c-text);
+  }
+</style>

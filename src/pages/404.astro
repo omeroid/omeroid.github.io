@@ -1,0 +1,57 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import Blobs from '~/components/ui/Blobs.astro'
+import Btn from '~/components/ui/Btn.astro'
+---
+
+<BaseLayout title="ページが見つかりません">
+  <section class="nf">
+    <Blobs preset="hero" />
+    <div class="container nf__inner">
+      <p class="en nf__code">404</p>
+      <h1 class="heading nf__title">お探しのページが見つかりません</h1>
+      <p class="lead nf__lead">
+        URLが変更されたか、削除された可能性があります。トップページからお探しください。
+      </p>
+      <Btn href="/" variant="solid" arrow class="nf__cta">トップページへ</Btn>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    position: relative;
+    overflow: hidden;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .nf__inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding-block: clamp(4rem, 2rem + 6vw, 8rem);
+  }
+
+  .nf__code {
+    font-size: 0.875rem;
+    letter-spacing: 0.3em;
+    color: var(--ink-45);
+  }
+
+  .nf__title {
+    margin-top: 24px;
+    font-size: var(--fs-h2-sm);
+  }
+
+  .nf__lead {
+    margin: 28px auto 0;
+    max-width: 28em;
+  }
+
+  /* 子コンポーネント（Btn）の要素なのでスコープを抜ける必要がある */
+  .nf__inner :global(.nf__cta) {
+    margin-top: 40px;
+  }
+</style>

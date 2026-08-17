@@ -1,0 +1,61 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import ContactCta from '~/components/sections/ContactCta.astro'
+import Faq from '~/components/sections/Faq.astro'
+import Issues from '~/components/sections/Issues.astro'
+import MenuList from '~/components/sections/MenuList.astro'
+import PageHero from '~/components/sections/PageHero.astro'
+import Strength from '~/components/sections/Strength.astro'
+import Works from '~/components/sections/Works.astro'
+import Contents from '~/components/sections/consulting/Contents.astro'
+import Process from '~/components/sections/consulting/Process.astro'
+import {
+  consultingFaqs,
+  consultingHero,
+  consultingIssues,
+  consultingMenu,
+  consultingMenuHeading,
+  consultingStrengthCards,
+  consultingStrengthHeading,
+  consultingWorks,
+  consultingWorksFilterLabels,
+  consultingWorksFootnotes,
+  consultingWorksHeading,
+  consultingWorksListHeading,
+  consultingWorkStats,
+} from '~/data/consulting'
+---
+
+<BaseLayout
+  title="戦略・業務コンサルティング"
+  description="経営・業務戦略、DX・AI戦略、データ戦略の3テーマで伴走。エンジニアが同じ社内にいるからこそ、実装可能な戦略を描き、実行まで見届けます。"
+>
+  <PageHero
+    eyebrow={consultingHero.eyebrow}
+    title={consultingHero.title}
+    lead={consultingHero.lead}
+    cta={consultingHero.cta}
+    ctaNote={consultingHero.ctaNote}
+    blobs="consulting"
+  />
+
+  <Issues {...consultingIssues} />
+  <MenuList heading={consultingMenuHeading} rows={consultingMenu} />
+  <Strength
+    heading={consultingStrengthHeading}
+    cards={consultingStrengthCards}
+  />
+  <Works
+    heading={consultingWorksHeading}
+    layout="cards"
+    stats={consultingWorkStats}
+    listHeading={consultingWorksListHeading}
+    filterLabels={consultingWorksFilterLabels}
+    works={consultingWorks}
+    footnotes={consultingWorksFootnotes}
+  />
+  <Process />
+  <Contents />
+  <Faq items={consultingFaqs} />
+  <ContactCta />
+</BaseLayout>

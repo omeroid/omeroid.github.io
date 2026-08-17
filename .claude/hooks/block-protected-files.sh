@@ -9,27 +9,15 @@ if [ -z "$FILE_PATH" ]; then
   exit 0
 fi
 
-# Gatsby 自動生成ディレクトリ
-if [[ "$FILE_PATH" == *"/.cache/"* ]] || [[ "$FILE_PATH" == */public/* ]]; then
-  echo "Gatsby が自動生成するディレクトリです。直接編集しないでください。" >&2
+# Astro のビルド出力・キャッシュ（public/ は手書きの静的ファイル置き場なので対象外）
+if [[ "$FILE_PATH" == */dist/* ]] || [[ "$FILE_PATH" == *"/.astro/"* ]]; then
+  echo "Astro のビルド出力／キャッシュです。直接編集しないでください（yarn build で再生成されます）。" >&2
   exit 2
 fi
 
 # node_modules
 if [[ "$FILE_PATH" == *"/node_modules/"* ]]; then
   echo "node_modules 内のファイルは直接編集しないでください。" >&2
-  exit 2
-fi
-
-# サードパーティ SCSS ライブラリ (skel.scss)
-if [[ "$FILE_PATH" == *"/scss/libs/_skel.scss" ]]; then
-  echo "skel.scss はサードパーティライブラリです。直接編集しないでください。Sass の警告は gatsby-config.js の silenceDeprecations で対処してください。" >&2
-  exit 2
-fi
-
-# 静的 CSS (font-awesome 等)
-if [[ "$FILE_PATH" == *"/assets/css/"* ]]; then
-  echo "assets/css/ 内はサードパーティの静的 CSS です。直接編集しないでください。" >&2
   exit 2
 fi
 

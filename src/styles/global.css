@@ -1,0 +1,328 @@
+@import './tokens.css';
+
+/* ============ リセット ============ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--c-bg);
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--c-ink);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  line-height: 1.9;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--c-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--c-accent-hover);
+}
+
+input,
+textarea,
+button,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+::selection {
+  background: #ffb27a;
+  color: var(--c-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 3px;
+}
+
+/* ============ 共通ユーティリティ ============ */
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  position: relative;
+}
+
+.section--bordered {
+  border-top: 1px solid var(--line);
+}
+
+.section--alt {
+  background: var(--c-bg-alt);
+}
+
+.section--tint {
+  background: rgba(22, 25, 28, 0.03);
+  border-top: 1px solid rgba(22, 25, 28, 0.08);
+  border-bottom: 1px solid rgba(22, 25, 28, 0.08);
+}
+
+.section__inner {
+  padding-block: var(--section-y);
+}
+
+.section__inner--top-flush {
+  padding-block: 0 var(--section-y);
+}
+
+.section__inner--bottom-flush {
+  padding-block: var(--section-y) 0;
+}
+
+/* ============ 見出し・テキスト ============ */
+.heading {
+  font-family: var(--font-head);
+  font-weight: 700;
+  line-height: 1.6;
+  letter-spacing: var(--ls-head);
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 2.15;
+  color: var(--c-text);
+  max-width: 34em;
+  text-wrap: pretty;
+}
+
+.en {
+  font-family: var(--font-en);
+}
+
+.note {
+  font-size: var(--fs-sm);
+  line-height: 2;
+  color: var(--ink-55);
+}
+
+/* ============ グリッド ============ */
+.grid {
+  display: grid;
+  gap: 22px;
+}
+
+.grid--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid--4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media (max-width: 980px) {
+  .grid--3,
+  .grid--4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 736px) {
+  .grid--2,
+  .grid--3,
+  .grid--4 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ============ スクロール演出 ============ */
+[data-reveal] {
+  --reveal-delay: 0ms;
+}
+
+.js [data-reveal]:not([data-revealed]) {
+  opacity: 0;
+  transform: translateY(30px);
+  filter: blur(6px);
+  will-change: opacity, transform, filter;
+}
+
+.js [data-reveal][data-revealed] {
+  transition:
+    opacity 1000ms var(--ease) var(--reveal-delay),
+    transform 1000ms var(--ease) var(--reveal-delay),
+    filter 1000ms var(--ease) var(--reveal-delay);
+}
+
+/* カードのグラデーションを地の色で覆い、スクロール時に色が差してくる演出 */
+.tint-layer {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+  background: var(--tint-cover, var(--c-bg));
+  opacity: 0;
+  transition: opacity 1500ms var(--ease);
+}
+
+.js [data-tint]:not([data-revealed]) > .tint-layer {
+  opacity: 1;
+}
+
+/*
+ * 「動きを減らす」設定時の扱い。
+ *
+ * 出現演出・背景の漂う円・ティッカー・SCROLL誘導は、いずれもこのサイトの見た目そのものなので
+ * OS/ブラウザの設定に関わらず動かす（デザイン側にも reduced-motion の分岐は無い）。
+ * ここで抑えるのはページ内リンクのスムーススクロールだけ。
+ *
+ * ※ アクセシビリティ上は動きを抑える実装が定石だが、「動きが失われる」ことを避ける方針を
+ *    優先している。設定を尊重したくなった場合は、この @media 内に
+ *      .js [data-reveal]:not([data-revealed]) { transform: none; filter: none; }
+ *    などを足せば段階的に弱められる。
+ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ============ 背景ブロブのアニメーション ============ */
+@keyframes omeFloatA {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(7%, -6%) scale(1.14);
+  }
+  66% {
+    transform: translate(-5%, 5%) scale(0.92);
+  }
+}
+
+@keyframes omeFloatB {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1.05);
+  }
+  40% {
+    transform: translate(-8%, 4%) scale(0.9);
+  }
+  70% {
+    transform: translate(5%, 7%) scale(1.16);
+  }
+}
+
+@keyframes omeFloatC {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(0.95);
+  }
+  50% {
+    transform: translate(6%, 8%) scale(1.2);
+  }
+}
+
+@keyframes omeTicker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes omeCue {
+  0% {
+    transform: translateY(-40%);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(120%);
+    opacity: 0;
+  }
+}
+
+@keyframes omeCore {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.92;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.14);
+    opacity: 1;
+  }
+}
+
+@keyframes omeRipple {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.6);
+    opacity: 0;
+  }
+}
+
+@keyframes omeLogoPulse {
+  0%,
+  100% {
+    opacity: 0.42;
+  }
+  50% {
+    opacity: 0.92;
+  }
+}

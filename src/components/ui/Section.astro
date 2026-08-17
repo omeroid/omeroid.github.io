@@ -1,0 +1,43 @@
+---
+/** セクションの外枠。背景・罫線・上下余白のバリエーションを持つ */
+interface Props {
+  /** 背景 */
+  variant?: 'default' | 'alt' | 'tint'
+  /** 上罫線を引く */
+  bordered?: boolean
+  /** 上下余白を詰める */
+  flush?: 'none' | 'top' | 'bottom'
+  id?: string
+  class?: string
+}
+
+const {
+  variant = 'default',
+  bordered = false,
+  flush = 'none',
+  id,
+  class: className,
+} = Astro.props
+---
+
+<section
+  class:list={[
+    'section',
+    variant !== 'default' && `section--${variant}`,
+    bordered && 'section--bordered',
+    className,
+  ]}
+  id={id}
+>
+  <div class="container">
+    <div
+      class:list={[
+        'section__inner',
+        flush === 'top' && 'section__inner--top-flush',
+        flush === 'bottom' && 'section__inner--bottom-flush',
+      ]}
+    >
+      <slot />
+    </div>
+  </div>
+</section>

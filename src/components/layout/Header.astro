@@ -1,0 +1,446 @@
+---
+import { headerCta, nav } from '~/data/site'
+import Logo from '~/components/ui/Logo.astro'
+
+const path = Astro.url.pathname
+
+const isExternal = (href: string) => /^https?:/.test(href)
+
+/** 現在ページかどうか（トップは完全一致、それ以外は前方一致） */
+const isCurrent = (href?: string) =>
+  href === undefined || isExternal(href)
+    ? false
+    : href === '/'
+      ? path === '/'
+      : path.startsWith(href)
+
+/** ドロップダウンの親は、子のどれかが現在ページなら現在扱いにする */
+const isCurrentItem = (item: (typeof nav)[number]) =>
+  isCurrent(item.href) || (item.children ?? []).some((c) => isCurrent(c.href))
+---
+
+<header class="header">
+  <div class="container header__inner">
+    <a href="/" class="header__logo" aria-label="omeroid ホーム">
+      <Logo height="26px" />
+    </a>
+
+    <nav class="header__nav" aria-label="グローバルナビゲーション">
+      <ul class="header__list">
+        {
+          nav.map((item) =>
+            item.children ? (
+              <li class="header__menu" data-menu>
+                <button
+                  type="button"
+                  class:list={[
+                    'header__link',
+                    isCurrentItem(item) && 'is-current',
+                  ]}
+                  aria-expanded="false"
+                  data-menu-button
+                >
+                  {item.label}
+                  <span class="en header__caret" aria-hidden="true">
+                    ▾
+                  </span>
+                </button>
+                <div class="header__dropdown" data-menu-panel hidden>
+                  <ul class="header__dropdown-list">
+                    {item.children.map((child) => (
+                      <li>
+                        <a
+                          href={child.href}
+                          class:list={[
+                            'header__dropdown-link',
+                            isCurrent(child.href) && 'is-current',
+                          ]}
+                          target={isExternal(child.href) ? '_blank' : undefined}
+                          rel={isExternal(child.href) ? 'noopener' : undefined}
+                          aria-current={
+                            isCurrent(child.href) ? 'page' : undefined
+                          }
+                        >
+                          {child.label}
+                          {isExternal(child.href) && (
+                            <span class="en header__ext" aria-hidden="true">
+                              ↗
+                            </span>
+                          )}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </li>
+            ) : (
+              <li>
+                <a
+                  href={item.href}
+                  class:list={[
+                    'header__link',
+                    isCurrent(item.href) && 'is-current',
+                  ]}
+                  target={isExternal(item.href ?? '') ? '_blank' : undefined}
+                  rel={isExternal(item.href ?? '') ? 'noopener' : undefined}
+                  aria-current={isCurrent(item.href) ? 'page' : undefined}
+                >
+                  {item.label}
+                  {isExternal(item.href ?? '') && (
+                    <span class="en header__ext" aria-hidden="true">
+                      ↗
+                    </span>
+                  )}
+                </a>
+              </li>
+            )
+          )
+        }
+      </ul>
+      <a href={headerCta.href} class="header__cta">{headerCta.label}</a>
+    </nav>
+
+    <button
+      class="header__toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+      aria-label="メニューを開く"
+    >
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div class="header__drawer" id="mobile-nav" hidden>
+    <ul class="header__drawer-list">
+      {
+        nav.map((item) =>
+          item.children ? (
+            <li>
+              <span class="header__drawer-label">{item.label}</span>
+              <ul>
+                {item.children.map((child) => (
+                  <li>
+                    <a
+                      href={child.href}
+                      class:list={[
+                        'header__drawer-child',
+                        isCurrent(child.href) && 'is-current',
+                      ]}
+                      target={isExternal(child.href) ? '_blank' : undefined}
+                      rel={isExternal(child.href) ? 'noopener' : undefined}
+                      aria-current={isCurrent(child.href) ? 'page' : undefined}
+                    >
+                      {child.label}
+                      {isExternal(child.href) && (
+                        <span class="en header__ext" aria-hidden="true">
+                          ↗
+                        </span>
+                      )}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ) : (
+            <li>
+              <a
+                href={item.href}
+                class:list={[isCurrent(item.href) && 'is-current']}
+                target={isExternal(item.href ?? '') ? '_blank' : undefined}
+                rel={isExternal(item.href ?? '') ? 'noopener' : undefined}
+                aria-current={isCurrent(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+                {isExternal(item.href ?? '') && (
+                  <span class="en header__ext" aria-hidden="true">
+                    ↗
+                  </span>
+                )}
+              </a>
+            </li>
+          )
+        )
+      }
+    </ul>
+    <a href={headerCta.href} class="header__cta header__cta--drawer">
+      {headerCta.label}
+    </a>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background: rgba(251, 250, 247, 0.72);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(22, 25, 28, 0.08);
+  }
+
+  .header__inner {
+    height: var(--header-h);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .header__logo {
+    display: flex;
+    align-items: center;
+    color: var(--c-ink);
+    flex: none;
+  }
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .header__list {
+    display: flex;
+    align-items: center;
+  }
+
+  /* 項目が増えたので余白と文字を詰めている（1080px で collapse する） */
+  .header__link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px;
+    font-size: 0.78125rem;
+    font-weight: 500;
+    color: var(--c-text);
+    white-space: nowrap;
+    transition: color 200ms var(--ease);
+  }
+
+  .header__link:hover,
+  .header__link.is-current {
+    color: var(--c-ink);
+  }
+
+  /* --- 会社情報のドロップダウン --- */
+  .header__menu {
+    position: relative;
+  }
+
+  .header__caret {
+    font-size: 0.625rem;
+    opacity: 0.65;
+  }
+
+  .header__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 232px;
+    padding-top: 10px;
+  }
+
+  .header__dropdown[hidden] {
+    display: none;
+  }
+
+  .header__dropdown-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px;
+    background: var(--c-bg);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: 0 18px 40px rgba(22, 25, 28, 0.12);
+  }
+
+  .header__dropdown-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 14px;
+    border-radius: 7px;
+    font-size: 0.84375rem;
+    font-weight: 500;
+    color: var(--c-ink);
+    white-space: nowrap;
+    transition:
+      background-color 200ms var(--ease),
+      color 200ms var(--ease);
+  }
+
+  .header__dropdown-link:hover,
+  .header__dropdown-link.is-current {
+    background: var(--c-bg-alt);
+    color: var(--c-accent);
+  }
+
+  .header__ext {
+    font-size: 0.625rem;
+    opacity: 0.5;
+  }
+
+  .header__cta {
+    padding: 11px 18px;
+    border-radius: var(--radius-pill);
+    background: var(--c-ink);
+    color: var(--c-bg);
+    font-size: 0.78125rem;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: background-color 220ms var(--ease);
+  }
+
+  .header__cta:hover {
+    background: var(--c-accent);
+    color: var(--c-bg);
+  }
+
+  /* --- ハンバーガー --- */
+  .header__toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    position: relative;
+    margin-right: -10px;
+  }
+
+  .header__toggle span {
+    position: absolute;
+    left: 11px;
+    width: 22px;
+    height: 1.5px;
+    background: var(--c-ink);
+    transition: transform 260ms var(--ease);
+  }
+
+  .header__toggle span:first-child {
+    top: 18px;
+  }
+
+  .header__toggle span:last-child {
+    top: 25px;
+  }
+
+  .header__toggle[aria-expanded='true'] span:first-child {
+    transform: translateY(3.5px) rotate(45deg);
+  }
+
+  .header__toggle[aria-expanded='true'] span:last-child {
+    transform: translateY(-3.5px) rotate(-45deg);
+  }
+
+  .header__drawer {
+    display: none;
+    padding: 12px var(--gutter) 28px;
+    border-top: 1px solid var(--line);
+  }
+
+  .header__drawer-list a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 2px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--c-ink);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header__drawer-list a.is-current {
+    color: var(--c-accent);
+  }
+
+  .header__drawer-label {
+    display: block;
+    padding: 20px 2px 8px;
+    font-family: var(--font-en);
+    font-size: 0.71875rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-45);
+  }
+
+  .header__drawer-list a.header__drawer-child {
+    padding-left: 14px;
+  }
+
+  .header__cta--drawer {
+    display: block;
+    margin-top: 24px;
+    text-align: center;
+  }
+
+  @media (max-width: 1080px) {
+    .header__nav {
+      display: none;
+    }
+
+    .header__toggle {
+      display: block;
+    }
+
+    .header__drawer {
+      display: block;
+    }
+
+    .header__drawer[hidden] {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.header__toggle')
+  const drawer = document.querySelector<HTMLElement>('#mobile-nav')
+
+  if (toggle && drawer) {
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') === 'true'
+      toggle.setAttribute('aria-expanded', String(!open))
+      toggle.setAttribute(
+        'aria-label',
+        open ? 'メニューを開く' : 'メニューを閉じる'
+      )
+      drawer.hidden = open
+    })
+
+    // 画面幅がデスクトップに戻ったら閉じる
+    window.matchMedia('(min-width: 1081px)').addEventListener('change', (e) => {
+      if (e.matches) {
+        toggle.setAttribute('aria-expanded', 'false')
+        drawer.hidden = true
+      }
+    })
+  }
+
+  // ドロップダウン（ホバーで開き、クリック・Escでも操作できる）
+  document.querySelectorAll<HTMLElement>('[data-menu]').forEach((menu) => {
+    const button = menu.querySelector<HTMLButtonElement>('[data-menu-button]')
+    const panel = menu.querySelector<HTMLElement>('[data-menu-panel]')
+    if (!button || !panel) return
+
+    const setOpen = (open: boolean) => {
+      button.setAttribute('aria-expanded', String(open))
+      panel.hidden = !open
+    }
+
+    menu.addEventListener('mouseenter', () => setOpen(true))
+    menu.addEventListener('mouseleave', () => setOpen(false))
+    menu.addEventListener('focusout', (event) => {
+      if (!menu.contains(event.relatedTarget as Node)) setOpen(false)
+    })
+    button.addEventListener('click', () =>
+      setOpen(button.getAttribute('aria-expanded') !== 'true')
+    )
+    menu.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        setOpen(false)
+        button.focus()
+      }
+    })
+  })
+</script>

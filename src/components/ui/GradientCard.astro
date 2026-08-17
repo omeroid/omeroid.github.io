@@ -1,0 +1,150 @@
+---
+import { accentStyle } from '~/lib/accent'
+import type { AccentCard, AccentKey } from '~/types'
+import ArrowLink from './ArrowLink.astro'
+import Dots from './Dots.astro'
+
+/**
+ * アクセント色のグラデーションが差し込まれたカード。
+ * 強み・哲学・支援メニュー・ブログなど、サイト内のカード全般に使う。
+ */
+interface Props extends AccentCard {
+  /** グラデーションの濃さ */
+  strength?: number
+  /** タイトルの大きさ */
+  titleSize?: 'lg' | 'md' | 'sm'
+  /** 背景色（スクロール時の色差し演出でカバーする色） */
+  surface?: 'bg' | 'alt'
+  reveal?: number
+  class?: string
+}
+
+const {
+  accent,
+  accentPair,
+  eyebrow,
+  title,
+  body,
+  footnote,
+  href,
+  linkLabel,
+  dots = false,
+  strength = 0.22,
+  titleSize = 'md',
+  surface = 'bg',
+  reveal,
+  class: className,
+} = Astro.props
+
+const isExternal = !!href && /^https?:/.test(href)
+const Tag = href ? 'a' : 'div'
+const surfaceVar = surface === 'alt' ? 'var(--c-bg-alt)' : 'var(--c-bg)'
+const pair: AccentKey | undefined = accentPair
+---
+
+<Tag
+  class:list={['gcard', href && 'is-link', className]}
+  style={`${accentStyle(accent, pair)};--tint:${strength};--tint-cover:${surfaceVar}`}
+  href={href}
+  target={isExternal ? '_blank' : undefined}
+  rel={isExternal ? 'noopener' : undefined}
+  data-reveal={reveal}
+  data-tint
+>
+  <span class="tint-layer"></span>
+  {dots && <Dots accent={accent} pair={pair} size={22} class="gcard__dots" />}
+  {eyebrow && <div class="en gcard__eyebrow">{eyebrow}</div>}
+  <h3 class:list={['gcard__title', `is-${titleSize}`]}>{title}</h3>
+  <p class="gcard__body">{body}</p>
+  {footnote && <div class="gcard__footnote">{footnote}</div>}
+  {
+    linkLabel && (
+      <ArrowLink size="sm" class="gcard__link">
+        {linkLabel}
+      </ArrowLink>
+    )
+  }
+  <slot />
+</Tag>
+
+<style>
+  .gcard {
+    position: relative;
+    isolation: isolate;
+    display: block;
+    padding: clamp(2rem, 1.2rem + 2vw, 3.25rem)
+      clamp(1.5rem, 1rem + 1.8vw, 2.875rem);
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    background: linear-gradient(
+      158deg,
+      rgb(var(--accent-rgb) / var(--tint)) 0%,
+      rgb(var(--accent-rgb) / 0) 56%
+    );
+    color: inherit;
+    transition: border-color 300ms var(--ease);
+  }
+
+  .gcard:hover {
+    border-color: var(--line-hover);
+  }
+
+  .gcard.is-link:hover {
+    color: inherit;
+  }
+
+  /* 子コンポーネント（Dots）の要素なのでスコープを抜ける必要がある */
+  .gcard :global(.gcard__dots) {
+    margin-bottom: 28px;
+  }
+
+  .gcard__eyebrow {
+    font-size: var(--fs-eyebrow);
+    letter-spacing: 0.22em;
+    color: var(--ink-50);
+  }
+
+  .gcard__eyebrow + .gcard__title {
+    margin-top: 22px;
+  }
+
+  .gcard__title {
+    font-family: var(--font-head);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+  }
+
+  .gcard__title.is-lg {
+    font-size: var(--fs-h3);
+  }
+
+  .gcard__title.is-md {
+    font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.5625rem);
+  }
+
+  .gcard__title.is-sm {
+    font-size: var(--fs-h3-sm);
+  }
+
+  .gcard__body {
+    margin-top: 18px;
+    font-size: var(--fs-body);
+    line-height: 2.05;
+    color: var(--c-text);
+  }
+
+  .gcard__footnote {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(22, 25, 28, 0.12);
+    font-size: 0.84375rem;
+    line-height: 1.95;
+    color: var(--ink-55);
+  }
+
+  /* 子コンポーネント（ArrowLink）の要素なのでスコープを抜ける必要がある */
+  .gcard :global(.gcard__link) {
+    margin-top: 22px;
+  }
+</style>

@@ -1,0 +1,96 @@
+---
+import '~/styles/global.css'
+import Analytics from '~/components/layout/Analytics.astro'
+import Header from '~/components/layout/Header.astro'
+import Footer from '~/components/layout/Footer.astro'
+import { site } from '~/data/site'
+
+interface Props {
+  /** ページ固有のタイトル。省略するとサイト名のみ */
+  title?: string
+  description?: string
+  /** OGP画像のパス（サイトルート起点） */
+  ogImage?: string
+}
+
+const { title, description = site.description, ogImage } = Astro.props
+
+const pageTitle = title ? `${title}｜${site.name}` : `${site.name}`
+const canonical = new URL(Astro.url.pathname, site.url).href
+const ogImageUrl = ogImage ? new URL(ogImage, site.url).href : undefined
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={site.locale} />
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Jost:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    {
+      /*
+      JS が動く環境だけスクロール演出を有効にする（無効時は最初から表示）。
+      演出スクリプトの読み込みに失敗した場合は .js を外して本文を必ず表示する。
+    */
+    }
+    <script is:inline>
+      if ('IntersectionObserver' in window) {
+        var root = document.documentElement
+        root.classList.add('js')
+        setTimeout(function () {
+          if (!root.dataset.revealReady) root.classList.remove('js')
+        }, 3000)
+      }
+    </script>
+
+    <Analytics />
+  </head>
+
+  <body>
+    <a href="#main" class="skip-link">本文へスキップ</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      import '~/scripts/reveal'
+    </script>
+
+    <style>
+      .skip-link {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        z-index: 100;
+        padding: 12px 20px;
+        background: var(--c-ink);
+        color: var(--c-bg);
+      }
+
+      .skip-link:focus {
+        left: 0;
+      }
+    </style>
+  </body>
+</html>

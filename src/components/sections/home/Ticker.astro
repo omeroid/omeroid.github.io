@@ -1,0 +1,49 @@
+---
+import { tickerWords } from '~/data/home'
+
+/** 事業キーワードが横に流れる帯。2セット並べて無限ループさせる */
+const words = tickerWords
+---
+
+<section class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    {
+      [0, 1].map(() => (
+        <div class="ticker__set">
+          {words.map((word) => (
+            <>
+              <span>{word}</span>
+              <span>◦</span>
+            </>
+          ))}
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .ticker {
+    border-top: 1px solid rgba(22, 25, 28, 0.08);
+    border-bottom: 1px solid rgba(22, 25, 28, 0.08);
+    overflow: hidden;
+    padding: 16px 0;
+    background: rgba(22, 25, 28, 0.02);
+  }
+
+  .ticker__track {
+    display: flex;
+    width: max-content;
+    animation: omeTicker 64s linear infinite;
+    font-family: var(--font-en);
+    font-size: 0.78125rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-45);
+  }
+
+  .ticker__set {
+    display: flex;
+    gap: 40px;
+    padding-right: 40px;
+  }
+</style>

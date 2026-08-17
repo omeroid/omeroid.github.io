@@ -1,0 +1,60 @@
+---
+import type { Picture as PictureData } from '~/types'
+import Picture from './Picture.astro'
+
+/** 写真を横並びに置く帯。カラム比率と高さを指定できる */
+interface Props {
+  pictures: PictureData[]
+  /** grid-template-columns の値 */
+  columns?: string
+  height?: string
+  radius?: string
+  class?: string
+}
+
+const {
+  pictures,
+  columns = 'repeat(auto-fit, minmax(0, 1fr))',
+  height = 'clamp(200px, 24vw, 340px)',
+  radius = 'var(--radius)',
+  class: className,
+} = Astro.props
+---
+
+<div
+  class:list={['picture-row', className]}
+  style={`--cols:${columns};--row-h:${height}`}
+>
+  {
+    pictures.map((picture, i) => (
+      <Picture
+        picture={picture}
+        height="100%"
+        radius={radius}
+        sizes="(max-width: 736px) 100vw, 33vw"
+        class="picture-row__item"
+        reveal={i}
+      />
+    ))
+  }
+</div>
+
+<style>
+  .picture-row {
+    display: grid;
+    grid-template-columns: var(--cols);
+    gap: 20px;
+    height: var(--row-h);
+  }
+
+  @media (max-width: 736px) {
+    .picture-row {
+      grid-template-columns: minmax(0, 1fr);
+      height: auto;
+    }
+
+    .picture-row :global(.picture-row__item) {
+      height: 220px;
+    }
+  }
+</style>

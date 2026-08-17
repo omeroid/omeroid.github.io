@@ -1,0 +1,104 @@
+---
+/** 丸ピル型のボタン。href があれば <a>、なければ <button> */
+interface Props {
+  href?: string
+  variant?: 'solid' | 'outline' | 'ghost'
+  /** 末尾に矢印を出す */
+  arrow?: boolean
+  type?: 'button' | 'submit'
+  reveal?: number
+  class?: string
+}
+
+const {
+  href,
+  variant = 'solid',
+  arrow = false,
+  type = 'button',
+  reveal,
+  class: className,
+} = Astro.props
+
+const isExternal = !!href && /^https?:/.test(href)
+const Tag = href ? 'a' : 'button'
+---
+
+<Tag
+  class:list={['btn', `btn--${variant}`, className]}
+  href={href}
+  type={href ? undefined : type}
+  target={isExternal ? '_blank' : undefined}
+  rel={isExternal ? 'noopener' : undefined}
+  data-reveal={reveal}
+>
+  <slot />
+  {
+    arrow && (
+      <span class="en btn__arrow" aria-hidden="true">
+        →
+      </span>
+    )
+  }
+</Tag>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 17px 34px;
+    border-radius: var(--radius-pill);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    line-height: 1.4;
+    cursor: pointer;
+    text-align: center;
+    transition:
+      background-color 220ms var(--ease),
+      border-color 220ms var(--ease),
+      color 220ms var(--ease),
+      gap 220ms var(--ease);
+  }
+
+  .btn--solid {
+    background: var(--c-ink);
+    color: var(--c-bg);
+  }
+
+  .btn--solid:hover {
+    background: var(--c-accent);
+    color: var(--c-bg);
+  }
+
+  .btn--outline {
+    border: 1px solid rgba(22, 25, 28, 0.24);
+    background: rgba(251, 250, 247, 0.6);
+    color: var(--c-ink);
+  }
+
+  .btn--outline:hover {
+    border-color: var(--c-ink);
+    background: var(--c-bg);
+    color: var(--c-ink);
+  }
+
+  .btn--ghost {
+    border: 1px solid rgba(22, 25, 28, 0.2);
+    color: var(--c-ink);
+  }
+
+  .btn--ghost:hover {
+    background: var(--c-ink);
+    border-color: var(--c-ink);
+    color: var(--c-bg);
+  }
+
+  .btn:hover .btn__arrow {
+    transform: translateX(4px);
+  }
+
+  .btn__arrow {
+    transition: transform 220ms var(--ease);
+  }
+</style>

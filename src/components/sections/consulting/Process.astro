@@ -1,0 +1,116 @@
+---
+import Section from '~/components/ui/Section.astro'
+import SectionHead from '~/components/ui/SectionHead.astro'
+import { gradientBarStyle } from '~/lib/accent'
+import {
+  consultingProcessHeading,
+  consultingProcessPromises,
+  consultingProcessSteps,
+} from '~/data/consulting'
+---
+
+<Section bordered>
+  <SectionHead
+    {...consultingProcessHeading}
+    gap="clamp(2.5rem, 1rem + 3.8vw, 3.75rem)"
+  />
+
+  <ol class="process" style={`--steps:${consultingProcessSteps.length}`}>
+    {
+      consultingProcessSteps.map((step, i) => (
+        <li class="process__item" data-reveal={3 + i}>
+          <div
+            class="process__bar"
+            style={gradientBarStyle(step.from, step.to)}
+          />
+          <div class="en process__step">{step.step}</div>
+          <h3 class="process__title">{step.title}</h3>
+          <p class="process__body">{step.body}</p>
+        </li>
+      ))
+    }
+  </ol>
+
+  <div
+    class="grid grid--3 process__promises"
+    data-reveal={3 + consultingProcessSteps.length}
+  >
+    {
+      consultingProcessPromises.map((promise) => (
+        <div class="process__promise">
+          <h4 class="process__promise-title">{promise.title}</h4>
+          <p class="process__body">{promise.body}</p>
+        </div>
+      ))
+    }
+  </div>
+</Section>
+
+<style>
+  .process {
+    display: grid;
+    grid-template-columns: repeat(var(--steps), minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .process__bar {
+    height: 4px;
+    border-radius: 2px;
+    margin-bottom: 26px;
+  }
+
+  .process__step {
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    color: var(--ink-45);
+  }
+
+  .process__title {
+    margin-top: 16px;
+    font-family: var(--font-head);
+    font-size: clamp(1.125rem, 1rem + 0.5vw, 1.3125rem);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+  }
+
+  .process__body {
+    margin-top: 14px;
+    font-size: 0.875rem;
+    line-height: 2;
+    color: var(--c-text);
+  }
+
+  .process__promises {
+    margin-top: clamp(2.75rem, 1.5rem + 3vw, 4.5rem);
+    gap: 22px;
+  }
+
+  .process__promise {
+    padding: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem)
+      clamp(1.5rem, 1.1rem + 1.2vw, 2.25rem);
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+  }
+
+  .process__promise-title {
+    font-family: var(--font-head);
+    font-size: 1.1875rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 1100px) {
+    .process {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 36px 24px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .process {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
