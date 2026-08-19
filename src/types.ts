@@ -162,6 +162,31 @@ export interface NewsItem {
   picture?: Picture
 }
 
+/**
+ * トップページ PICK UP のバナー1件。
+ * 期間限定の告知や外部LPへの導線に使う（多くても3件まで）。
+ */
+export interface Banner {
+  /** 左端の色付きバッジ（NEW など） */
+  badge: string
+  /** バッジの右に並ぶ英字ラベル */
+  eyebrow: string
+  title: string
+  body: string
+  /** バッジの地色。tokens.css の --c-* に対応 */
+  accent: AccentKey
+  href: string
+}
+
+/** サービス一覧ページの単発メニュー（外部LPへ送る破線の枠） */
+export interface ServiceProgram {
+  eyebrow: string
+  title: string
+  body: string
+  href: string
+  linkLabel: string
+}
+
 /** 自社プロダクト */
 export interface Product {
   label: string

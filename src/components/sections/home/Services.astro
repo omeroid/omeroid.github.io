@@ -1,5 +1,6 @@
 ---
 import ArrowLink from '~/components/ui/ArrowLink.astro'
+import Btn from '~/components/ui/Btn.astro'
 import Eyebrow from '~/components/ui/Eyebrow.astro'
 import Picture from '~/components/ui/Picture.astro'
 import Pill from '~/components/ui/Pill.astro'
@@ -44,6 +45,16 @@ import { services } from '~/data/home'
         ))
       }
     </div>
+
+    <Btn
+      href={services.link.href}
+      variant="ghost"
+      arrow
+      reveal={2 + services.items.length}
+      class="services__cta"
+    >
+      {services.link.label}
+    </Btn>
   </div>
 </section>
 
@@ -109,6 +120,11 @@ import { services } from '~/data/home'
   /* 子コンポーネント（ArrowLink）の要素なのでスコープを抜ける必要がある */
   .services__card :global(.services__link) {
     margin-top: 30px;
+  }
+
+  /* 子コンポーネント（Btn）の要素なのでスコープを抜ける必要がある */
+  .services :global(.services__cta) {
+    margin-top: 60px;
   }
 
   @media (max-width: 736px) {

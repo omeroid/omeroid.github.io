@@ -3,6 +3,7 @@
  * トップページには先頭 homeNewsCount 件だけ表示される。
  */
 import type { NewsItem } from '~/types'
+import { externalLinks } from './site'
 
 import gasshuku2026Image from '~/assets/images/news/gasshuku2026.png'
 import ryoko2024Image from '~/assets/images/news/ryoko2024.jpg'
@@ -23,6 +24,13 @@ import vulsImage from '~/assets/images/news/vuls-logo-large.png'
 export const homeNewsCount = 4
 
 export const news: NewsItem[] = [
+  {
+    date: '2026.08',
+    category: 'お知らせ',
+    title: 'AI導入支援の提供を開始しました',
+    body: '業務を分解して直すべき工程を特定し、その工程に効くものを実際に作る Claude 導入プログラムを、2ヶ月・30万円〜の単発メニューとして提供開始しました。',
+    href: externalLinks.aiSupport,
+  },
   {
     date: '2026.05',
     category: 'ブログ',

@@ -139,6 +139,31 @@ export const blobPresets = {
       },
     ],
   },
+  service: {
+    inset: '-18% -10% 0',
+    blur: 72,
+    opacity: 0.8,
+    blobs: [
+      {
+        left: 8,
+        top: 6,
+        width: 42,
+        height: 74,
+        color: 'blue',
+        motion: 'A',
+        duration: 26,
+      },
+      {
+        left: 50,
+        top: 2,
+        width: 44,
+        height: 78,
+        color: 'teal',
+        motion: 'B',
+        duration: 31,
+      },
+    ],
+  },
   product: {
     inset: '-18% -10% 0',
     blur: 72,

@@ -1,0 +1,145 @@
+---
+import GradientCard from '~/components/ui/GradientCard.astro'
+import { serviceCards, servicePrograms } from '~/data/service'
+
+/** サービス一覧ページの本体。常設メニューのカードと、単発メニューの破線枠 */
+---
+
+<section class="section section--bordered">
+  <div class="container">
+    <div class="grid grid--2 svc__grid">
+      {
+        serviceCards.map((card, i) => (
+          <GradientCard
+            {...card}
+            titleTag="h2"
+            titleSize="lg"
+            strength={0.24}
+            fill
+            reveal={i}
+          />
+        ))
+      }
+    </div>
+
+    <div class="svc__programs">
+      {
+        servicePrograms.map((program, i) => (
+          <a
+            class="svc__program"
+            href={program.href}
+            target="_blank"
+            rel="noopener"
+            data-reveal={serviceCards.length + i}
+          >
+            <div class="svc__program-head">
+              <div class="en svc__program-eyebrow">{program.eyebrow}</div>
+              <div class="svc__program-title">{program.title}</div>
+            </div>
+            <p class="svc__program-body">{program.body}</p>
+            <span class="svc__program-link">
+              {program.linkLabel}
+              <span class="en svc__ext" aria-hidden="true">
+                ↗
+              </span>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .svc__grid {
+    padding-top: clamp(3.5rem, 1.8rem + 5vw, 6.875rem);
+    gap: 28px;
+  }
+
+  .svc__programs {
+    padding-block: clamp(2rem, 1rem + 3vw, 3.5rem)
+      clamp(3.5rem, 1.8rem + 5vw, 6.875rem);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* 常設メニューと差をつけるため、単発メニューは地色のまま破線の枠で見せる */
+  .svc__program {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 44px;
+    align-items: center;
+    padding: 38px 40px;
+    border: 1px dashed rgba(22, 25, 28, 0.22);
+    border-radius: var(--radius-lg);
+    color: inherit;
+    transition: border-color 260ms var(--ease);
+  }
+
+  .svc__program:hover {
+    color: inherit;
+    border-color: rgb(var(--c-accent-rgb) / 0.6);
+  }
+
+  .svc__program-head {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .svc__program-eyebrow {
+    font-size: var(--fs-eyebrow);
+    letter-spacing: 0.22em;
+    color: var(--ink-50);
+  }
+
+  .svc__program-title {
+    font-family: var(--font-head);
+    font-size: clamp(1.1875rem, 1.05rem + 0.4vw, 1.375rem);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+
+  .svc__program-body {
+    font-size: var(--fs-sm);
+    line-height: 2;
+    color: var(--c-text);
+    border-left: 1px solid var(--line-mid);
+    padding-left: 44px;
+    text-wrap: pretty;
+  }
+
+  .svc__program-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--c-accent);
+    white-space: nowrap;
+  }
+
+  .svc__ext {
+    font-size: 0.6875rem;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 900px) {
+    .svc__program {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 22px;
+      padding: 30px 26px;
+    }
+
+    .svc__program-body {
+      border-left: 0;
+      padding-left: 0;
+    }
+
+    .svc__program-title {
+      white-space: normal;
+    }
+  }
+</style>

@@ -1,0 +1,20 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import PageHero from '~/components/sections/PageHero.astro'
+import ServiceCards from '~/components/sections/service/ServiceCards.astro'
+import { serviceHero } from '~/data/service'
+---
+
+<BaseLayout
+  title="サービス"
+  description="コンサルタントとエンジニアが同じチームで動きます。戦略・業務コンサルティング、IT・システム開発、AI導入支援の3つの入口から、いまの課題に合う支援をお選びいただけます。"
+>
+  <PageHero
+    eyebrow={serviceHero.eyebrow}
+    title={[serviceHero.title]}
+    lead={serviceHero.lead}
+    blobs="service"
+    size="md"
+  />
+  <ServiceCards />
+</BaseLayout>

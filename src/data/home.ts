@@ -1,5 +1,5 @@
 /** トップページのコンテンツ */
-import type { AccentCard, LinkItem, Picture, Stat } from '~/types'
+import type { AccentCard, Banner, LinkItem, Picture, Stat } from '~/types'
 import { externalLinks } from './site'
 
 import serviceItImage from '~/assets/images/home/service-it.webp'
@@ -39,6 +39,24 @@ export const tickerWords: string[] = [
   'IOT',
   'OSS FIRST',
 ]
+
+/**
+ * PICK UP（ヒーロー直下の告知バナー）。
+ * 空配列にするとセクションごと出力されない。多くても3件までに収める。
+ */
+export const pickup = {
+  eyebrow: 'PICK UP',
+  items: [
+    {
+      badge: 'NEW',
+      eyebrow: 'SPECIAL PROGRAM',
+      title: 'AI導入支援',
+      body: '業務を分解して直すべき工程を特定し、AI活用を現場に定着させるまで伴走します。',
+      accent: 'amber',
+      href: externalLinks.aiSupport,
+    },
+  ] satisfies Banner[],
+}
 
 /** OUR WHY */
 export const why = {
@@ -91,6 +109,11 @@ export const services = {
       } satisfies Picture,
     },
   ],
+  /** サービス一覧ページへの導線 */
+  link: {
+    label: 'その他のサービスを見る',
+    href: '/service/',
+  } satisfies LinkItem,
 }
 
 /** 数値実績 */

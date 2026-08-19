@@ -42,7 +42,8 @@ CMS は使っていない。文言・リンク・画像はすべて `src/data/*.
 | ファイル | 内容 |
 |---------|------|
 | `site.ts` | サイト名・説明・GA測定ID・ナビ（`children` でドロップダウン）・フッター・外部リンク・加入団体 |
-| `home.ts` | トップページ（ヒーロー、OUR WHY、サービス、実績数値、哲学、写真、プロダクト、ブログ、採用） |
+| `home.ts` | トップページ（ヒーロー、PICK UP、OUR WHY、サービス、実績数値、哲学、写真、プロダクト、ブログ、採用） |
+| `service.ts` | サービス一覧ページ（ヒーロー、入口カード、単発メニュー） |
 | `it.ts` | IT・システム開発ページ（ヒーロー、ご相談例、支援メニュー） |
 | `consulting.ts` | コンサルティングページ（ヒーロー、ご相談例、支援メニュー、強み、支援実績、進め方、事例とレポート、FAQ） |
 | `strength.ts` `works.ts` `stack.ts` `faq.ts` | IT・システム開発ページのセクション |
@@ -73,6 +74,25 @@ CMS は使っていない。文言・リンク・画像はすべて `src/data/*.
 IT・コンサルの両ページで使う共通セクション。データは import せず、ページ側から props で渡す
 （同じ見た目で中身だけが違うため）。
 
+### PICK UP（トップの告知バナー）
+
+`home.ts` の `pickup.items`（`Banner[]`）。ヒーロー直下のティッカーとOUR WHYの間に入る、期間限定の
+告知や外部LPへの導線。`items` を空配列にするとセクションごと出力されない。**多くても3件まで**
+（1件なら横幅いっぱい、2件で半々。4件以上は `flex: 1 1 360px` の折り返しで並びが崩れる）。
+`accent` はバッジの地色で、暗いカード地の上に乗るので明るい色（`amber` / `orange` / `teal`）を選ぶ。
+
+### サービス一覧ページ（`/service/`）
+
+コンサルティング・IT・システム開発への入口と、単発メニュー（現在は AI導入支援）を並べる索引ページ。
+ヘッダーの「サービス」ドロップダウン（`site.ts` の `nav`）とフッターの SERVICE 列から辿る。
+入口カード（`serviceCards`）はサイト共通の `GradientCard`（`AccentCard` 型）で、
+トップの哲学カードなどと同じアクセント色のグラデーション＋2色ドット。横並びの足並みを揃えるため
+`fill` を付けて「詳しく見る」を下端に寄せ、セクション見出し（h2）が無いページなので
+`titleTag="h2"` で見出しレベルを繰り上げている。
+単発メニューは自社サイトに詳細ページを持たず `lp.omeroid.com` の専用LPへ送るので、
+`servicePrograms` は破線の枠＋外部リンクという別の見せ方にして常設メニューと区別している。
+`externalLinks.aiSupport` はヘッダーのドロップダウン・PICK UP バナー・この破線枠の3箇所から参照される。
+
 ### 画像
 
 `src/assets/images/` に置いて data ファイルから `import` する。トップの写真は `images/home/`、
@@ -85,7 +105,9 @@ IT・コンサルの両ページで使う共通セクション。データは im
 フォームは `ContactForm` の1種類だけ。「お問い合わせ種別」（`contactTypes`）のセレクトから始まる。
 各ページ下部の `ContactCta` がこれを内包しており、**お問い合わせページ（`/contact/`）も中身は
 `ContactCta` そのもの**。ページ側は `as="h1"` を渡して見出しレベルだけ上げている。
-なおトップページにはフォームを置いていない（`index.astro` に `ContactCta` は入れない）。
+なお**`ContactCta` を置いているのはサービス詳細ページ（`consulting.astro` / `it.astro`）とお問い合わせページだけ**。
+索引ページ（トップ・サービス一覧・プロダクト一覧）、お知らせ、会社概要には置かない
+（`index.astro` / `service.astro` / `product.astro` / `news.astro` / `company.astro`）。
 
 静的サイトなのでサーバーがない。送信先は自前の **Google Apps Script ウェブアプリ**
 （`contact.ts` の `contactForm.endpoint`）で、受信内容はスプレッドシートに記録され、担当者への
@@ -173,5 +195,7 @@ Apps Script のコードを直したときは「デプロイを管理」→**「
 
 - `develop` へ push すると GitHub Actions が `dist` をビルドして GitHub Pages へデプロイする
 - カスタムドメイン: www.omeroid.com（`public/CNAME`）
-- 旧Gatsby版のURL（`/service/*`, `/blogs/`, `/member/matsuno/`, `/privacyPolicy/`）は
+- 旧Gatsby版のURL（`/service/it/` `/service/consulting/` `/service/product/`, `/blogs/`,
+  `/member/matsuno/`, `/privacyPolicy/`）は
   `astro.config.mjs` の `redirects` で転送している
+  （`/service/` 自体はサービス一覧の実ページなので転送対象から外してある。ここに追記すると実ページが上書きされる）

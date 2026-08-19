@@ -15,6 +15,10 @@ interface Props extends AccentCard {
   titleSize?: 'lg' | 'md' | 'sm'
   /** 背景色（スクロール時の色差し演出でカバーする色） */
   surface?: 'bg' | 'alt'
+  /** タイトルの見出しレベル。セクション見出し（h2）が無い場所では h2 にする */
+  titleTag?: 'h2' | 'h3'
+  /** 縦に伸ばしてリンクを下端に揃える（横に並べたカードの足並みを揃える） */
+  fill?: boolean
   reveal?: number
   class?: string
 }
@@ -32,6 +36,8 @@ const {
   strength = 0.22,
   titleSize = 'md',
   surface = 'bg',
+  titleTag: TitleTag = 'h3',
+  fill = false,
   reveal,
   class: className,
 } = Astro.props
@@ -43,7 +49,7 @@ const pair: AccentKey | undefined = accentPair
 ---
 
 <Tag
-  class:list={['gcard', href && 'is-link', className]}
+  class:list={['gcard', href && 'is-link', fill && 'is-fill', className]}
   style={`${accentStyle(accent, pair)};--tint:${strength};--tint-cover:${surfaceVar}`}
   href={href}
   target={isExternal ? '_blank' : undefined}
@@ -54,7 +60,7 @@ const pair: AccentKey | undefined = accentPair
   <span class="tint-layer"></span>
   {dots && <Dots accent={accent} pair={pair} size={22} class="gcard__dots" />}
   {eyebrow && <div class="en gcard__eyebrow">{eyebrow}</div>}
-  <h3 class:list={['gcard__title', `is-${titleSize}`]}>{title}</h3>
+  <TitleTag class:list={['gcard__title', `is-${titleSize}`]}>{title}</TitleTag>
   <p class="gcard__body">{body}</p>
   {footnote && <div class="gcard__footnote">{footnote}</div>}
   {
@@ -91,6 +97,17 @@ const pair: AccentKey | undefined = accentPair
 
   .gcard.is-link:hover {
     color: inherit;
+  }
+
+  .gcard.is-fill {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 子コンポーネント（ArrowLink）の要素なのでスコープを抜ける必要がある */
+  .gcard.is-fill :global(.gcard__link) {
+    margin-top: auto;
+    padding-top: 22px;
   }
 
   /* 子コンポーネント（Dots）の要素なのでスコープを抜ける必要がある */

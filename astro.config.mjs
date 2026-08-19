@@ -11,7 +11,7 @@ export default defineConfig({
   },
   // 旧サイト（Gatsby版）のURLからの転送。静的な meta refresh が生成される
   redirects: {
-    '/service/': '/',
+    // '/service/' は実ページ（サービス一覧）になったので転送しない
     '/service/it/': '/it/',
     '/service/consulting/': '/consulting/',
     '/service/product/': '/product/',

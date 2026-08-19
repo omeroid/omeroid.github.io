@@ -2,6 +2,7 @@
 import BaseLayout from '~/layouts/BaseLayout.astro'
 import Hero from '~/components/sections/home/Hero.astro'
 import NewsPreview from '~/components/sections/home/NewsPreview.astro'
+import Pickup from '~/components/sections/home/Pickup.astro'
 import ProductTeaser from '~/components/sections/home/ProductTeaser.astro'
 import Recruit from '~/components/sections/home/Recruit.astro'
 import Services from '~/components/sections/home/Services.astro'
@@ -19,6 +20,7 @@ import { site } from '~/data/site'
 <BaseLayout description={site.description}>
   <Hero />
   <Ticker />
+  <Pickup />
   <Why />
   <Services />
 

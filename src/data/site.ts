@@ -23,6 +23,8 @@ export const externalLinks = {
   companyBlog: 'https://note.com/omeroid',
   techBlog: 'https://zenn.dev/p/omeroid',
   recruit: 'https://www.wantedly.com/companies/company_5409883',
+  /** AI導入支援（Claude導入プログラム）の専用LP */
+  aiSupport: 'https://lp.omeroid.com/ai-implementation-support/',
   shop: 'https://omeroid.booth.pm',
   facebook: 'https://www.facebook.com/omeroid',
   privacyPolicy:
@@ -38,8 +40,15 @@ export const externalLinks = {
 /** ヘッダーのグローバルナビ。children を付けるとドロップダウンになる */
 export const nav: NavItem[] = [
   { label: 'ホーム', href: '/' },
-  { label: 'コンサルティング', href: '/consulting/' },
-  { label: 'IT・システム開発', href: '/it/' },
+  {
+    label: 'サービス',
+    children: [
+      { label: 'サービス一覧', href: '/service/' },
+      { label: 'コンサルティング', href: '/consulting/' },
+      { label: 'IT・システム開発', href: '/it/' },
+      { label: 'AI導入支援', href: externalLinks.aiSupport },
+    ],
+  },
   { label: 'プロダクト', href: '/product/' },
   { label: '採用情報', href: externalLinks.recruit },
   {
@@ -66,6 +75,7 @@ export const footerColumns: { label: string; links: LinkItem[] }[] = [
   {
     label: 'SERVICE',
     links: [
+      { label: 'サービス一覧', href: '/service/' },
       { label: 'コンサルティング', href: '/consulting/' },
       { label: 'IT・システム開発', href: '/it/' },
       { label: 'プロダクト', href: '/product/' },

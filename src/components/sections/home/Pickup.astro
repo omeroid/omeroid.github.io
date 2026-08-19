@@ -1,0 +1,156 @@
+---
+import Eyebrow from '~/components/ui/Eyebrow.astro'
+import { accentStyle } from '~/lib/accent'
+import { pickup } from '~/data/home'
+
+/** ヒーロー直下の告知バナー。data 側が空なら何も出さない */
+const isExternal = (href: string) => /^https?:/.test(href)
+---
+
+{
+  pickup.items.length > 0 && (
+    <section class="pickup">
+      <div class="container pickup__inner">
+        <Eyebrow label={pickup.eyebrow} />
+        <div class="pickup__list">
+          {pickup.items.map((item) => (
+            <a
+              class="pickup__card"
+              href={item.href}
+              target={isExternal(item.href) ? '_blank' : undefined}
+              rel={isExternal(item.href) ? 'noopener' : undefined}
+            >
+              <div class="pickup__body">
+                <div class="pickup__meta">
+                  <span
+                    class="en pickup__badge"
+                    style={accentStyle(item.accent)}
+                  >
+                    {item.badge}
+                  </span>
+                  <span class="en pickup__eyebrow">{item.eyebrow}</span>
+                </div>
+                <div class="pickup__title">{item.title}</div>
+                <p class="pickup__text">{item.body}</p>
+              </div>
+              <span class="pickup__mark" aria-hidden="true">
+                →
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .pickup {
+    background: rgba(22, 25, 28, 0.025);
+  }
+
+  .pickup__inner {
+    padding-block: clamp(2rem, 1.2rem + 2.4vw, 3.25rem);
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .pickup__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .pickup__card {
+    flex: 1 1 360px;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    padding: 32px 36px;
+    border-radius: var(--radius-lg);
+    background: var(--c-ink);
+    color: var(--c-bg);
+    transition:
+      transform 300ms var(--ease),
+      box-shadow 300ms var(--ease);
+  }
+
+  .pickup__card:hover {
+    color: var(--c-bg);
+    transform: translateY(-3px);
+    box-shadow: 0 20px 44px rgba(22, 25, 28, 0.2);
+  }
+
+  .pickup__body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .pickup__meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .pickup__badge {
+    padding: 5px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 0.65625rem;
+    letter-spacing: 0.18em;
+    font-weight: 600;
+    color: var(--c-ink);
+    background: var(--accent);
+  }
+
+  .pickup__eyebrow {
+    font-size: 0.65625rem;
+    letter-spacing: 0.22em;
+    color: rgba(251, 250, 247, 0.55);
+  }
+
+  .pickup__title {
+    font-family: var(--font-head);
+    font-size: clamp(1.3125rem, 1.05rem + 0.75vw, 1.5625rem);
+    font-weight: 700;
+    letter-spacing: var(--ls-head);
+    line-height: 1.5;
+  }
+
+  .pickup__text {
+    font-size: 0.875rem;
+    line-height: 1.9;
+    color: rgba(251, 250, 247, 0.68);
+    text-wrap: pretty;
+  }
+
+  .pickup__mark {
+    flex: none;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid rgba(251, 250, 247, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-en);
+    font-size: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    .pickup__card {
+      gap: 24px;
+      padding: 26px 24px;
+    }
+
+    .pickup__mark {
+      width: 40px;
+      height: 40px;
+    }
+  }
+</style>
