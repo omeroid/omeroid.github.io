@@ -1,18 +1,22 @@
 ---
 /** omeroid のワードマーク。currentColor で描画されるので親の色に追従する */
 interface Props {
-  /** 高さ (CSS値) */
+  /** 高さ (CSS値)。既定はヘッダーのサイズ */
   height?: string
+  /** 幅で決めたいとき (CSS値)。指定すると height は自動になる */
+  width?: string
   class?: string
   title?: string
 }
 
-const { height = '26px', class: className, title = 'omeroid' } = Astro.props
+const { height, width, class: className, title = 'omeroid' } = Astro.props
+
+const sizeStyle = width ? `width:${width}` : `height:${height ?? '26px'}`
 ---
 
 <svg
   class:list={['logo', className]}
-  style={`height:${height}`}
+  style={sizeStyle}
   viewBox="0 0 1123 187"
   role="img"
   aria-label={title}

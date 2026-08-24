@@ -76,7 +76,7 @@ button {
 }
 
 ::selection {
-  background: #ffb27a;
+  background: var(--c-selection);
   color: var(--c-ink);
 }
 

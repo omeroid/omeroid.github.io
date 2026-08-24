@@ -1,5 +1,12 @@
 /** トップページのコンテンツ */
-import type { AccentCard, Banner, LinkItem, Picture, Stat } from '~/types'
+import type {
+  AccentCard,
+  AccentKey,
+  Banner,
+  LinkItem,
+  Picture,
+  Stat,
+} from '~/types'
 import { externalLinks } from './site'
 
 import serviceItImage from '~/assets/images/home/service-it.webp'
@@ -17,9 +24,11 @@ export const hero = {
   subtitle: 'Layering individuality into new value.',
   buttons: [
     { label: '無料で相談する', href: '/contact/', variant: 'solid' },
-    { label: 'コンサルティングの支援内容', href: '/consulting/' },
-    { label: 'システム開発の支援内容', href: '/it/' },
+    { label: 'コンサルティング', href: '/consulting/' },
+    { label: 'システム開発', href: '/it/' },
   ] satisfies { label: string; href: string; variant?: 'solid' | 'outline' }[],
+  /** ロゴの下に並ぶ3色のドット（左から） */
+  markDots: ['orange', 'teal', 'blue'] satisfies AccentKey[],
 }
 
 /** ヒーロー直下を流れるキーワード */

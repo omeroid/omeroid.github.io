@@ -1,14 +1,23 @@
 ---
-import Blobs from '~/components/ui/Blobs.astro'
 import Btn from '~/components/ui/Btn.astro'
+import Logo from '~/components/ui/Logo.astro'
 import { hero } from '~/data/home'
 ---
 
 <section class="hero">
-  <Blobs preset="hero" />
+  <div class="hero__mark" data-reveal="0">
+    <Logo width="100%" />
+    <div class="hero__dots" aria-hidden="true">
+      {
+        hero.markDots.map((accent) => (
+          <span class={`hero__dot hero__dot--${accent}`} />
+        ))
+      }
+    </div>
+  </div>
 
-  <div class="hero__inner">
-    <h1 class="heading hero__title" data-reveal="0">
+  <div class="hero__body">
+    <h1 class="heading hero__title" data-reveal="1">
       {
         hero.title.map((line, i) => (
           <>
@@ -40,28 +49,78 @@ import { hero } from '~/data/home'
   .hero {
     position: relative;
     overflow: hidden;
-    min-height: 88vh;
-    display: flex;
+    /*
+     * 88vh（デザイン値）だと SCROLL の下に余白が溜まる。
+     * デザインは行が伸びる前提のグリッドで、こちらは行を伸ばさず中央寄せに
+     * しているため、その分だけ高さを詰めて上下の余白を揃えている。
+     */
+    min-height: 70vh;
+    background: var(--c-bg-hero);
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
     align-items: center;
-    justify-content: center;
+    /*
+     * align-content を省くと行が min-height まで伸びてしまい、
+     * SCROLL が本文からごく離れた位置に落ちる。
+     */
+    align-content: center;
+    column-gap: clamp(2.5rem, 6vw, 6rem);
+    row-gap: 0;
+    padding: clamp(6rem, 11vh, 8.75rem) clamp(2rem, 5vw, 5.5rem);
   }
 
-  .hero__inner {
+  /* ロゴ＋3色ドット */
+  .hero__mark {
+    width: 100%;
+    max-width: 520px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .hero__dots {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    /* ロゴのシンボル（右端の円）と縦を揃えるための逃げ */
+    padding-right: 6.14%;
+  }
+
+  .hero__dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: block;
+  }
+
+  .hero__dot--orange {
+    background: var(--c-orange);
+  }
+
+  .hero__dot--teal {
+    background: var(--c-teal);
+  }
+
+  .hero__dot--blue {
+    background: var(--c-blue);
+  }
+
+  .hero__body {
     position: relative;
-    z-index: 1;
-    text-align: center;
-    padding: clamp(5rem, 3rem + 6vw, 7.5rem) var(--gutter);
+    min-width: 0;
   }
 
   .hero__title {
-    font-size: var(--fs-hero);
-    line-height: 1.62;
-    letter-spacing: 0.06em;
+    font-size: clamp(2.125rem, 3.9vw, 3.625rem);
+    line-height: 1.6;
+    letter-spacing: 0.045em;
   }
 
   .hero__subtitle {
-    margin-top: 36px;
-    font-size: 1rem;
+    margin-top: 28px;
+    font-size: 0.9375rem;
     font-weight: 300;
     letter-spacing: 0.16em;
     color: var(--ink-62);
@@ -69,34 +128,31 @@ import { hero } from '~/data/home'
 
   .hero__actions {
     display: flex;
-    gap: 14px;
-    justify-content: center;
-    margin-top: clamp(2.5rem, 1.5rem + 2.5vw, 3.5rem);
+    gap: 12px;
+    margin-top: 48px;
     flex-wrap: wrap;
   }
 
   .hero__cue {
-    position: absolute;
-    bottom: 34px;
-    left: 50%;
-    transform: translateX(-50%);
+    grid-column: 1 / -1;
+    justify-self: center;
+    margin-top: clamp(1.75rem, 3.5vw, 3rem);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    z-index: 1;
+    gap: 8px;
   }
 
   .hero__cue-label {
     font-size: 0.65625rem;
     letter-spacing: 0.24em;
-    color: var(--ink-45);
+    color: var(--ink-62);
   }
 
   .hero__cue-line {
     width: 1px;
     height: 52px;
-    background: rgba(22, 25, 28, 0.16);
+    background: var(--line-strong);
     position: relative;
     overflow: hidden;
     display: block;
@@ -110,9 +166,29 @@ import { hero } from '~/data/home'
     display: block;
   }
 
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    /* 1カラムではロゴと本文が縦に並ぶので、その分の間隔をここで足す */
+    .hero__body {
+      margin-top: clamp(2.25rem, 5vw, 3.5rem);
+    }
+
+    .hero__mark {
+      max-width: 380px;
+    }
+  }
+
   @media (max-width: 736px) {
     .hero {
       min-height: 78vh;
+      padding-inline: var(--gutter);
+    }
+
+    .hero__mark {
+      max-width: 300px;
     }
 
     .hero__cue {

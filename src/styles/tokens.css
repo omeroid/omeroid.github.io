@@ -7,29 +7,35 @@
   --c-ink: #16191c;
   --c-bg: #fbfaf7;
   --c-bg-alt: #f2efe7;
+  --c-bg-hero: #ededeb;
   --c-white: #ffffff;
   --c-text: #4a5459;
   --c-text-strong: #3b4448;
-  --c-accent: #1f7a6b;
-  --c-accent-hover: #125246;
-  --c-accent-rgb: 31 122 107;
+  --c-accent: #4e6360;
+  --c-accent-hover: #33403e;
+  --c-accent-rgb: 78 99 96;
   --c-error: #c4453a;
+  --c-selection: #cbc5b4;
 
-  /* --- アクセント（グラデーション・ドット用） --- */
-  --c-orange: #ff8a3d;
-  --c-amber: #ffc46b;
-  --c-teal: #2fc5b6;
-  --c-blue: #4a7be8;
-  --c-green: #7bd98f;
-  --c-purple: #9b8ce8;
+  /*
+   * --- アクセント（グラデーション・ドット用） ---
+   * キー名は AccentKey（types.ts）と対応。彩度を落とした現行パレットでは
+   * 実際の色味が名前とずれている（orange=真鍮 / purple=オリーブ など）。
+   */
+  --c-orange: #c9ae72;
+  --c-amber: #e3cb8e;
+  --c-teal: #6cc0b0;
+  --c-blue: #5a8c9e;
+  --c-green: #79968d;
+  --c-purple: #9ca37f;
 
   /* 半透明で使うための RGB 値（rgb(var(--c-*-rgb) / 0.2) の形で使う） */
-  --c-orange-rgb: 255 138 61;
-  --c-amber-rgb: 255 196 107;
-  --c-teal-rgb: 47 197 182;
-  --c-blue-rgb: 74 123 232;
-  --c-green-rgb: 123 217 143;
-  --c-purple-rgb: 155 140 232;
+  --c-orange-rgb: 201 174 114;
+  --c-amber-rgb: 227 203 142;
+  --c-teal-rgb: 108 192 176;
+  --c-blue-rgb: 90 140 158;
+  --c-green-rgb: 121 150 141;
+  --c-purple-rgb: 156 163 127;
   --c-error-rgb: 196 69 58;
 
   /* --- 罫線・面 --- */
