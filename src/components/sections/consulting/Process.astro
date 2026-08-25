@@ -18,7 +18,7 @@ interface Props {
 const { surface = 'alt' }: Props = Astro.props
 ---
 
-<Section variant={surface === 'alt' ? 'alt' : 'default'} bordered>
+<Section variant={surface === 'alt' ? 'alt-cool' : 'default'} bordered>
   <SectionHead
     {...consultingProcessHeading}
     gap="clamp(2.5rem, 1rem + 3.8vw, 3.75rem)"

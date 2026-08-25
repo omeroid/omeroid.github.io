@@ -27,6 +27,13 @@ export const news: NewsItem[] = [
   {
     date: '2026.08',
     category: 'お知らせ',
+    title: '基幹システム刷新支援の提供を開始しました',
+    body: 'パッケージを選ぶ前に、AI時代のあるべき業務像から設計する基幹システム刷新支援を提供開始しました。構想・ベンダー選定・PMO・自走体制づくりまで、ベンダーフリーの立場で一気通貫に伴走します。',
+    href: externalLinks.coreSystem,
+  },
+  {
+    date: '2026.08',
+    category: 'お知らせ',
     title: 'AI導入支援の提供を開始しました',
     body: '業務を分解して直すべき工程を特定し、その工程に効くものを実際に作る Claude 導入プログラムを、2ヶ月・30万円〜の単発メニューとして提供開始しました。',
     href: externalLinks.aiSupport,

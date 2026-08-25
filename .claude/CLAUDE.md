@@ -77,7 +77,10 @@ IT・コンサルの両ページで使う共通セクション。データは im
 
 ### セクションの背景色（IT・コンサルティング）
 
-両ページは**ヒーローから最後まで `--c-bg` と `--c-bg-alt` を1セクションずつ交互に**切り替える。
+両ページは**ヒーローから最後まで `--c-bg` と `--c-bg-alt-cool` を1セクションずつ交互に**切り替える。
+`--c-bg-alt-cool`（`#eff0ec`、寒色寄り）はこの交互面専用で、トップの SERVICES / RECRUIT・
+会社概要の OMELOAD・ヘッダーのホバーに使う温色の `--c-bg-alt`（`#f2efe7`）とは別物。
+`Section` の `variant="alt-cool"`（`.section--alt-cool`）が対応する。
 どの面に乗るかは各セクションの `surface`（`'bg' | 'alt'`、`types.ts` の `Surface`）で決め、
 **ページ側（`it.astro` / `consulting.astro`）から明示的に渡す**。セクションを追加・削除・並べ替えたら
 そこから下の `surface` も1つずつずらす必要がある。
@@ -97,10 +100,11 @@ IT・コンサルの両ページで使う共通セクション。データは im
 `Faq` と `ContactCta` は**2ページで面の色が逆になる**唯一のセクション。`ContactCta` はお問い合わせページ
 （`/contact/`）でも使うが、そこは既定の `bg` のまま。
 
-**カードの色差し（`tint-layer`）のカバー色も `surface` に連動させること。** カバーが面と違う色だと
-スクロール時に色が抜けて見える。`Strength` は `CardGrid` の `surface` に、`Stack` は `--tint-cover` に
-そのまま流している。`Works` の数値タイル・絞り込み枠・行/カードは、デザイン上つねに**面と同じ地色＋1pxの罫線**
-なので `--works-surface` を介して面の色に合わせている。
+**カード（`GradientCard` / `Stack`）は面の色に関わらず `--c-card`（`#fdfcfa`）を敷く。** グラデーションは
+その上に重ねる。色差し演出（`tint-layer`）のカバーも同じ `--c-card` なので、`surface` は面の色だけを決める
+（カバー色に流す必要はない）。一方 `Works` の数値タイル・絞り込み枠・行/カードは、デザイン上つねに
+**面と同じ地色＋1pxの罫線**なので `--works-surface` を介して面の色に合わせている。`Issues` のセル
+（`CellGrid`）も面ではなく `--c-bg` 固定。
 
 ### PICK UP（トップの告知バナー）
 
@@ -111,15 +115,17 @@ IT・コンサルの両ページで使う共通セクション。データは im
 
 ### サービス一覧ページ（`/service/`）
 
-コンサルティング・IT・システム開発への入口と、単発メニュー（現在は AI導入支援）を並べる索引ページ。
+コンサルティング・IT・システム開発への入口と、単発メニュー（AI導入支援・基幹システム刷新）を並べる索引ページ。
 ヘッダーの「サービス」ドロップダウン（`site.ts` の `nav`）とフッターの SERVICE 列から辿る。
 入口カード（`serviceCards`）はサイト共通の `GradientCard`（`AccentCard` 型）で、
 トップの哲学カードなどと同じアクセント色のグラデーション＋2色ドット。横並びの足並みを揃えるため
 `fill` を付けて「詳しく見る」を下端に寄せ、セクション見出し（h2）が無いページなので
 `titleTag="h2"` で見出しレベルを繰り上げている。
-単発メニューは自社サイトに詳細ページを持たず `lp.omeroid.com` の専用LPへ送るので、
-`servicePrograms` は破線の枠＋外部リンクという別の見せ方にして常設メニューと区別している。
-`externalLinks.aiSupport` はヘッダーのドロップダウン・PICK UP バナー・この破線枠の3箇所から参照される。
+単発メニュー（現在は AI導入支援・基幹システム刷新の2件）は自社サイトに詳細ページを持たず
+外部の専用LPへ送るので、`servicePrograms` は破線の枠＋外部リンクという別の見せ方にして
+常設メニューと区別している。`externalLinks.aiSupport`（`lp.omeroid.com`）と
+`externalLinks.coreSystem`（`consulting.omeroid.com`）は、どちらもヘッダーのドロップダウン・
+PICK UP バナー・この破線枠の3箇所から参照される。
 
 ### コンサルティング記事（INSIGHTS）
 
@@ -204,8 +210,9 @@ Apps Script のコードを直したときは「デプロイを管理」→**「
 
 1. **スクロール出現演出** — `data-reveal="<順番>"` を付けた要素が画面に入るとフェード+上方向移動(30px)+ぼかし解除(6px)で現れる
    （`src/scripts/reveal.ts` + `global.css` の `[data-reveal]`）。値は同一セクション内の表示順（遅延インデックス、110ms刻み・上限9）。
-2. **カードの色差し** — `GradientCard` / `Stack` は `data-tint` + `.tint-layer` で、地の色のカバーが 1500ms で消えて
-   グラデーションが差し込むように見せている。カバーの色は必ず**そのカードが乗っている面の色**を指定する（`surface` prop）。
+2. **カードの色差し** — `GradientCard` / `Stack` は `data-tint` + `.tint-layer` で、カードの地色（`--c-card`）の
+   カバーが 1500ms で消えてグラデーションが差し込むように見せている。カバー色は既定でカードの地色と同じなので、
+   面の色に合わせて上書きする必要はない（別の色にしたいときだけ `--tint-cover` を指定する）。
 3. **背景の漂う円（ブロブ）** — `Blobs.astro` + `src/lib/blobs.ts` のプリセット。`omeFloatA/B/C` で 18〜37秒かけて動く。
    OUR WHY セクション（`home/Why.astro`）の3色の円・波紋（`omeRipple` 4.6s ×2）・ロゴの明滅（`omeLogoPulse` 5.2s）もこれに含まれる。
 4. **キーワードのティッカー** — `home/Ticker.astro`。`omeTicker` 64s linear infinite。同じ並びを2セット置いて

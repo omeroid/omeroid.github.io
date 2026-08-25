@@ -5,8 +5,7 @@
 
 /**
  * セクションが乗っている面の色。ページ側で交互に切り替える。
- * bg = --c-bg（明るい方） / alt = --c-bg-alt（少し暗い方）
- * カードの色差し演出（tint-layer）のカバー色もこれに合わせる必要がある。
+ * bg = --c-bg（明るい方） / alt = --c-bg-alt-cool（少し暗い方）
  */
 export type Surface = 'bg' | 'alt'
 

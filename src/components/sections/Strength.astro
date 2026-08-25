@@ -8,14 +8,14 @@ import type { AccentCard, SectionHeading, Surface } from '~/types'
 interface Props {
   heading: SectionHeading
   cards: AccentCard[]
-  /** 乗せる面の色。カードの色差しのカバー色もこれに合わせる */
+  /** 乗せる面の色 */
   surface?: Surface
 }
 
 const { heading, cards, surface = 'alt' } = Astro.props
 ---
 
-<Section variant={surface === 'alt' ? 'alt' : 'default'} bordered>
+<Section variant={surface === 'alt' ? 'alt-cool' : 'default'} bordered>
   <SectionHead {...heading} gap="clamp(2.5rem, 1rem + 3.5vw, 3.5rem)" />
-  <CardGrid cards={cards} cols={2} titleSize="lg" surface={surface} />
+  <CardGrid cards={cards} cols={2} titleSize="lg" />
 </Section>

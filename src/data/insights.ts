@@ -43,7 +43,6 @@ export const insights: InsightItem[] = [
     category: '準備中',
     title: '準備中',
   },
-
 ]
 
 /** 絞り込みチップ。出現順に並べる（件数はチップに出さない） */

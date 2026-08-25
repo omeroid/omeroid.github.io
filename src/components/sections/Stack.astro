@@ -8,15 +8,14 @@ import type { Surface } from '~/types'
 
 /** TECH STACK（技術スタック）。IT・システム開発ページで使う */
 interface Props {
-  /** 乗せる面の色。カードの色差しのカバー色もこれに合わせる */
+  /** 乗せる面の色 */
   surface?: Surface
 }
 
 const { surface = 'alt' }: Props = Astro.props
-const surfaceVar = surface === 'alt' ? 'var(--c-bg-alt)' : 'var(--c-bg)'
 ---
 
-<Section variant={surface === 'alt' ? 'alt' : 'default'} bordered>
+<Section variant={surface === 'alt' ? 'alt-cool' : 'default'} bordered>
   <SectionHead {...stackHeading} />
 
   <div class="grid grid--4 stack">
@@ -24,7 +23,7 @@ const surfaceVar = surface === 'alt' ? 'var(--c-bg-alt)' : 'var(--c-bg)'
       stackGroups.map((group, i) => (
         <div
           class="stack__group"
-          style={`${accentStyle(group.accent)};--tint-cover:${surfaceVar}`}
+          style={accentStyle(group.accent)}
           data-reveal={3 + i}
           data-tint
         >
@@ -60,11 +59,12 @@ const surfaceVar = surface === 'alt' ? 'var(--c-bg-alt)' : 'var(--c-bg)'
       clamp(1.375rem, 1rem + 1.4vw, 2.125rem);
     border-radius: var(--radius);
     border: 1px solid var(--line);
-    background: linear-gradient(
-      158deg,
-      rgb(var(--accent-rgb) / 0.16) 0%,
-      rgb(var(--accent-rgb) / 0) 56%
-    );
+    background: var(--c-card)
+      linear-gradient(
+        158deg,
+        rgb(var(--accent-rgb) / 0.16) 0%,
+        rgb(var(--accent-rgb) / 0) 56%
+      );
   }
 
   .stack__label {

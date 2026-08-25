@@ -13,8 +13,6 @@ interface Props extends AccentCard {
   strength?: number
   /** タイトルの大きさ */
   titleSize?: 'lg' | 'md' | 'sm'
-  /** 背景色（スクロール時の色差し演出でカバーする色） */
-  surface?: 'bg' | 'alt'
   /** タイトルの見出しレベル。セクション見出し（h2）が無い場所では h2 にする */
   titleTag?: 'h2' | 'h3'
   /** 縦に伸ばしてリンクを下端に揃える（横に並べたカードの足並みを揃える） */
@@ -35,7 +33,6 @@ const {
   dots = false,
   strength = 0.22,
   titleSize = 'md',
-  surface = 'bg',
   titleTag: TitleTag = 'h3',
   fill = false,
   reveal,
@@ -44,13 +41,12 @@ const {
 
 const isExternal = !!href && /^https?:/.test(href)
 const Tag = href ? 'a' : 'div'
-const surfaceVar = surface === 'alt' ? 'var(--c-bg-alt)' : 'var(--c-bg)'
 const pair: AccentKey | undefined = accentPair
 ---
 
 <Tag
   class:list={['gcard', href && 'is-link', fill && 'is-fill', className]}
-  style={`${accentStyle(accent, pair)};--tint:${strength};--tint-cover:${surfaceVar}`}
+  style={`${accentStyle(accent, pair)};--tint:${strength}`}
   href={href}
   target={isExternal ? '_blank' : undefined}
   rel={isExternal ? 'noopener' : undefined}
@@ -82,11 +78,12 @@ const pair: AccentKey | undefined = accentPair
       clamp(1.5rem, 1rem + 1.8vw, 2.875rem);
     border-radius: var(--radius);
     border: 1px solid var(--line);
-    background: linear-gradient(
-      158deg,
-      rgb(var(--accent-rgb) / var(--tint)) 0%,
-      rgb(var(--accent-rgb) / 0) 56%
-    );
+    background: var(--c-card)
+      linear-gradient(
+        158deg,
+        rgb(var(--accent-rgb) / var(--tint)) 0%,
+        rgb(var(--accent-rgb) / 0) 56%
+      );
     color: inherit;
     transition: border-color 300ms var(--ease);
   }

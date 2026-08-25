@@ -15,7 +15,7 @@ interface Props {
 const { heading, items, surface = 'alt' } = Astro.props
 ---
 
-<Section variant={surface === 'alt' ? 'alt' : 'default'}>
+<Section variant={surface === 'alt' ? 'alt-cool' : 'default'}>
   <SectionHead
     {...heading}
     size="sm"

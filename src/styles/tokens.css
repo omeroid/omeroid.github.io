@@ -6,8 +6,13 @@
   /* --- ベースカラー --- */
   --c-ink: #16191c;
   --c-bg: #fbfaf7;
+  /* 温色の面。トップの SERVICES / RECRUIT、会社概要の OMELOAD、ヘッダーのホバー */
   --c-bg-alt: #f2efe7;
+  /* IT・コンサルのセクションを交互に敷く面（Surface の 'alt'）。上より寒色寄り */
+  --c-bg-alt-cool: #eff0ec;
   --c-bg-hero: #ededeb;
+  /* カードの地色。面の色に関わらずこの色を敷き、上にグラデーションを乗せる */
+  --c-card: #fdfcfa;
   --c-white: #ffffff;
   --c-text: #4a5459;
   --c-text-strong: #3b4448;

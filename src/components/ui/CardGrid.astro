@@ -7,7 +7,6 @@ interface Props {
   cards: AccentCard[]
   cols?: 2 | 3 | 4
   titleSize?: 'lg' | 'md' | 'sm'
-  surface?: 'bg' | 'alt'
   strength?: number
   /** data-reveal の開始インデックス（見出しの後に続ける） */
   revealFrom?: number
@@ -18,7 +17,6 @@ const {
   cards,
   cols = 3,
   titleSize = 'md',
-  surface = 'bg',
   strength = 0.22,
   revealFrom = 3,
   class: className,
@@ -31,7 +29,6 @@ const {
       <GradientCard
         {...card}
         titleSize={titleSize}
-        surface={surface}
         strength={strength}
         reveal={revealFrom + i}
       />

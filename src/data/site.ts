@@ -25,6 +25,8 @@ export const externalLinks = {
   recruit: 'https://www.wantedly.com/companies/company_5409883',
   /** AI導入支援（Claude導入プログラム）の専用LP */
   aiSupport: 'https://lp.omeroid.com/ai-implementation-support/',
+  /** 基幹システム刷新支援の専用LP */
+  coreSystem: 'https://consulting.omeroid.com/core-system/',
   shop: 'https://omeroid.booth.pm',
   facebook: 'https://www.facebook.com/omeroid',
   privacyPolicy:
@@ -47,6 +49,7 @@ export const nav: NavItem[] = [
       { label: 'コンサルティング', href: '/consulting/' },
       { label: 'IT・システム開発', href: '/it/' },
       { label: 'AI導入支援', href: externalLinks.aiSupport },
+      { label: '基幹システム刷新', href: externalLinks.coreSystem },
     ],
   },
   { label: 'プロダクト', href: '/product/' },

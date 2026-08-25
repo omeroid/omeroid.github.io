@@ -64,6 +64,14 @@ export const pickup = {
       accent: 'amber',
       href: externalLinks.aiSupport,
     },
+    {
+      badge: 'NEW',
+      eyebrow: 'SPECIAL PROGRAM',
+      title: '基幹システム刷新',
+      body: 'AI時代のあるべき業務像から設計し、構想・ベンダー選定・PMO・自走体制づくりまで伴走します。',
+      accent: 'teal',
+      href: externalLinks.coreSystem,
+    },
   ] satisfies Banner[],
 }
 

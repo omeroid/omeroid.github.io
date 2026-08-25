@@ -104,6 +104,11 @@ button {
   background: var(--c-bg-alt);
 }
 
+/* IT・コンサルの交互面。--c-bg と1セクションずつ入れ替わる */
+.section--alt-cool {
+  background: var(--c-bg-alt-cool);
+}
+
 .section--tint {
   background: rgba(22, 25, 28, 0.03);
   border-top: 1px solid rgba(22, 25, 28, 0.08);
@@ -207,7 +212,7 @@ button {
   z-index: -1;
   pointer-events: none;
   border-radius: inherit;
-  background: var(--tint-cover, var(--c-bg));
+  background: var(--tint-cover, var(--c-card));
   opacity: 0;
   transition: opacity 1500ms var(--ease);
 }

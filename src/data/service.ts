@@ -41,4 +41,11 @@ export const servicePrograms: ServiceProgram[] = [
     href: externalLinks.aiSupport,
     linkLabel: '専用サイトを見る',
   },
+  {
+    eyebrow: 'SPECIAL PROGRAM',
+    title: '基幹システム刷新',
+    body: 'パッケージを選ぶ前に、AI時代のあるべき業務像から設計する。構想・ベンダー選定・PMO・自走体制づくりまで、ベンダーフリーの立場で一気通貫に伴走します。',
+    href: externalLinks.coreSystem,
+    linkLabel: '専用サイトを見る',
+  },
 ]
