@@ -3,18 +3,20 @@ import Dots from '~/components/ui/Dots.astro'
 import Section from '~/components/ui/Section.astro'
 import SectionHead from '~/components/ui/SectionHead.astro'
 import { accentStyle } from '~/lib/accent'
-import type { MenuRow, SectionHeading } from '~/types'
+import type { MenuRow, SectionHeading, Surface } from '~/types'
 
 /** MENU（支援メニュー）。IT事業・コンサルティングで使う */
 interface Props {
   heading: SectionHeading
   rows: MenuRow[]
+  /** 乗せる面の色。ページ側の交互配色に合わせる */
+  surface?: Surface
 }
 
-const { heading, rows } = Astro.props
+const { heading, rows, surface = 'bg' } = Astro.props
 ---
 
-<Section>
+<Section variant={surface === 'alt' ? 'alt' : 'default'}>
   <SectionHead {...heading} />
 
   <div class="menu">

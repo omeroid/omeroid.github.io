@@ -3,16 +3,26 @@ import Blobs from '~/components/ui/Blobs.astro'
 import ContactForm from '~/components/ui/ContactForm.astro'
 import Eyebrow from '~/components/ui/Eyebrow.astro'
 import { contactCta } from '~/data/contact'
+import type { Surface } from '~/types'
 
 /** 各ページ下部のCTA。お問い合わせページでは唯一の内容になるので見出しを h1 にする */
 interface Props {
   as?: 'h1' | 'h2'
+  /** 乗せる面の色。ページ側の交互配色に合わせる */
+  surface?: Surface
 }
 
-const { as: Tag = 'h2' }: Props = Astro.props
+const { as: Tag = 'h2', surface = 'bg' }: Props = Astro.props
 ---
 
-<section class="section section--bordered contact-cta">
+<section
+  class:list={[
+    'section',
+    'section--bordered',
+    'contact-cta',
+    surface === 'alt' && 'section--alt',
+  ]}
+>
   <Blobs preset="contactCta" />
   <div class="container contact-cta__inner">
     <div>

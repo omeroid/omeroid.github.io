@@ -49,6 +49,7 @@ CMS は使っていない。文言・リンク・画像はすべて `src/data/*.
 | `strength.ts` `works.ts` `stack.ts` `faq.ts` | IT・システム開発ページのセクション |
 | `product.ts` | 自社プロダクト |
 | `company.ts` | 会社概要（理念、omeload、経営メンバー、会社データ。MEMBERSHIPS 行は `site.ts` の `memberships` を参照） |
+| `insights.ts` | コンサルティング記事（先頭に追加する。コンサルページは `consultingInsightCount` 件だけ表示） |
 | `news.ts` | お知らせ（先頭に追加する。トップは `homeNewsCount` 件だけ表示） |
 | `contact.ts` | お問い合わせ（フォーム送信先、CTA文言、お問い合わせ種別、トピック選択肢） |
 
@@ -74,6 +75,33 @@ CMS は使っていない。文言・リンク・画像はすべて `src/data/*.
 IT・コンサルの両ページで使う共通セクション。データは import せず、ページ側から props で渡す
 （同じ見た目で中身だけが違うため）。
 
+### セクションの背景色（IT・コンサルティング）
+
+両ページは**ヒーローから最後まで `--c-bg` と `--c-bg-alt` を1セクションずつ交互に**切り替える。
+どの面に乗るかは各セクションの `surface`（`'bg' | 'alt'`、`types.ts` の `Surface`）で決め、
+**ページ側（`it.astro` / `consulting.astro`）から明示的に渡す**。セクションを追加・削除・並べ替えたら
+そこから下の `surface` も1つずつずらす必要がある。
+
+| | IT（`/it/`） | コンサル（`/consulting/`） |
+|---|---|---|
+| 1 | ヒーロー `bg` | ヒーロー `bg` |
+| 2 | ISSUES `alt` | ISSUES `alt` |
+| 3 | MENU `bg` | MENU `bg` |
+| 4 | STRENGTH `alt` | STRENGTH `alt` |
+| 5 | WORKS `bg` | WORKS `bg` |
+| 6 | STACK `alt` | PROCESS `alt` |
+| 7 | FAQ `bg` | CONTENTS `bg` |
+| 8 | CONTACT `alt` | FAQ `alt` |
+| 9 | — | CONTACT `bg` |
+
+`Faq` と `ContactCta` は**2ページで面の色が逆になる**唯一のセクション。`ContactCta` はお問い合わせページ
+（`/contact/`）でも使うが、そこは既定の `bg` のまま。
+
+**カードの色差し（`tint-layer`）のカバー色も `surface` に連動させること。** カバーが面と違う色だと
+スクロール時に色が抜けて見える。`Strength` は `CardGrid` の `surface` に、`Stack` は `--tint-cover` に
+そのまま流している。`Works` の数値タイル・絞り込み枠・行/カードは、デザイン上つねに**面と同じ地色＋1pxの罫線**
+なので `--works-surface` を介して面の色に合わせている。
+
 ### PICK UP（トップの告知バナー）
 
 `home.ts` の `pickup.items`（`Banner[]`）。ヒーロー直下のティッカーとOUR WHYの間に入る、期間限定の
@@ -92,6 +120,23 @@ IT・コンサルの両ページで使う共通セクション。データは im
 単発メニューは自社サイトに詳細ページを持たず `lp.omeroid.com` の専用LPへ送るので、
 `servicePrograms` は破線の枠＋外部リンクという別の見せ方にして常設メニューと区別している。
 `externalLinks.aiSupport` はヘッダーのドロップダウン・PICK UP バナー・この破線枠の3箇所から参照される。
+
+### コンサルティング記事（INSIGHTS）
+
+`insights.ts` の `insights`（`InsightItem[]`）。出し先は2箇所で、表示は `ui/InsightList.astro` で共通。
+
+| | コンサルページの CONTENTS | 一覧ページ `/insights/` |
+|---|---|---|
+| 件数 | 先頭 `consultingInsightCount` 件 | 全件 |
+| 絞り込み | なし | 分類チップ（`insightCategories` は `category` から自動生成） |
+| 併記 | 「事例とレポート」の下に続けて出す | ヒーロー＋下部に黒地のCTA帯 |
+
+`href` を省いた項目はリンクにならず、末尾の矢印も出ない（`NewsList` と同じ扱い）。
+**現在の記事はデザインから起こした差し替え待ちの仮データで、`href` を持たせていない。**
+公開先が決まったら `date` / `title` / `href` を実物に置き換える。
+
+ヘッダーの「コンテンツ」ドロップダウンとフッターの CONTENTS 列（どちらも `site.ts`）から辿る。
+この2箇所は Company Blog / Tech Blog と同じ並びなので、**会社情報側にブログを戻さない**こと。
 
 ### 画像
 

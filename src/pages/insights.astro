@@ -1,0 +1,175 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import PageHero from '~/components/sections/PageHero.astro'
+import Btn from '~/components/ui/Btn.astro'
+import InsightList from '~/components/ui/InsightList.astro'
+import Section from '~/components/ui/Section.astro'
+import {
+  insightCategories,
+  insights,
+  insightsCta,
+  insightsFilterLabels,
+  insightsHero,
+} from '~/data/insights'
+---
+
+<BaseLayout
+  title="コンサルティング記事一覧"
+  description="DX・AI・事業戦略の現場で、omeroid が繰り返し向き合ってきた論点をまとめたコンサルティング記事の一覧です。"
+>
+  <PageHero
+    eyebrow={insightsHero.eyebrow}
+    title={[insightsHero.title]}
+    lead={insightsHero.lead}
+    blobs="insights"
+    size="md"
+  />
+
+  <Section bordered>
+    <div class="insights-page" data-insights>
+      <div class="insights-page__chips" data-reveal="0">
+        <button type="button" class="chip is-on" data-cat-filter="all">
+          {insightsFilterLabels.all}
+        </button>
+        {
+          insightCategories.map((category) => (
+            <button type="button" class="chip" data-cat-filter={category}>
+              {category}
+            </button>
+          ))
+        }
+      </div>
+
+      <InsightList items={insights} as="h3" revealFrom={1} />
+
+      <p class="insights-page__empty" data-insights-empty hidden>
+        該当する記事はまだありません。
+      </p>
+
+      <div class="insights-page__cta" data-reveal="2">
+        <div>
+          <h2 class="heading insights-page__cta-title">{insightsCta.title}</h2>
+          <p class="insights-page__cta-body">{insightsCta.body}</p>
+        </div>
+        <Btn
+          href={insightsCta.button.href}
+          variant="solid"
+          class="insights-page__cta-btn"
+        >
+          {insightsCta.button.label}
+        </Btn>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .insights-page__chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 44px;
+  }
+
+  .chip {
+    padding: 10px 20px;
+    border: 1px solid rgba(22, 25, 28, 0.2);
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--c-ink);
+    background: transparent;
+    transition:
+      background-color 200ms var(--ease),
+      color 200ms var(--ease),
+      border-color 200ms var(--ease);
+  }
+
+  .chip:hover {
+    border-color: var(--c-ink);
+  }
+
+  .chip.is-on {
+    background: var(--c-ink);
+    border-color: var(--c-ink);
+    color: var(--c-bg);
+  }
+
+  .insights-page__empty {
+    margin-top: 40px;
+    font-size: var(--fs-body);
+    line-height: 2;
+    color: var(--ink-55);
+  }
+
+  .insights-page__empty[hidden] {
+    display: none;
+  }
+
+  .insights-page__cta {
+    margin-top: clamp(3rem, 1.5rem + 4vw, 4.5rem);
+    padding: clamp(2.25rem, 1.2rem + 3vw, 3.25rem)
+      clamp(1.75rem, 1rem + 2.4vw, 2.75rem);
+    border-radius: var(--radius);
+    background: var(--c-ink);
+    color: var(--c-bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 36px;
+    flex-wrap: wrap;
+  }
+
+  .insights-page__cta-title {
+    font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.625rem);
+    line-height: 1.7;
+  }
+
+  .insights-page__cta-body {
+    margin-top: 14px;
+    font-size: var(--fs-body);
+    line-height: 2;
+    color: color-mix(in srgb, var(--c-bg) 70%, transparent);
+  }
+
+  /* 子コンポーネント（Btn）の要素なのでスコープを抜ける必要がある */
+  .insights-page__cta :global(.insights-page__cta-btn) {
+    background: var(--c-bg);
+    color: var(--c-ink);
+    white-space: nowrap;
+  }
+
+  .insights-page__cta :global(.insights-page__cta-btn:hover) {
+    background: var(--c-green);
+    color: var(--c-bg);
+  }
+</style>
+
+<script>
+  /* 分類チップでの絞り込み。対象は InsightList の [data-cat] 行 */
+  document.querySelectorAll<HTMLElement>('[data-insights]').forEach((root) => {
+    const rows = [...root.querySelectorAll<HTMLElement>('[data-cat]')]
+    const chips = [...root.querySelectorAll<HTMLElement>('[data-cat-filter]')]
+    const empty = root.querySelector<HTMLElement>('[data-insights-empty]')
+
+    const apply = (category: string) => {
+      let shown = 0
+      for (const row of rows) {
+        const match = category === 'all' || row.dataset.cat === category
+        row.hidden = !match
+        if (match) shown++
+      }
+      if (empty) empty.hidden = shown > 0
+      for (const chip of chips) {
+        chip.classList.toggle('is-on', chip.dataset.catFilter === category)
+      }
+    }
+
+    for (const chip of chips) {
+      chip.addEventListener('click', () =>
+        apply(chip.dataset.catFilter ?? 'all')
+      )
+    }
+  })
+</script>

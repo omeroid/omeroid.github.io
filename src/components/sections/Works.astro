@@ -1,7 +1,7 @@
 ---
 import Section from '~/components/ui/Section.astro'
 import SectionHead from '~/components/ui/SectionHead.astro'
-import type { SectionHeading, WorkRow, WorkStat } from '~/types'
+import type { SectionHeading, Surface, WorkRow, WorkStat } from '~/types'
 
 /**
  * WORKS（実績）。IT事業・コンサルティングで、それぞれの実績を渡して使う。
@@ -24,6 +24,8 @@ interface Props {
   }
   works: WorkRow[]
   footnotes: string[]
+  /** 乗せる面の色。数値タイル・絞り込み枠・カードは常に反対色になる */
+  surface?: Surface
 }
 
 const {
@@ -34,6 +36,7 @@ const {
   filterLabels: worksFilterLabels,
   works,
   footnotes: worksFootnotes,
+  surface = 'bg',
 } = Astro.props
 
 /** 期間バーの基準になる最長プロジェクト */
@@ -66,10 +69,14 @@ const industries = countBy((row) => [row.industry])
 const tags = countBy((row) => row.tags)
 ---
 
-<Section variant="alt" bordered>
+<Section variant={surface === 'alt' ? 'alt' : 'default'} bordered>
   <SectionHead {...worksHeading} gap="clamp(2.5rem, 1.5rem + 3vw, 4rem)" />
 
-  <div class="works" data-works>
+  <div
+    class="works"
+    data-works
+    style={`--works-surface:var(${surface === 'alt' ? '--c-bg-alt' : '--c-bg'})`}
+  >
     <div
       class="works__stats"
       data-reveal="3"
@@ -265,7 +272,7 @@ const tags = countBy((row) => row.tags)
   }
 
   .works__stat {
-    background: var(--c-bg);
+    background: var(--works-surface, var(--c-bg));
     padding: 34px 30px 30px;
   }
 
@@ -372,7 +379,7 @@ const tags = countBy((row) => row.tags)
   .works__filters {
     margin-bottom: 34px;
     padding: 30px 32px 32px;
-    background: var(--c-bg);
+    background: var(--works-surface, var(--c-bg));
     border: 1px solid var(--line-mid);
     border-radius: var(--radius);
   }
@@ -486,7 +493,7 @@ const tags = countBy((row) => row.tags)
     align-items: center;
     gap: 32px;
     padding: 26px 30px;
-    background: var(--c-bg);
+    background: var(--works-surface, var(--c-bg));
     border: 1px solid var(--line-mid);
     border-radius: var(--radius-sm);
     transition:
@@ -518,7 +525,7 @@ const tags = countBy((row) => row.tags)
     display: flex;
     flex-direction: column;
     padding: 26px 26px 24px;
-    background: var(--c-bg);
+    background: var(--works-surface, var(--c-bg));
     border: 1px solid var(--line-mid);
     border-radius: var(--radius-sm);
     transition:

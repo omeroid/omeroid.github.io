@@ -4,9 +4,19 @@ import SectionHead from '~/components/ui/SectionHead.astro'
 import StackIcon from '~/components/ui/StackIcon.astro'
 import { accentStyle } from '~/lib/accent'
 import { stackFootnote, stackGroups, stackHeading } from '~/data/stack'
+import type { Surface } from '~/types'
+
+/** TECH STACK（技術スタック）。IT・システム開発ページで使う */
+interface Props {
+  /** 乗せる面の色。カードの色差しのカバー色もこれに合わせる */
+  surface?: Surface
+}
+
+const { surface = 'alt' }: Props = Astro.props
+const surfaceVar = surface === 'alt' ? 'var(--c-bg-alt)' : 'var(--c-bg)'
 ---
 
-<Section bordered>
+<Section variant={surface === 'alt' ? 'alt' : 'default'} bordered>
   <SectionHead {...stackHeading} />
 
   <div class="grid grid--4 stack">
@@ -14,7 +24,7 @@ import { stackFootnote, stackGroups, stackHeading } from '~/data/stack'
       stackGroups.map((group, i) => (
         <div
           class="stack__group"
-          style={`${accentStyle(group.accent)};--tint-cover:var(--c-bg)`}
+          style={`${accentStyle(group.accent)};--tint-cover:${surfaceVar}`}
           data-reveal={3 + i}
           data-tint
         >

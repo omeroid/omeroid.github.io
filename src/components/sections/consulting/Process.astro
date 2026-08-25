@@ -7,9 +7,18 @@ import {
   consultingProcessPromises,
   consultingProcessSteps,
 } from '~/data/consulting'
+import type { Surface } from '~/types'
+
+/** PROCESS（支援の進め方）。コンサルティングページで使う */
+interface Props {
+  /** 乗せる面の色。ページ側の交互配色に合わせる */
+  surface?: Surface
+}
+
+const { surface = 'alt' }: Props = Astro.props
 ---
 
-<Section bordered>
+<Section variant={surface === 'alt' ? 'alt' : 'default'} bordered>
   <SectionHead
     {...consultingProcessHeading}
     gap="clamp(2.5rem, 1rem + 3.8vw, 3.75rem)"

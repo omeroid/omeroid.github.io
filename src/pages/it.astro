@@ -34,9 +34,12 @@ import {
     blobs="it"
   />
 
-  <Issues {...itIssues} />
-  <MenuList heading={itMenuHeading} rows={itMenu} />
-  <Strength heading={strengthHeading} cards={strengthCards} />
+  {
+    /* 背景はヒーローから bg / alt を交互に切り替える（順番を変えるときは surface も直す） */
+  }
+  <Issues {...itIssues} surface="alt" />
+  <MenuList heading={itMenuHeading} rows={itMenu} surface="bg" />
+  <Strength heading={strengthHeading} cards={strengthCards} surface="alt" />
   <Works
     heading={worksHeading}
     stats={workStats}
@@ -44,8 +47,9 @@ import {
     filterLabels={worksFilterLabels}
     works={works}
     footnotes={worksFootnotes}
+    surface="bg"
   />
-  <Stack />
-  <Faq items={faqs} />
-  <ContactCta />
+  <Stack surface="alt" />
+  <Faq items={faqs} surface="bg" />
+  <ContactCta surface="alt" />
 </BaseLayout>

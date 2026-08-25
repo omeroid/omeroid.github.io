@@ -3,6 +3,13 @@
  * src/data/*.ts はすべてここで定義した型に沿って書く。
  */
 
+/**
+ * セクションが乗っている面の色。ページ側で交互に切り替える。
+ * bg = --c-bg（明るい方） / alt = --c-bg-alt（少し暗い方）
+ * カードの色差し演出（tint-layer）のカバー色もこれに合わせる必要がある。
+ */
+export type Surface = 'bg' | 'alt'
+
 /** アクセントカラーのキー。tokens.css の --c-* に対応 */
 export type AccentKey =
   'orange' | 'amber' | 'teal' | 'blue' | 'green' | 'purple'
@@ -160,6 +167,19 @@ export interface NewsItem {
   body?: string
   href?: string
   picture?: Picture
+}
+
+/**
+ * コンサルティング記事（INSIGHTS）1件。
+ * category は一覧ページの絞り込みチップの見出しになる。
+ * href を省略するとリンクにならず、本文だけの行として表示される。
+ */
+export interface InsightItem {
+  /** YYYY.MM.DD */
+  date: string
+  category: string
+  title: string
+  href?: string
 }
 
 /**

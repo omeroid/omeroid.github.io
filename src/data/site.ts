@@ -50,14 +50,20 @@ export const nav: NavItem[] = [
     ],
   },
   { label: 'プロダクト', href: '/product/' },
+  {
+    label: 'コンテンツ',
+    children: [
+      { label: 'コンサルティング記事一覧', href: '/insights/' },
+      { label: 'Company Blog', href: externalLinks.companyBlog },
+      { label: 'Tech Blog', href: externalLinks.techBlog },
+    ],
+  },
   { label: '採用情報', href: externalLinks.recruit },
   {
     label: '会社情報',
     children: [
       { label: '会社概要', href: '/company/' },
       { label: 'お知らせ', href: '/news/' },
-      { label: 'Company Blog', href: externalLinks.companyBlog },
-      { label: 'Tech Blog', href: externalLinks.techBlog },
       { label: 'プライバシーポリシー', href: externalLinks.privacyPolicy },
       { label: '情報セキュリティ方針', href: externalLinks.securityPolicy },
     ],
@@ -91,8 +97,9 @@ export const footerColumns: { label: string; links: LinkItem[] }[] = [
     ],
   },
   {
-    label: 'MEDIA',
+    label: 'CONTENTS',
     links: [
+      { label: 'コンサルティング記事一覧', href: '/insights/' },
       { label: 'Company Blog', href: externalLinks.companyBlog },
       { label: 'Tech Blog', href: externalLinks.techBlog },
     ],

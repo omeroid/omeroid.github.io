@@ -1,17 +1,25 @@
 ---
 import Eyebrow from '~/components/ui/Eyebrow.astro'
 import { faqHeading } from '~/data/faq'
-import type { Faq } from '~/types'
+import type { Faq, Surface } from '~/types'
 
 /** よくあるご質問。設問はページごとに差し替える */
 interface Props {
   items: Faq[]
+  /** 乗せる面の色。ページ側の交互配色に合わせる */
+  surface?: Surface
 }
 
-const { items } = Astro.props
+const { items, surface = 'bg' } = Astro.props
 ---
 
-<section class="section section--bordered">
+<section
+  class:list={[
+    'section',
+    'section--bordered',
+    surface === 'alt' && 'section--alt',
+  ]}
+>
   <div class="container faq">
     <div class="faq__head">
       <Eyebrow label={faqHeading.eyebrow} reveal={0} />

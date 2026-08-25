@@ -2,18 +2,20 @@
 import CardGrid from '~/components/ui/CardGrid.astro'
 import Section from '~/components/ui/Section.astro'
 import SectionHead from '~/components/ui/SectionHead.astro'
-import type { AccentCard, SectionHeading } from '~/types'
+import type { AccentCard, SectionHeading, Surface } from '~/types'
 
 /** STRENGTH（選ばれている4つの理由）。IT事業・コンサルティングで使う */
 interface Props {
   heading: SectionHeading
   cards: AccentCard[]
+  /** 乗せる面の色。カードの色差しのカバー色もこれに合わせる */
+  surface?: Surface
 }
 
-const { heading, cards } = Astro.props
+const { heading, cards, surface = 'alt' } = Astro.props
 ---
 
-<Section bordered>
+<Section variant={surface === 'alt' ? 'alt' : 'default'} bordered>
   <SectionHead {...heading} gap="clamp(2.5rem, 1rem + 3.5vw, 3.5rem)" />
-  <CardGrid cards={cards} cols={2} titleSize="lg" />
+  <CardGrid cards={cards} cols={2} titleSize="lg" surface={surface} />
 </Section>

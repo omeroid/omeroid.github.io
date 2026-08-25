@@ -39,11 +39,19 @@ import {
     blobs="consulting"
   />
 
-  <Issues {...consultingIssues} />
-  <MenuList heading={consultingMenuHeading} rows={consultingMenu} />
+  {
+    /* 背景はヒーローから bg / alt を交互に切り替える（順番を変えるときは surface も直す） */
+  }
+  <Issues {...consultingIssues} surface="alt" />
+  <MenuList
+    heading={consultingMenuHeading}
+    rows={consultingMenu}
+    surface="bg"
+  />
   <Strength
     heading={consultingStrengthHeading}
     cards={consultingStrengthCards}
+    surface="alt"
   />
   <Works
     heading={consultingWorksHeading}
@@ -53,9 +61,10 @@ import {
     filterLabels={consultingWorksFilterLabels}
     works={consultingWorks}
     footnotes={consultingWorksFootnotes}
+    surface="bg"
   />
-  <Process />
-  <Contents />
-  <Faq items={consultingFaqs} />
-  <ContactCta />
+  <Process surface="alt" />
+  <Contents surface="bg" />
+  <Faq items={consultingFaqs} surface="alt" />
+  <ContactCta surface="bg" />
 </BaseLayout>

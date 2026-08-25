@@ -1,0 +1,142 @@
+---
+import type { InsightItem } from '~/types'
+
+/**
+ * コンサルティング記事の一覧（罫線区切りの1件1行）。
+ * コンサルティングページの CONTENTS と一覧ページ（/insights/）で共用する。
+ * href を持たない項目はリンクにならず、末尾の矢印も出さない。
+ */
+interface Props {
+  items: InsightItem[]
+  /** 見出しレベル。一覧ページでは h2 の下なので h3 */
+  as?: 'h3' | 'h4'
+  revealFrom?: number
+}
+
+const { items, as: Tag = 'h4', revealFrom = 2 }: Props = Astro.props
+---
+
+<div class="insights">
+  {
+    items.map((item, i) => {
+      const Row = item.href ? 'a' : 'div'
+      const isExternal = !!item.href && /^https?:/.test(item.href)
+      return (
+        <Row
+          class:list={['insights__row', item.href && 'is-link']}
+          href={item.href}
+          target={isExternal ? '_blank' : undefined}
+          rel={isExternal ? 'noopener' : undefined}
+          data-cat={item.category}
+          data-reveal={revealFrom + i}
+        >
+          <div class="insights__meta">
+            <span class="en insights__date">{item.date}</span>
+            <span class="insights__cat">{item.category}</span>
+          </div>
+          <Tag class="insights__title">{item.title}</Tag>
+          <span class="en insights__mark" aria-hidden="true">
+            {item.href ? '→' : ''}
+          </span>
+        </Row>
+      )
+    })
+  }
+</div>
+
+<style>
+  .insights {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .insights__row {
+    display: grid;
+    grid-template-columns: 132px 168px minmax(0, 1fr) 44px;
+    gap: 24px;
+    align-items: center;
+    padding: 28px 8px;
+    border-bottom: 1px solid var(--line-strong);
+    color: inherit;
+    transition: background-color 260ms var(--ease);
+  }
+
+  .insights__row.is-link:hover {
+    background: rgb(var(--c-accent-rgb) / 0.07);
+    color: inherit;
+  }
+
+  /* 絞り込みで隠すとき。display:grid を打ち消す必要がある */
+  .insights__row[hidden] {
+    display: none;
+  }
+
+  /* デスクトップでは日付・カテゴリを行のグリッドにそのまま並べる */
+  .insights__meta {
+    display: contents;
+  }
+
+  .insights__date {
+    font-size: 0.8125rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-45);
+  }
+
+  .insights__cat {
+    justify-self: start;
+    width: fit-content;
+    padding: 6px 14px;
+    border: 1px solid rgb(var(--c-accent-rgb) / 0.45);
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-eyebrow);
+    letter-spacing: 0.08em;
+    color: var(--c-accent);
+    white-space: nowrap;
+  }
+
+  .insights__title {
+    margin: 0;
+    font-family: var(--font-head);
+    font-size: 1.1875rem;
+    font-weight: 700;
+    line-height: 1.7;
+    letter-spacing: 0.03em;
+    text-wrap: pretty;
+  }
+
+  .insights__mark {
+    justify-self: end;
+    font-size: 1.125rem;
+    color: var(--c-accent);
+    transition: transform 260ms var(--ease);
+  }
+
+  .insights__row.is-link:hover .insights__mark {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 900px) {
+    .insights__row {
+      grid-template-columns: minmax(0, 1fr) 30px;
+      gap: 14px;
+    }
+
+    /* 日付とカテゴリを1行にまとめ、その下にタイトルを置く */
+    .insights__meta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .insights__title {
+      grid-column: 1 / -1;
+      font-size: 1.0625rem;
+    }
+
+    .insights__mark {
+      align-self: center;
+    }
+  }
+</style>

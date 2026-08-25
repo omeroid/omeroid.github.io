@@ -1,12 +1,32 @@
 ---
 import ArrowLink from '~/components/ui/ArrowLink.astro'
+import Btn from '~/components/ui/Btn.astro'
+import Eyebrow from '~/components/ui/Eyebrow.astro'
+import InsightList from '~/components/ui/InsightList.astro'
 import Picture from '~/components/ui/Picture.astro'
 import Section from '~/components/ui/Section.astro'
 import SectionHead from '~/components/ui/SectionHead.astro'
 import { consultingContents } from '~/data/consulting'
+import {
+  consultingInsightCount,
+  consultingInsightsHeading,
+  insights,
+} from '~/data/insights'
+import type { Surface } from '~/types'
+
+/** CONTENTS（事例とレポート ＋ コンサルティング記事）。コンサルティングページで使う */
+interface Props {
+  /** 乗せる面の色。ページ側の交互配色に合わせる */
+  surface?: Surface
+}
+
+const { surface = 'bg' }: Props = Astro.props
+
+/** 記事は新しい順に先頭から数件だけ。全件は /insights/ に置く */
+const latest = insights.slice(0, consultingInsightCount)
 ---
 
-<Section bordered>
+<Section variant={surface === 'alt' ? 'alt' : 'default'} bordered>
   <SectionHead
     {...consultingContents.heading}
     gap="clamp(2.5rem, 1.5rem + 3vw, 3.5rem)"
@@ -35,6 +55,31 @@ import { consultingContents } from '~/data/consulting'
         </a>
       ))
     }
+  </div>
+
+  <div class="contents__insights">
+    <div class="contents__insights-head">
+      <div>
+        <Eyebrow label={consultingInsightsHeading.eyebrow} reveal={4} />
+        <h3 class="heading contents__insights-title" data-reveal="5">
+          {consultingInsightsHeading.title}
+        </h3>
+        <p class="contents__insights-lead" data-reveal="6">
+          {consultingInsightsHeading.lead}
+        </p>
+      </div>
+      <Btn
+        href="/insights/"
+        variant="outline"
+        arrow
+        reveal={7}
+        class="contents__insights-cta"
+      >
+        コンサルティング記事一覧を見る
+      </Btn>
+    </div>
+
+    <InsightList items={latest} revealFrom={8} />
   </div>
 </Section>
 
@@ -71,5 +116,43 @@ import { consultingContents } from '~/data/consulting'
   /* 子コンポーネント（ArrowLink）の要素なのでスコープを抜ける必要がある */
   .contents__card :global(.contents__link) {
     margin-top: 20px;
+  }
+
+  .contents__insights {
+    margin-top: clamp(3.5rem, 1.5rem + 5vw, 6rem);
+  }
+
+  .contents__insights-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+
+  .contents__insights-title {
+    margin-top: 26px;
+    font-size: clamp(1.5rem, 1.15rem + 1.1vw, 1.875rem);
+  }
+
+  .contents__insights-lead {
+    margin-top: 18px;
+    max-width: 620px;
+    font-size: var(--fs-body);
+    line-height: 2;
+    color: var(--c-text);
+    text-wrap: pretty;
+  }
+
+  /* 子コンポーネント（Btn）の要素なのでスコープを抜ける必要がある */
+  .contents__insights-head :global(.contents__insights-cta) {
+    white-space: nowrap;
+  }
+
+  @media (max-width: 900px) {
+    .contents__insights-head {
+      align-items: flex-start;
+    }
   }
 </style>

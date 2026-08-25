@@ -2,18 +2,20 @@
 import CellGrid from '~/components/ui/CellGrid.astro'
 import Section from '~/components/ui/Section.astro'
 import SectionHead from '~/components/ui/SectionHead.astro'
-import type { SectionHeading } from '~/types'
+import type { SectionHeading, Surface } from '~/types'
 
 /** ISSUES（こんなご相談をいただいています）。IT事業・コンサルティングで使う */
 interface Props {
   heading: SectionHeading
   items: string[]
+  /** 乗せる面の色。ページ側の交互配色に合わせる */
+  surface?: Surface
 }
 
-const { heading, items } = Astro.props
+const { heading, items, surface = 'alt' } = Astro.props
 ---
 
-<Section variant="alt">
+<Section variant={surface === 'alt' ? 'alt' : 'default'}>
   <SectionHead
     {...heading}
     size="sm"
