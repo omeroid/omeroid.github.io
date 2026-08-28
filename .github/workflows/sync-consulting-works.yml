@@ -1,0 +1,75 @@
+name: Sync consulting works from Notion
+
+# コンサルティング支援事例（consultingWorks）を Notion「対外発信DB」から再生成し、
+# 差分があれば develop 宛の Pull Request を自動作成する。
+# 公開（デプロイ）は PR を人がマージした時点。直接 develop へは push しない。
+
+on:
+  # 手動実行
+  workflow_dispatch:
+  # 週次（毎週月曜 00:00 UTC = 09:00 JST）
+  schedule:
+    - cron: '0 0 * * 1'
+
+# 既定ブランチ以外での schedule 実行は GitHub の仕様で発火しないため、
+# develop を既定ブランチにするか、必要なら push トリガ等で運用する。
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-consulting-works
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout develop
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Generate from Notion
+        env:
+          # 管理者が登録した Secret 名（NOTION_CS_PJ_ACCESS_TOKEN）を、
+          # スクリプトが読む環境変数 NOTION_TOKEN に橋渡しする
+          NOTION_TOKEN: ${{ secrets.NOTION_CS_PJ_ACCESS_TOKEN }}
+        run: node scripts/generate-consulting-works.mjs
+
+      - name: Format generated file
+        run: yarn prettier --write src/data/consulting-works.generated.ts
+
+      # 生成物が壊れていないことを PR 作成前に検証する
+      - name: Type check & build
+        run: |
+          yarn lint
+          yarn build
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          base: develop
+          branch: bot/sync-consulting-works
+          commit-message: 'chore(consulting): Notionから支援事例を更新'
+          title: 'chore(consulting): Notionから支援事例を更新'
+          body: |
+            Notion「対外発信DB」（HP掲載 = ON）から `consultingWorks` を再生成しました。
+
+            - 生成器: `scripts/generate-consulting-works.mjs`
+            - 差分を確認し、問題なければ develop へマージしてください（マージで公開されます）。
+            - 取引先名・個人名などの固有名詞が含まれていないか、必ず目視で確認してください。
+          labels: |
+            automated
+            consulting
+          delete-branch: true

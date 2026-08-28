@@ -111,7 +111,18 @@ export interface WorkRow {
   industry: string
   /** 絞り込みの「技術・テーマ」 */
   tags: string[]
-  body: string
+  /**
+   * 1文の概要。IT事業（layout="rows"）で使う。
+   * コンサル（layout="cards"）で background/approach/outcome を持つ場合は、
+   * そちらを優先して表示し body は使わない。どちらか一方は必ず持たせる。
+   */
+  body?: string
+  /** 構造化本文：背景・課題（あれば body より優先。cards レイアウト） */
+  background?: string
+  /** 構造化本文：アプローチ（omeroid が行った支援） */
+  approach?: string
+  /** 構造化本文：成果・結果 */
+  outcome?: string
   /** 支援月数。期間表記と期間バーの長さはここから計算する */
   months?: number
   /** 開始年 */

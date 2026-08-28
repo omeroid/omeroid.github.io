@@ -15,6 +15,7 @@
     "serve": "astro preview",
     "typecheck": "astro check",
     "check:styles": "node scripts/check-scoped-styles.mjs",
+    "sync:works": "node scripts/generate-consulting-works.mjs",
     "lint": "node scripts/check-scoped-styles.mjs && astro check",
     "format": "prettier --write \"src/**/*.{astro,ts,js,css,json}\" \"*.{mjs,json,md}\"",
     "format:check": "prettier --check \"src/**/*.{astro,ts,js,css,json}\" \"*.{mjs,json,md}\"",

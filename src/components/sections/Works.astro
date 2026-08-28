@@ -233,7 +233,30 @@ const tags = countBy((row) => row.tags)
             >
               <div class="en works__category">{row.category}</div>
               <h4 class="works__client">{row.client}</h4>
-              <p class="works__body">{row.body}</p>
+              {row.background || row.approach || row.outcome ? (
+                <dl class="works__struct">
+                  {row.background && (
+                    <div class="works__struct-item">
+                      <dt class="works__struct-label">背景・課題</dt>
+                      <dd class="works__struct-body">{row.background}</dd>
+                    </div>
+                  )}
+                  {row.approach && (
+                    <div class="works__struct-item">
+                      <dt class="works__struct-label">アプローチ</dt>
+                      <dd class="works__struct-body">{row.approach}</dd>
+                    </div>
+                  )}
+                  {row.outcome && (
+                    <div class="works__struct-item">
+                      <dt class="works__struct-label">成果</dt>
+                      <dd class="works__struct-body">{row.outcome}</dd>
+                    </div>
+                  )}
+                </dl>
+              ) : (
+                <p class="works__body">{row.body}</p>
+              )}
               <div class="works__tags">
                 {row.tags.map((tag) => (
                   <span class="works__tag">{tag}</span>
@@ -559,6 +582,55 @@ const tags = countBy((row) => row.tags)
 
   .works__card .works__tags {
     margin-top: 20px;
+  }
+
+  /* 構造化本文（背景・課題 → アプローチ → 成果）。cards レイアウトで使う */
+  .works__struct {
+    flex: 1;
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .works__struct-item {
+    display: grid;
+    grid-template-columns: 5.5em minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .works__struct-label {
+    position: relative;
+    padding-left: 11px;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    line-height: 1.7;
+    letter-spacing: 0.04em;
+    color: var(--c-accent);
+  }
+
+  .works__struct-label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.45em;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--c-accent);
+  }
+
+  .works__struct-body {
+    font-size: 0.84375rem;
+    line-height: 1.85;
+    color: var(--c-text);
+  }
+
+  @media (max-width: 480px) {
+    .works__struct-item {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 3px;
+    }
   }
 
   .works__category {
