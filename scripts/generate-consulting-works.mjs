@@ -289,7 +289,15 @@ async function assertNoClientNames(works) {
     .map((w) => [w.client, w.background, w.approach, w.outcome].join('\n'))
     .join('\n')
 
-  const hits = [...names].filter((n) => haystack.includes(n))
+  // 照合: ASCII の略称は単語境界で判定し、一般語の一部（例「ITSM」内の "TSM"）を
+  // 誤検知しないようにする。日本語名は具体的なので部分一致で判定する。
+  const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const hits = [...names].filter((n) => {
+    if (/^[\x20-\x7E]+$/.test(n)) {
+      return new RegExp(`\\b${escapeRe(n)}\\b`, 'i').test(haystack)
+    }
+    return haystack.includes(n)
+  })
   if (hits.length) {
     throw new Error(
       `社名スクラバ: 公開データに取引先名が混入している可能性があります → ${hits.join(
