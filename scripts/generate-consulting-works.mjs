@@ -304,7 +304,15 @@ async function assertNoClientNames(works) {
  * ------------------------------------------------------------------ */
 
 function tsString(s) {
-  return `'${String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`
+  // 改行・復帰・タブ・単一引用符・バックスラッシュをエスケープし、
+  // Notion のテキスト内改行があっても正しい TS 文字列リテラルにする。
+  const escaped = String(s)
+    .replace(/\\/g, '\\\\')
+    .replace(/'/g, "\\'")
+    .replace(/\r/g, '\\r')
+    .replace(/\n/g, '\\n')
+    .replace(/\t/g, '\\t')
+  return `'${escaped}'`
 }
 
 function serializeWork(w) {
