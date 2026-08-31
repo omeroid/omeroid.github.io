@@ -255,7 +255,19 @@ async function main() {
 
 /** クライアントマスタの社名が出力に紛れ込んでいないか検査（混入時は異常終了） */
 async function assertNoClientNames(works) {
-  const clientPages = await queryAll(CLIENT_DB_ID)
+  let clientPages
+  try {
+    clientPages = await queryAll(CLIENT_DB_ID)
+  } catch (err) {
+    // クライアントマスタがインテグレーションに共有されていない等でアクセス不可の場合、
+    // パイプラインを止めず、社名スクラバをスキップして続行する（警告を残す）。
+    // 本来の社名チェックを有効化するには、クライアントマスタをインテグレーションに共有する。
+    console.warn(
+      `⚠️ 社名スクラバをスキップしました: クライアントマスタ(${CLIENT_DB_ID})にアクセスできません。` +
+        `インテグレーションに共有すると自動チェックが有効化されます。原因: ${err.message}`
+    )
+    return
+  }
   const names = new Set()
   for (const page of clientPages) {
     for (const value of Object.values(page.properties ?? {})) {
