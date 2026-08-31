@@ -10,7 +10,6 @@ import type {
 } from '~/types'
 import { externalLinks } from './site'
 
-import caseImage from '~/assets/images/consulting/contents-case.webp'
 import reportImage from '~/assets/images/consulting/contents-report.webp'
 
 export const consultingHero = {
@@ -141,7 +140,7 @@ export const consultingWorkStats: WorkStat[] = [
 ]
 
 export const consultingWorksListHeading = {
-  title: '主なプロジェクト事例',
+  title: '弊社による代表事例',
   range: '2019 — 2026',
 }
 
@@ -156,8 +155,8 @@ export const consultingWorksFilterLabels = {
 export { consultingWorks } from './consulting-works.generated'
 
 export const consultingWorksFootnotes: string[] = [
-  '上記のほか、短期プロジェクト（市場調査・営業資料の強化・研修講師など）を3社で実施しています。',
-  '※ 2019年3月〜2026年8月の実績にもとづきます。取引先名・案件名は守秘義務のため掲載していません。詳細は個別のご相談時に、お伝えできる範囲でご説明します。',
+  '※ ここで紹介しているのは代表的な一部です。このほかにも、業界・テーマを問わず多数の実績があります。',
+  '※ 取引先名・案件名は守秘義務のため掲載していません。詳細は個別のご相談時に、お伝えできる範囲でご説明します。',
 ]
 
 /** PROCESS（支援の進め方） */
@@ -214,22 +213,13 @@ export const consultingProcessPromises = [
   },
 ]
 
-/** CONTENTS（事例とレポート） */
+/** CONTENTS（レポート） */
 export const consultingContents = {
   heading: {
     eyebrow: 'CONTENTS',
-    title: '事例とレポート',
+    title: 'レポート',
   } satisfies SectionHeading,
   items: [
-    {
-      title: 'コンサルティング事例紹介',
-      body: 'どんな課題に、どう入って、何が変わったか。実際のプロジェクトを公開しています。',
-      href: externalLinks.consultingCases,
-      picture: {
-        image: caseImage,
-        alt: 'ホワイトボードを囲んで議論する打ち合わせ風景',
-      } satisfies Picture,
-    },
     {
       title: 'レポート一覧',
       body: '業界動向やテーマ別の調査レポートを、随時公開しています。',
