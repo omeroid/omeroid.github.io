@@ -234,26 +234,26 @@ const tags = countBy((row) => row.tags)
               <div class="en works__category">{row.category}</div>
               <h4 class="works__client">{row.client}</h4>
               {row.background || row.approach || row.outcome ? (
-                <dl class="works__struct">
+                <div class="works__flow">
                   {row.background && (
-                    <div class="works__struct-item">
-                      <dt class="works__struct-label">背景・課題</dt>
-                      <dd class="works__struct-body">{row.background}</dd>
+                    <div class="works__flow-step">
+                      <span class="works__flow-label">背景・課題</span>
+                      <p class="works__flow-body">{row.background}</p>
                     </div>
                   )}
                   {row.approach && (
-                    <div class="works__struct-item">
-                      <dt class="works__struct-label">アプローチ</dt>
-                      <dd class="works__struct-body">{row.approach}</dd>
+                    <div class="works__flow-step">
+                      <span class="works__flow-label">アプローチ</span>
+                      <p class="works__flow-body">{row.approach}</p>
                     </div>
                   )}
                   {row.outcome && (
-                    <div class="works__struct-item">
-                      <dt class="works__struct-label">成果</dt>
-                      <dd class="works__struct-body">{row.outcome}</dd>
+                    <div class="works__flow-step">
+                      <span class="works__flow-label">成果</span>
+                      <p class="works__flow-body">{row.outcome}</p>
                     </div>
                   )}
-                </dl>
+                </div>
               ) : (
                 <p class="works__body">{row.body}</p>
               )}
@@ -584,53 +584,61 @@ const tags = countBy((row) => row.tags)
     margin-top: 20px;
   }
 
-  /* 構造化本文（背景・課題 → アプローチ → 成果）。cards レイアウトで使う */
-  .works__struct {
+  /* 構造化本文（背景・課題 → アプローチ → 成果）。cards のフロー表示 */
+  .works__flow {
     flex: 1;
-    margin-top: 16px;
+    margin-top: 18px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
   }
 
-  .works__struct-item {
-    display: grid;
-    grid-template-columns: 5.5em minmax(0, 1fr);
-    gap: 12px;
-  }
-
-  .works__struct-label {
+  .works__flow-step {
     position: relative;
-    padding-left: 11px;
-    font-size: 0.6875rem;
-    font-weight: 700;
-    line-height: 1.7;
-    letter-spacing: 0.04em;
-    color: var(--c-accent);
+    border: 1px solid var(--line-mid);
+    border-radius: var(--radius-sm);
+    padding: 17px 15px 14px;
   }
 
-  .works__struct-label::before {
-    content: '';
+  /* 2つめ以降のステップは、矢印を置くぶんの余白を上に取る */
+  .works__flow-step + .works__flow-step {
+    margin-top: 26px;
+  }
+
+  /* ラベルは枠の上辺に重ねたタブにする */
+  .works__flow-label {
     position: absolute;
-    left: 0;
-    top: 0.45em;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: var(--c-accent);
+    top: 0;
+    left: 13px;
+    transform: translateY(-50%);
+    padding: 2px 9px;
+    background: var(--works-surface, var(--c-bg));
+    border: 1px solid var(--line-mid);
+    border-radius: 3px;
+    font-size: 0.65625rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--c-accent);
+    white-space: nowrap;
   }
 
-  .works__struct-body {
+  .works__flow-body {
     font-size: 0.84375rem;
     line-height: 1.85;
     color: var(--c-text);
   }
 
-  @media (max-width: 480px) {
-    .works__struct-item {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 3px;
-    }
+  /* ステップ間をつなぐ下向きの矢印（ファネル） */
+  .works__flow-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -18px;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 13px solid transparent;
+    border-right: 13px solid transparent;
+    border-top: 10px solid color-mix(in srgb, var(--c-accent) 32%, transparent);
   }
 
   .works__category {
