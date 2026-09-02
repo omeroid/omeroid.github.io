@@ -1,5 +1,5 @@
 /** IT・システム開発ページのコンテンツ */
-import type { MenuRow, ProcessStep, SectionHeading } from '~/types'
+import type { AiFlowStep, MenuRow, SectionHeading } from '~/types'
 
 export const itHero = {
   eyebrow: 'IT CONSULTING & ENGINEERING',
@@ -83,47 +83,40 @@ export const itMenu: MenuRow[] = [
 export const itAiFlowHeading: SectionHeading = {
   eyebrow: 'AI-DRIVEN DEVELOPMENT',
   title: 'AI駆動の開発フロー',
-  lead: '要件定義から実装まで、開発プロセス自体にAIを組み込むことでスピードと精度を両立します。判断が必要な工程は、経験を積んだエンジニアが必ず確認します。',
+  lead: '要件定義からレビューまで、各工程に適したAIツールを組み込むことで、認識合わせのスピードと開発品質を両立しています。',
 }
 
-export const itAiFlowSteps: ProcessStep[] = [
+export const itAiFlowSteps: AiFlowStep[] = [
   {
-    step: 'STEP 01',
-    title: '要件整理',
-    body: 'ヒアリングとAIによる壁打ちを組み合わせ、抜け漏れの少ない要件定義を短期間でまとめます。',
-    from: 'orange',
-    to: 'amber',
+    tool: 'Claude Design',
+    title: 'モック作成・要件定義',
+    body: '画面イメージをAIで即座にモック化し、言葉だけでは伝わりにくいアウトプットの認識をお客様と早期にすり合わせます。',
   },
   {
-    step: 'STEP 02',
-    title: '設計',
-    body: 'アーキテクチャや画面設計をAIで複数パターン検討しつつ、最終的な意思決定はエンジニアが行います。',
-    from: 'amber',
-    to: 'teal',
+    tool: 'GitHub Spec-Kit',
+    title: '仕様設計',
+    body: '合意した要件をSpec-Kitで構造化。実装前に仕様の抜け漏れ・矛盾をAIとレビューし、手戻りの少ない設計に落とし込みます。',
   },
   {
-    step: 'STEP 03',
-    title: 'AI協働実装',
-    body: 'コーディングの多くをAIエージェントが担い、エンジニアは設計判断とコードレビューに集中します。',
-    from: 'teal',
-    to: 'blue',
+    tool: 'Vibe Coding',
+    title: 'AI駆動の実装',
+    body: '仕様をもとにAIと対話しながら実装。エンジニアは設計判断とレビューに集中し、実装速度を大きく引き上げます。',
   },
   {
-    step: 'STEP 04',
-    title: 'レビュー・テスト',
-    body: '自動テストと静的解析に加え、AIが書いたコードも人の目で必ずレビューし品質を担保します。',
-    from: 'blue',
-    to: 'purple',
+    tool: 'AI Review',
+    title: 'AIレビュー',
+    body: 'コードレビューにAIを組み込み、品質・セキュリティ観点の一次チェックを自動化。レビュアーは本質的な論点に集中できます。',
   },
   {
-    step: 'STEP 05',
-    title: 'リリース・改善',
-    body: 'リリース後もAIを活用した運用改善を継続し、変化に合わせて素早く手を入れられる状態を保ちます。',
-    from: 'purple',
-    to: 'green',
+    tool: 'Human QA',
+    title: '人によるレビュー・テスト',
+    body: '最終的な品質担保は必ず人が行います。エンジニアによるコードレビューと動作テストを経てからリリースするため、AI活用によるスピードと品質を両立できます。',
+    highlight: true,
   },
 ]
 
 /** 品質担保の注記 */
-export const itAiFlowNote =
-  'AIはあくまで開発を加速させる手段です。設計判断・セキュリティ・品質の最終責任は、経験を積んだエンジニアが担います。'
+export const itAiFlowNote = {
+  label: '品質担保について：',
+  body: 'AIはあくまで生産性を高める手段であり、最終的な品質はエンジニアの目と手で担保します。すべての工程で人によるレビュー・テストを経てからお客様に納品します。',
+}

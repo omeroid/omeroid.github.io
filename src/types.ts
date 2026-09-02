@@ -162,6 +162,16 @@ export interface ProcessStep extends Step {
   to: AccentKey
 }
 
+/** AI駆動の開発フローの1ステップ（AI-FLOW）。番号は表示順から振る */
+export interface AiFlowStep {
+  /** その工程で使うAIツール・手法の名前 */
+  tool: string
+  title: string
+  body: string
+  /** 人が担保する工程。番号を強調色で塗る */
+  highlight?: boolean
+}
+
 /** よくあるご質問 */
 export interface Faq {
   question: string

@@ -1,7 +1,6 @@
 ---
 import Section from '~/components/ui/Section.astro'
 import SectionHead from '~/components/ui/SectionHead.astro'
-import { gradientBarStyle } from '~/lib/accent'
 import { itAiFlowHeading, itAiFlowNote, itAiFlowSteps } from '~/data/it'
 import type { Surface } from '~/types'
 
@@ -20,80 +19,122 @@ const { surface = 'alt' }: Props = Astro.props
     gap="clamp(2.5rem, 1rem + 3.8vw, 3.75rem)"
   />
 
-  <ol class="flow" style={`--steps:${itAiFlowSteps.length}`}>
-    {
-      itAiFlowSteps.map((step, i) => (
-        <li class="flow__item" data-reveal={3 + i}>
-          <div class="flow__bar" style={gradientBarStyle(step.from, step.to)} />
-          <div class="en flow__step">{step.step}</div>
-          <h3 class="flow__title">{step.title}</h3>
-          <p class="flow__body">{step.body}</p>
-        </li>
-      ))
-    }
-  </ol>
+  <div class="flow" data-reveal="3">
+    <ol class="flow__steps" style={`--steps:${itAiFlowSteps.length}`}>
+      {
+        itAiFlowSteps.map((step, i) => (
+          <li class:list={['flow__item', step.highlight && 'is-human']}>
+            <div class="en flow__num">{i + 1}</div>
+            <div class="en flow__tool">{step.tool}</div>
+            <h3 class="flow__title">{step.title}</h3>
+            <p class="flow__body">{step.body}</p>
+          </li>
+        ))
+      }
+    </ol>
 
-  <p class="flow__note" data-reveal={3 + itAiFlowSteps.length}>
-    {itAiFlowNote}
-  </p>
+    <p class="flow__note">
+      <strong>{itAiFlowNote.label}</strong>{itAiFlowNote.body}
+    </p>
+  </div>
 </Section>
 
 <style>
   .flow {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(1.75rem, 1.1rem + 2.2vw, 2.75rem)
+      clamp(1.5rem, 1rem + 2.4vw, 2.5rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--c-card);
+  }
+
+  /* 右上に差す淡い光。カード地の上に重ねる装飾 */
+  .flow::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgb(var(--c-amber-rgb) / 0.35),
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  .flow__steps {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(var(--steps), minmax(0, 1fr));
-    gap: 24px;
+    gap: 26px;
   }
 
-  .flow__bar {
-    height: 4px;
-    border-radius: 2px;
-    margin-bottom: 26px;
+  .flow__num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-pill);
+    background: var(--c-ink);
+    color: var(--c-card);
+    font-size: 0.875rem;
+    letter-spacing: 0.02em;
   }
 
-  .flow__step {
-    font-size: 0.75rem;
-    letter-spacing: 0.16em;
-    color: var(--ink-45);
+  .flow__item.is-human .flow__num {
+    background: var(--c-teal);
+    color: var(--c-ink);
+  }
+
+  .flow__tool {
+    margin-top: 16px;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-accent);
   }
 
   .flow__title {
-    margin-top: 16px;
+    margin-top: 8px;
     font-family: var(--font-head);
-    font-size: clamp(1.125rem, 1rem + 0.5vw, 1.3125rem);
+    font-size: clamp(1rem, 0.9rem + 0.4vw, 1.125rem);
     font-weight: 700;
     letter-spacing: 0.03em;
     line-height: 1.6;
   }
 
   .flow__body {
-    margin-top: 14px;
-    font-size: 0.875rem;
-    line-height: 2;
-    color: var(--c-text);
+    margin-top: 12px;
+    font-size: 0.8125rem;
+    line-height: 1.95;
+    color: var(--ink-70);
   }
 
   .flow__note {
-    margin-top: clamp(2.75rem, 1.5rem + 3vw, 4.5rem);
-    padding: clamp(1.5rem, 1.1rem + 1.2vw, 2rem)
-      clamp(1.5rem, 1.1rem + 1.2vw, 2.25rem);
-    border-radius: var(--radius);
-    border: 1px solid var(--line);
-    font-size: 0.875rem;
+    margin-top: clamp(2rem, 1.4rem + 1.8vw, 2.75rem);
+    padding-top: clamp(1.25rem, 1rem + 1vw, 1.5rem);
+    border-top: 1px solid var(--line);
+    font-size: 0.8125rem;
     line-height: 2;
-    color: var(--c-text);
+    color: var(--ink-70);
+  }
+
+  .flow__note strong {
+    font-weight: 700;
+    color: var(--c-ink);
   }
 
   @media (max-width: 1100px) {
-    .flow {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 36px 24px;
-    }
-  }
-
-  @media (max-width: 560px) {
-    .flow {
+    .flow__steps {
       grid-template-columns: minmax(0, 1fr);
+      gap: 38px;
     }
   }
 </style>
