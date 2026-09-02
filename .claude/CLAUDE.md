@@ -44,7 +44,7 @@ CMS は使っていない。文言・リンク・画像はすべて `src/data/*.
 | `site.ts` | サイト名・説明・GA測定ID・ナビ（`children` でドロップダウン）・フッター・外部リンク・加入団体 |
 | `home.ts` | トップページ（ヒーロー、PICK UP、OUR WHY、サービス、実績数値、哲学、写真、プロダクト、ブログ、採用） |
 | `service.ts` | サービス一覧ページ（ヒーロー、入口カード、単発メニュー） |
-| `it.ts` | IT・システム開発ページ（ヒーロー、ご相談例、支援メニュー） |
+| `it.ts` | IT・システム開発ページ（ヒーロー、ご相談例、支援メニュー、AI駆動の開発フロー） |
 | `consulting.ts` | コンサルティングページ（ヒーロー、ご相談例、支援メニュー、強み、支援実績、進め方、事例とレポート、FAQ） |
 | `strength.ts` `works.ts` `stack.ts` `faq.ts` | IT・システム開発ページのセクション |
 | `product.ts` | 自社プロダクト |
@@ -92,13 +92,15 @@ IT・コンサルの両ページで使う共通セクション。データは im
 | 3 | MENU `bg` | MENU `bg` |
 | 4 | STRENGTH `alt` | STRENGTH `alt` |
 | 5 | WORKS `bg` | WORKS `bg` |
-| 6 | STACK `alt` | PROCESS `alt` |
-| 7 | FAQ `bg` | CONTENTS `bg` |
-| 8 | CONTACT `alt` | FAQ `alt` |
-| 9 | — | CONTACT `bg` |
+| 6 | AI-FLOW `alt` | PROCESS `alt` |
+| 7 | STACK `bg` | CONTENTS `bg` |
+| 8 | FAQ `alt` | FAQ `alt` |
+| 9 | CONTACT `bg` | CONTACT `bg` |
 
-`Faq` と `ContactCta` は**2ページで面の色が逆になる**唯一のセクション。`ContactCta` はお問い合わせページ
-（`/contact/`）でも使うが、そこは既定の `bg` のまま。
+IT限定の AI-FLOW（`sections/it/AiFlow.astro`、AI駆動の開発フローを5ステップ＋品質担保の注記で見せる）は
+WORKS と STACK の間に挿入されている。コンサルの PROCESS と同じ並び位置にあたるため、
+セクション数・面の対応ともに両ページで揃っている（`Faq` / `ContactCta` の面も含めて一致する）。
+`ContactCta` はお問い合わせページ（`/contact/`）でも使うが、そこは `surface` を渡さないので既定の `bg` のまま。
 
 **カード（`GradientCard` / `Stack`）は面の色に関わらず `--c-card`（`#fdfcfa`）を敷く。** グラデーションは
 その上に重ねる。色差し演出（`tint-layer`）のカバーも同じ `--c-card` なので、`surface` は面の色だけを決める
