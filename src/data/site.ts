@@ -87,6 +87,7 @@ export const footerColumns: { label: string; links: LinkItem[] }[] = [
       { label: 'サービス一覧', href: '/service/' },
       { label: 'コンサルティング', href: '/consulting/' },
       { label: 'IT・システム開発', href: '/it/' },
+      { label: 'AI導入支援', href: externalLinks.aiSupport },
       { label: 'プロダクト', href: '/product/' },
     ],
   },

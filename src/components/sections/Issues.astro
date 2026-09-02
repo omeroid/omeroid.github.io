@@ -8,11 +8,13 @@ import type { SectionHeading, Surface } from '~/types'
 interface Props {
   heading: SectionHeading
   items: string[]
+  /** 最後の項目だけ全幅で配置する */
+  wideLast?: boolean
   /** 乗せる面の色。ページ側の交互配色に合わせる */
   surface?: Surface
 }
 
-const { heading, items, surface = 'alt' } = Astro.props
+const { heading, items, wideLast = false, surface = 'alt' } = Astro.props
 ---
 
 <Section variant={surface === 'alt' ? 'alt-cool' : 'default'}>
@@ -21,5 +23,11 @@ const { heading, items, surface = 'alt' } = Astro.props
     size="sm"
     gap="clamp(2.5rem, 1.5rem + 3vw, 3.5rem)"
   />
-  <CellGrid items={items.map((body) => ({ body }))} cols={3} />
+  <CellGrid
+    items={items.map((body, i) => ({
+      body,
+      wide: wideLast && i === items.length - 1,
+    }))}
+    cols={3}
+  />
 </Section>

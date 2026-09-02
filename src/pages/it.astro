@@ -3,6 +3,7 @@ import BaseLayout from '~/layouts/BaseLayout.astro'
 import ContactCta from '~/components/sections/ContactCta.astro'
 import Faq from '~/components/sections/Faq.astro'
 import Issues from '~/components/sections/Issues.astro'
+import AiFlow from '~/components/sections/it/AiFlow.astro'
 import MenuList from '~/components/sections/MenuList.astro'
 import PageHero from '~/components/sections/PageHero.astro'
 import Stack from '~/components/sections/Stack.astro'
@@ -49,7 +50,8 @@ import {
     footnotes={worksFootnotes}
     surface="bg"
   />
-  <Stack surface="alt" />
-  <Faq items={faqs} surface="bg" />
-  <ContactCta surface="alt" />
+  <AiFlow surface="alt" />
+  <Stack surface="bg" />
+  <Faq items={faqs} surface="alt" />
+  <ContactCta surface="bg" />
 </BaseLayout>

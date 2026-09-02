@@ -139,7 +139,7 @@ button {
   font-size: var(--fs-lead);
   line-height: 2.15;
   color: var(--c-text);
-  max-width: 34em;
+  max-width: 46em;
   text-wrap: pretty;
 }
 

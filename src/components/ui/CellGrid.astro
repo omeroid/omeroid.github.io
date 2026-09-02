@@ -1,7 +1,7 @@
 ---
 /** 1px の罫線で仕切られたセルの集合（相談内容の一覧・行動指針など） */
 interface Props {
-  items: { title?: string; body: string }[]
+  items: { title?: string; body: string; wide?: boolean }[]
   cols?: 2 | 3
   revealFrom?: number
   class?: string
@@ -13,7 +13,10 @@ const { items, cols = 3, revealFrom = 1, class: className } = Astro.props
 <div class:list={['cells', `cells--${cols}`, className]}>
   {
     items.map((item, i) => (
-      <div class="cells__item" data-reveal={revealFrom + i}>
+      <div
+        class:list={['cells__item', item.wide && 'cells__item--wide']}
+        data-reveal={revealFrom + i}
+      >
         {item.title && <h3 class="cells__title">{item.title}</h3>}
         <p class:list={['cells__body', !item.title && 'is-lead']}>
           {item.body}
@@ -44,6 +47,10 @@ const { items, cols = 3, revealFrom = 1, class: className } = Astro.props
     padding: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem)
       clamp(1.375rem, 1rem + 1.4vw, 2.375rem);
     transition: background-color 260ms var(--ease);
+  }
+
+  .cells__item--wide {
+    grid-column: 1 / -1;
   }
 
   .cells__item:hover {
