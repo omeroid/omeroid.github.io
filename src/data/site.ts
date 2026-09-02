@@ -35,8 +35,6 @@ export const externalLinks = {
     'https://omeroid.notion.site/141be5a46ca842dab09bc66fbc965bd2?pvs=4',
   consultingCases:
     'https://omeroid.notion.site/c97db77827754002a0256400e04654a2',
-  consultingReports:
-    'https://omeroid.notion.site/1fb26d41019d804ba455fd8c1602611f?v=1fb26d41019d8041a5de000c1e073b58',
 } as const
 
 /** ヘッダーのグローバルナビ。children を付けるとドロップダウンになる */

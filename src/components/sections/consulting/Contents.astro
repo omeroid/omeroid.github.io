@@ -1,12 +1,8 @@
 ---
-import ArrowLink from '~/components/ui/ArrowLink.astro'
 import Btn from '~/components/ui/Btn.astro'
 import Eyebrow from '~/components/ui/Eyebrow.astro'
 import InsightList from '~/components/ui/InsightList.astro'
-import Picture from '~/components/ui/Picture.astro'
 import Section from '~/components/ui/Section.astro'
-import SectionHead from '~/components/ui/SectionHead.astro'
-import { consultingContents } from '~/data/consulting'
 import {
   consultingInsightCount,
   consultingInsightsHeading,
@@ -14,7 +10,7 @@ import {
 } from '~/data/insights'
 import type { Surface } from '~/types'
 
-/** CONTENTS（事例とレポート ＋ コンサルティング記事）。コンサルティングページで使う */
+/** CONTENTS（コンサルティング記事）。コンサルティングページで使う */
 interface Props {
   /** 乗せる面の色。ページ側の交互配色に合わせる */
   surface?: Surface
@@ -27,101 +23,31 @@ const latest = insights.slice(0, consultingInsightCount)
 ---
 
 <Section variant={surface === 'alt' ? 'alt-cool' : 'default'} bordered>
-  <SectionHead
-    {...consultingContents.heading}
-    gap="clamp(2.5rem, 1.5rem + 3vw, 3.5rem)"
-  />
-
-  <div class="grid grid--2 contents">
-    {
-      consultingContents.items.map((item, i) => (
-        <a
-          class="contents__card"
-          href={item.href}
-          target="_blank"
-          rel="noopener"
-          data-reveal={2 + i}
-        >
-          <Picture
-            picture={item.picture}
-            height="clamp(200px, 24vw, 280px)"
-            radius="var(--radius)"
-          />
-          <h3 class="contents__title">{item.title}</h3>
-          <p class="contents__body">{item.body}</p>
-          <ArrowLink size="sm" class="contents__link">
-            詳細を見る
-          </ArrowLink>
-        </a>
-      ))
-    }
-  </div>
-
-  <div class="contents__insights">
-    <div class="contents__insights-head">
-      <div>
-        <Eyebrow label={consultingInsightsHeading.eyebrow} reveal={4} />
-        <h3 class="heading contents__insights-title" data-reveal="5">
-          {consultingInsightsHeading.title}
-        </h3>
-        <p class="contents__insights-lead" data-reveal="6">
-          {consultingInsightsHeading.lead}
-        </p>
-      </div>
-      <Btn
-        href="/insights/"
-        variant="outline"
-        arrow
-        reveal={7}
-        class="contents__insights-cta"
-      >
-        コンサルティング記事一覧を見る
-      </Btn>
+  <div class="contents__insights-head">
+    <div>
+      <Eyebrow label={consultingInsightsHeading.eyebrow} reveal={0} />
+      <h2 class="heading contents__insights-title" data-reveal="1">
+        {consultingInsightsHeading.title}
+      </h2>
+      <p class="contents__insights-lead" data-reveal="2">
+        {consultingInsightsHeading.lead}
+      </p>
     </div>
-
-    <InsightList items={latest} revealFrom={8} />
+    <Btn
+      href="/insights/"
+      variant="outline"
+      arrow
+      reveal={3}
+      class="contents__insights-cta"
+    >
+      コンサルティング記事一覧を見る
+    </Btn>
   </div>
+
+  <InsightList items={latest} revealFrom={4} />
 </Section>
 
 <style>
-  .contents {
-    gap: 28px;
-  }
-
-  .contents__card {
-    display: block;
-    color: inherit;
-  }
-
-  .contents__card:hover {
-    color: inherit;
-  }
-
-  .contents__title {
-    margin-top: 26px;
-    font-family: var(--font-head);
-    font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.5625rem);
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    line-height: 1.6;
-  }
-
-  .contents__body {
-    margin-top: 14px;
-    font-size: var(--fs-body);
-    line-height: 2;
-    color: var(--c-text);
-  }
-
-  /* 子コンポーネント（ArrowLink）の要素なのでスコープを抜ける必要がある */
-  .contents__card :global(.contents__link) {
-    margin-top: 20px;
-  }
-
-  .contents__insights {
-    margin-top: clamp(3.5rem, 1.5rem + 5vw, 6rem);
-  }
-
   .contents__insights-head {
     display: flex;
     align-items: flex-end;
@@ -133,7 +59,7 @@ const latest = insights.slice(0, consultingInsightCount)
 
   .contents__insights-title {
     margin-top: 26px;
-    font-size: clamp(1.5rem, 1.15rem + 1.1vw, 1.875rem);
+    font-size: var(--fs-h2);
   }
 
   .contents__insights-lead {

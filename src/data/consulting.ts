@@ -3,14 +3,10 @@ import type {
   AccentCard,
   Faq,
   MenuRow,
-  Picture,
   ProcessStep,
   SectionHeading,
   WorkStat,
 } from '~/types'
-import { externalLinks } from './site'
-
-import reportImage from '~/assets/images/consulting/contents-report.webp'
 
 export const consultingHero = {
   eyebrow: 'STRATEGY & BUSINESS CONSULTING',
@@ -212,25 +208,6 @@ export const consultingProcessPromises = [
     body: '受発注の関係ではなく、事業を一緒に前に進める相手として信頼関係を築きます。',
   },
 ]
-
-/** CONTENTS（レポート） */
-export const consultingContents = {
-  heading: {
-    eyebrow: 'CONTENTS',
-    title: 'レポート',
-  } satisfies SectionHeading,
-  items: [
-    {
-      title: 'レポート一覧',
-      body: '業界動向やテーマ別の調査レポートを、随時公開しています。',
-      href: externalLinks.consultingReports,
-      picture: {
-        image: reportImage,
-        alt: '机に並べた調査レポートの資料',
-      } satisfies Picture,
-    },
-  ],
-}
 
 /** FAQ（コンサルティング固有。IT事業ページとは設問が異なる） */
 export const consultingFaqs: Faq[] = [
