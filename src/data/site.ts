@@ -22,7 +22,7 @@ export const site = {
 export const externalLinks = {
   companyBlog: 'https://note.com/omeroid',
   techBlog: 'https://zenn.dev/p/omeroid',
-  recruit: 'https://www.wantedly.com/companies/company_5409883',
+  recruit: 'https://recruit.omeroid.com/',
   /** AI導入支援（Claude導入プログラム）の専用LP */
   aiSupport: 'https://lp.omeroid.com/ai-implementation-support/',
   /** 基幹システム刷新支援の専用LP */
