@@ -14,10 +14,12 @@ import { itHero, itIssues, itMenu, itMenuHeading } from '~/data/it'
 import { strengthCards, strengthHeading } from '~/data/strength'
 import {
   works,
+  worksEmptyText,
   worksFilterLabels,
   worksFootnotes,
   worksHeading,
   worksListHeading,
+  worksPerPage,
   workStats,
 } from '~/data/works'
 ---
@@ -46,7 +48,10 @@ import {
     stats={workStats}
     listHeading={worksListHeading}
     filterLabels={worksFilterLabels}
+    filterMode="multi"
+    perPage={worksPerPage}
     works={works}
+    emptyText={worksEmptyText}
     footnotes={worksFootnotes}
     surface="bg"
   />

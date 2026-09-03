@@ -1,7 +1,13 @@
 ---
 import Section from '~/components/ui/Section.astro'
 import SectionHead from '~/components/ui/SectionHead.astro'
-import type { SectionHeading, Surface, WorkRow, WorkStat } from '~/types'
+import type {
+  SectionHeading,
+  Surface,
+  WorkFilterLabels,
+  WorkRow,
+  WorkStat,
+} from '~/types'
 
 /**
  * WORKS（実績）。IT事業・コンサルティングで、それぞれの実績を渡して使う。
@@ -9,6 +15,12 @@ import type { SectionHeading, Surface, WorkRow, WorkStat } from '~/types'
  * layout で見せ方が2種類ある。
  * ・rows  … 1件1行。支援期間の数値と期間バーを並べる（IT・システム開発）
  * ・cards … カードのグリッド。期間は出さない（コンサルティング）
+ *
+ * 絞り込みは filterLabels.groups の軸数だけ自動で組み立てる。
+ * ・filterMode="multi" … 軸ごとに1つ選んでAND条件で絞る。枠は開閉式で、
+ *                        閉じているときは選択中の条件を要約で見せる（IT）
+ * ・filterMode="single"… どこか1つだけ選べる。枠は開いたまま（コンサル。既定）
+ * perPage を渡すとページ送りが付く（渡さなければ全件を一度に出す）。
  */
 interface Props {
   heading: SectionHeading
@@ -16,13 +28,13 @@ interface Props {
   stats: WorkStat[]
   /** legend（期間バーの凡例）は layout="rows" のみ */
   listHeading: { title: string; legend?: string; range: string }
-  filterLabels: {
-    lead: string
-    all: string
-    industry: { no: string; label: string; en: string }
-    tag: { no: string; label: string; en: string }
-  }
+  filterLabels: WorkFilterLabels
+  filterMode?: 'single' | 'multi'
+  /** 1ページの件数。省略するとページ送りなし */
+  perPage?: number
   works: WorkRow[]
+  /** 絞り込みで0件になったときの文言 */
+  emptyText?: string
   footnotes: string[]
   /** 乗せる面の色。数値タイル・絞り込み枠・カードは常に反対色になる */
   surface?: Surface
@@ -34,7 +46,10 @@ const {
   stats: workStats,
   listHeading: worksListHeading,
   filterLabels: worksFilterLabels,
+  filterMode = 'single',
+  perPage,
   works,
+  emptyText = '該当するプロジェクトがありません。',
   footnotes: worksFootnotes,
   surface = 'bg',
 } = Astro.props
@@ -49,24 +64,55 @@ const duration = (months: number) =>
     : `${Math.floor(months / 12)}年${months % 12}ヶ月`
 
 /** 継続中は ONGOING、終了済みは年の範囲 */
-const period = (row: (typeof works)[number]) =>
+const period = (row: WorkRow) =>
   row.end === undefined
     ? 'ONGOING'
     : row.end === row.start
       ? `${row.start}`
       : `${row.start} — ${row.end}`
 
-/** 出現順に並べた絞り込みの選択肢と件数 */
-const countBy = (pick: (row: (typeof works)[number]) => string[]) => {
-  const counts = new Map<string, number>()
-  for (const row of works) {
-    for (const key of pick(row)) counts.set(key, (counts.get(key) ?? 0) + 1)
-  }
-  return [...counts].sort((a, b) => b[1] - a[1])
+type FilterField = WorkFilterLabels['groups'][number]['field']
+
+/** 1行がその軸で持っている値。単数のフィールドも配列に揃える */
+const valuesOf = (row: WorkRow, field: FilterField): string[] => {
+  const value = row[field]
+  if (value === undefined) return []
+  return Array.isArray(value) ? value : [value]
 }
 
-const industries = countBy((row) => [row.industry])
-const tags = countBy((row) => row.tags)
+/**
+ * 絞り込みの軸ごとに、選択肢と件数を作る。
+ * order があればその並び、なければ件数の多い順（同数は先に出てきた方）。
+ */
+const groups = worksFilterLabels.groups
+  .map((group) => {
+    const counts = new Map<string, number>()
+    for (const row of works) {
+      for (const value of valuesOf(row, group.field)) {
+        counts.set(value, (counts.get(value) ?? 0) + 1)
+      }
+    }
+    const items = [...counts].map(([name, count], i) => ({ name, count, i }))
+    items.sort((a, b) =>
+      group.order
+        ? group.order.indexOf(a.name) - group.order.indexOf(b.name)
+        : b.count - a.count || a.i - b.i
+    )
+    return { ...group, items }
+  })
+  /* 値を1つも持たない軸（コンサルには無い技術など）は出さない */
+  .filter((group) => group.items.length > 0)
+
+/** 行に軸ごとの値を data 属性で持たせる。JS 側は data-f-<軸> を見る */
+const rowAttrs = (row: WorkRow) =>
+  Object.fromEntries(
+    groups.map((group) => [
+      `data-f-${group.field.toLowerCase()}`,
+      valuesOf(row, group.field).join('|'),
+    ])
+  )
+
+const isMulti = filterMode === 'multi'
 ---
 
 <Section variant={surface === 'alt' ? 'alt' : 'default'} bordered>
@@ -75,6 +121,8 @@ const tags = countBy((row) => row.tags)
   <div
     class="works"
     data-works
+    data-works-mode={filterMode}
+    data-works-per-page={perPage}
     style={`--works-surface:var(${surface === 'alt' ? '--c-bg-alt-cool' : '--c-bg'})`}
   >
     <div
@@ -129,64 +177,84 @@ const tags = countBy((row) => row.tags)
       </div>
     </div>
 
-    <div class="works__filters" data-reveal="4">
+    <div class:list={['works__filters', isMulti && 'is-multi']} data-reveal="4">
       <div class="works__filters-head">
         <div class="works__filters-lead">
           {worksFilterLabels.lead}
+          {
+            worksFilterLabels.leadNote && (
+              <span class="works__filters-note">
+                {worksFilterLabels.leadNote}
+              </span>
+            )
+          }
           <span class="en works__count" data-works-count>
             {works.length} / {works.length}
           </span>
+          {isMulti && <span class="works__summary" data-works-summary />}
         </div>
-        <button
-          type="button"
-          class="works__chip is-all is-on"
-          data-filter="all:all"
-        >
-          {worksFilterLabels.all}
-        </button>
+        <div class="works__filters-actions">
+          <button
+            type="button"
+            class:list={['works__chip', 'is-all', !isMulti && 'is-on']}
+            data-works-reset
+          >
+            {worksFilterLabels.all}
+          </button>
+          {
+            isMulti && (
+              <button
+                type="button"
+                class="works__chip works__toggle"
+                aria-expanded="false"
+                data-works-toggle
+                data-open={worksFilterLabels.open}
+                data-close={worksFilterLabels.close}
+              >
+                <span data-works-toggle-label>{worksFilterLabels.open}</span>
+                <span class="works__toggle-icon" />
+              </button>
+            )
+          }
+        </div>
       </div>
 
-      {
-        (
-          [
-            ['ind', worksFilterLabels.industry, industries],
-            ['tag', worksFilterLabels.tag, tags],
-          ] as const
-        ).map(([kind, label, items]) => (
-          <div class="works__filter-group">
-            <div class="works__filter-label">
-              <span class="en">
-                {label.no} ／ {label.label}{' '}
-                <span class="is-wide">{label.en}</span>
-              </span>
-              <span class="works__rule" />
+      <div class="works__filter-groups" data-works-groups>
+        {
+          groups.map((group) => (
+            <div class="works__filter-group">
+              <div class="works__filter-label">
+                <span class="en">
+                  {group.no} ／ {group.label}{' '}
+                  <span class="is-wide">{group.en}</span>
+                </span>
+                <span class="works__rule" />
+              </div>
+              <div class="works__chips">
+                {group.items.map((item) => (
+                  <button
+                    type="button"
+                    class="works__chip"
+                    data-works-chip
+                    data-g={group.field.toLowerCase()}
+                    data-v={item.name}
+                  >
+                    {item.name}
+                    <span class="en works__chip-count">{item.count}</span>
+                  </button>
+                ))}
+              </div>
             </div>
-            <div class="works__chips">
-              {items.map(([name, count]) => (
-                <button
-                  type="button"
-                  class="works__chip"
-                  data-filter={`${kind}:${name}`}
-                >
-                  {name}
-                  <span class="en works__chip-count">{count}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        ))
-      }
+          ))
+        }
+      </div>
     </div>
 
     {
       layout === 'rows' ? (
-        <div class="works__rows" data-reveal="5">
+        <div class="works__rows" data-works-list data-reveal="5">
           {works.map((row) => (
-            <article
-              class="works__row"
-              data-ind={row.industry}
-              data-tags={row.tags.join('|')}
-            >
+            <article class="works__row" data-work-row {...rowAttrs(row)}>
               <div>
                 <div class="en works__category">{row.category}</div>
                 <h4 class="works__client">{row.client}</h4>
@@ -194,9 +262,28 @@ const tags = countBy((row) => row.tags)
                   {row.tags.map((tag) => (
                     <span class="works__tag">{tag}</span>
                   ))}
+                  {(row.techs ?? []).map((tech) => (
+                    <span class="en works__tech">{tech}</span>
+                  ))}
                 </div>
               </div>
-              <p class="works__body">{row.body}</p>
+              <div class="works__col-body">
+                <p class="works__body">{row.body}</p>
+                {(row.phase?.length || row.dealFlow || row.contract) && (
+                  <div class="works__meta">
+                    {row.phase && row.phase.length > 0 && (
+                      <span>{row.phase.join(' ／ ')}</span>
+                    )}
+                    {(row.dealFlow || row.contract) && (
+                      <span>
+                        {[row.dealFlow, row.contract]
+                          .filter(Boolean)
+                          .join(' ／ ')}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
               <div>
                 <div class="works__duration">
                   <span class="works__months">{duration(row.months ?? 0)}</span>
@@ -224,13 +311,9 @@ const tags = countBy((row) => row.tags)
           ))}
         </div>
       ) : (
-        <div class="works__cards" data-reveal="5">
+        <div class="works__cards" data-works-list data-reveal="5">
           {works.map((row) => (
-            <article
-              class="works__card"
-              data-ind={row.industry}
-              data-tags={row.tags.join('|')}
-            >
+            <article class="works__card" data-work-row {...rowAttrs(row)}>
               <div class="en works__category">{row.category}</div>
               <h4 class="works__client">{row.client}</h4>
               {row.background || row.approach || row.outcome ? (
@@ -268,9 +351,31 @@ const tags = countBy((row) => row.tags)
       )
     }
 
-    <p class="works__empty" data-works-empty hidden>
-      該当するプロジェクトがありません。
-    </p>
+    {
+      perPage && (
+        <div class="works__pager" data-works-pager hidden>
+          <button
+            type="button"
+            class="works__page-btn"
+            data-works-page="prev"
+            aria-label="前のページ"
+          >
+            ← 前へ
+          </button>
+          <div class="works__pagenums" data-works-pagenums />
+          <button
+            type="button"
+            class="works__page-btn"
+            data-works-page="next"
+            aria-label="次のページ"
+          >
+            次へ →
+          </button>
+        </div>
+      )
+    }
+
+    <div class="works__empty" data-works-empty hidden>{emptyText}</div>
 
     {
       worksFootnotes.map((note, i) => (
@@ -281,7 +386,6 @@ const tags = countBy((row) => row.tags)
     }
   </div>
 </Section>
-
 <style>
   /* --- 数値タイル --- */
   .works__stats {
@@ -416,9 +520,19 @@ const tags = countBy((row) => row.tags)
     margin-bottom: 24px;
   }
 
+  .works__filters.is-multi .works__filters-head {
+    margin-bottom: 26px;
+  }
+
   .works__filters-lead {
     font-size: 0.875rem;
     color: var(--c-text);
+  }
+
+  .works__filters-note {
+    margin-left: 10px;
+    font-size: var(--fs-xs);
+    color: var(--ink-45);
   }
 
   .works__count {
@@ -428,8 +542,50 @@ const tags = countBy((row) => row.tags)
     color: var(--ink-45);
   }
 
-  .works__filter-group + .works__filter-group {
-    margin-top: 30px;
+  /* 枠を閉じているときだけ出す、選択中の条件の要約 */
+  .works__summary {
+    margin-left: 12px;
+    font-size: var(--fs-xs);
+    color: var(--c-accent);
+  }
+
+  .works__summary[hidden] {
+    display: none;
+  }
+
+  .works__filters-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .works__toggle-icon {
+    display: block;
+    width: 7px;
+    height: 7px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform 250ms var(--ease);
+  }
+
+  .works__toggle[aria-expanded='true'] .works__toggle-icon {
+    transform: rotate(-135deg);
+  }
+
+  .works__filter-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  /* multi は開閉するので、閉じた高さに向けて畳めるようにしておく */
+  .works__filters.is-multi .works__filter-groups {
+    gap: 28px;
+    overflow: hidden;
+    transition:
+      max-height 380ms cubic-bezier(0.2, 0.7, 0.2, 1),
+      opacity 280ms var(--ease);
   }
 
   .works__filter-label {
@@ -671,6 +827,30 @@ const tags = countBy((row) => row.tags)
     color: var(--c-accent);
   }
 
+  /* 技術は塗りのテーマチップと区別して線のチップにする */
+  .works__tech {
+    font-size: 0.6875rem;
+    line-height: 1;
+    padding: 5px 9px;
+    border: 1px solid var(--line-mid);
+    border-radius: 3px;
+    color: var(--ink-55);
+  }
+
+  /* フェーズ・商流・契約形態を本文の下に添える */
+  .works__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    margin-top: 12px;
+    font-size: 0.71875rem;
+    color: var(--ink-50);
+  }
+
+  .works__meta > span {
+    white-space: nowrap;
+  }
+
   .works__body {
     font-size: 0.875rem;
     line-height: 1.95;
@@ -721,10 +901,85 @@ const tags = countBy((row) => row.tags)
     background: var(--c-accent);
   }
 
+  /* ページ送りで戻ってくる位置。sticky ヘッダーに隠れない分だけずらす */
+  .works__rows,
+  .works__cards {
+    scroll-margin-top: calc(var(--header-h) + 24px);
+  }
+
+  /* --- ページ送り --- */
+  .works__pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 34px;
+  }
+
+  .works__pager[hidden] {
+    display: none;
+  }
+
+  .works__page-btn,
+  .works__pagenum {
+    font-size: var(--fs-xs);
+    line-height: 1;
+    color: var(--c-text);
+    border: 1px solid var(--line-strong);
+    border-radius: 4px;
+    transition:
+      background-color 200ms var(--ease),
+      color 200ms var(--ease),
+      border-color 200ms var(--ease),
+      opacity 200ms var(--ease);
+  }
+
+  .works__page-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 11px 18px;
+    white-space: nowrap;
+  }
+
+  .works__page-btn:hover:not(:disabled),
+  .works__pagenum:hover:not(.is-on) {
+    border-color: var(--c-accent);
+    color: var(--c-accent);
+  }
+
+  .works__page-btn:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  .works__pagenums {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .works__pagenum {
+    font-family: var(--font-en);
+    min-width: 34px;
+    height: 34px;
+    font-size: 0.8125rem;
+  }
+
+  .works__pagenum.is-on {
+    background: var(--c-accent);
+    border-color: var(--c-accent);
+    color: var(--c-bg);
+  }
+
+  /* --- 該当0件 --- */
   .works__empty {
-    margin-top: 20px;
+    margin-top: 12px;
+    padding: 44px 30px;
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius-sm);
+    text-align: center;
     font-size: 0.875rem;
-    color: var(--ink-55);
+    color: var(--ink-50);
   }
 
   .works__empty[hidden] {
@@ -749,7 +1004,7 @@ const tags = countBy((row) => row.tags)
       gap: 20px 28px;
     }
 
-    .works__body {
+    .works__col-body {
       grid-column: 1 / -1;
       order: 3;
     }
@@ -773,13 +1028,26 @@ const tags = countBy((row) => row.tags)
     .works__card {
       padding: 22px 20px 20px;
     }
+
+    .works__pager {
+      gap: 12px;
+    }
+
+    .works__page-btn {
+      padding: 11px 12px;
+    }
+
+    .works__empty {
+      padding: 32px 20px;
+    }
   }
 </style>
 
 <script>
   /**
    * WORKS セクションの動き。
-   * ・分類チップでの絞り込み（表示件数も更新する）
+   * ・絞り込み（filterMode="multi" は軸ごとに1つ選んでAND条件、single はどこか1つだけ）
+   * ・perPage を渡している場合のページ送り
    * ・画面に入ったら数値のカウントアップと期間バーの伸長を1回だけ再生する
    */
   const play = (root: HTMLElement) => {
@@ -805,41 +1073,154 @@ const tags = countBy((row) => row.tags)
   }
 
   const wireFilters = (root: HTMLElement) => {
+    const isMulti = root.dataset.worksMode === 'multi'
+    const perPage = Number(root.dataset.worksPerPage) || 0
+
     /* layout="rows" の .works__row と layout="cards" の .works__card の両方 */
-    const rows = [...root.querySelectorAll<HTMLElement>('[data-ind]')]
-    const chips = [...root.querySelectorAll<HTMLElement>('[data-filter]')]
+    const rows = [...root.querySelectorAll<HTMLElement>('[data-work-row]')]
+    if (!rows.length) return
+
+    const chips = [...root.querySelectorAll<HTMLElement>('[data-works-chip]')]
+    const reset = root.querySelector<HTMLElement>('[data-works-reset]')
     const counter = root.querySelector<HTMLElement>('[data-works-count]')
+    const summary = root.querySelector<HTMLElement>('[data-works-summary]')
     const empty = root.querySelector<HTMLElement>('[data-works-empty]')
+    const groupsBox = root.querySelector<HTMLElement>('[data-works-groups]')
+    const toggle = root.querySelector<HTMLButtonElement>('[data-works-toggle]')
+    const toggleLabel = root.querySelector<HTMLElement>(
+      '[data-works-toggle-label]'
+    )
+    const list = root.querySelector<HTMLElement>('[data-works-list]')
+    const pager = root.querySelector<HTMLElement>('[data-works-pager]')
+    const pageNums = root.querySelector<HTMLElement>('[data-works-pagenums]')
+    const prevBtn = root.querySelector<HTMLButtonElement>(
+      '[data-works-page="prev"]'
+    )
+    const nextBtn = root.querySelector<HTMLButtonElement>(
+      '[data-works-page="next"]'
+    )
 
-    const apply = (filter: string) => {
-      const [kind, value] = filter.split(':')
-      let shown = 0
+    /** 軸（data-g）ごとに選んでいる値。未選択の軸はキーを持たない */
+    const active = new Map<string, string>()
+    let page = 1
+    let open = false
 
-      for (const row of rows) {
-        const match =
-          kind === 'all' ||
-          (kind === 'ind' && row.dataset.ind === value) ||
-          (kind === 'tag' &&
-            (row.dataset.tags ?? '').split('|').includes(value))
-        row.hidden = !match
-        if (match) shown++
+    /** 開いている間は中身の高さに追従させる（チップの折り返しが変わるため） */
+    const resize = () => {
+      if (open && groupsBox)
+        groupsBox.style.maxHeight = `${groupsBox.scrollHeight}px`
+    }
+
+    const setOpen = (next: boolean) => {
+      if (!groupsBox || !toggle) return
+      open = next
+      groupsBox.style.maxHeight = open ? `${groupsBox.scrollHeight}px` : '0px'
+      groupsBox.style.opacity = open ? '1' : '0'
+      toggle.setAttribute('aria-expanded', String(open))
+      if (toggleLabel) {
+        toggleLabel.textContent =
+          (open ? toggle.dataset.close : toggle.dataset.open) ?? ''
+      }
+      if (summary) summary.hidden = open
+    }
+
+    const apply = () => {
+      const matched = rows.filter((row) =>
+        [...active].every(([field, value]) =>
+          (row.getAttribute(`data-f-${field}`) ?? '').split('|').includes(value)
+        )
+      )
+
+      const pages = perPage
+        ? Math.max(1, Math.ceil(matched.length / perPage))
+        : 1
+      if (page > pages) page = pages
+      const visible = perPage
+        ? matched.slice((page - 1) * perPage, page * perPage)
+        : matched
+
+      for (const row of rows) row.hidden = !visible.includes(row)
+
+      if (counter) counter.textContent = `${matched.length} / ${rows.length}`
+      if (empty) empty.hidden = matched.length > 0
+
+      if (summary) {
+        const selected = [...active.values()]
+        summary.textContent = selected.length ? selected.join('・') : '条件なし'
       }
 
-      if (counter) counter.textContent = `${shown} / ${rows.length}`
-      if (empty) empty.hidden = shown > 0
       for (const chip of chips) {
         chip.classList.toggle(
           'is-on',
-          kind !== 'all' && chip.dataset.filter === filter
+          active.get(chip.dataset.g ?? '') === chip.dataset.v
         )
       }
+      /* single の「すべて表示」だけは未選択のとき塗る（multi のリセットは常に線） */
+      if (reset && !isMulti) {
+        reset.classList.toggle('is-on', active.size === 0)
+      }
+
+      if (pager) pager.hidden = !perPage || matched.length <= perPage
+      if (pageNums) {
+        pageNums.textContent = ''
+        for (let i = 1; i <= pages; i++) {
+          const btn = document.createElement('button')
+          btn.type = 'button'
+          btn.className = i === page ? 'works__pagenum is-on' : 'works__pagenum'
+          btn.textContent = String(i)
+          btn.addEventListener('click', () => goToPage(i))
+          pageNums.append(btn)
+        }
+      }
+      if (prevBtn) prevBtn.disabled = page === 1
+      if (nextBtn) nextBtn.disabled = page === pages
+
+      resize()
+    }
+
+    /**
+     * ページを切り替えて一覧の先頭に戻す。
+     * 行が入れ替わって高さが変わるので、位置を明示しないとブラウザのスクロール位置がずれる。
+     * behavior を指定しないのは、global.css の scroll-behavior（reduce 設定時は auto）に従わせるため。
+     */
+    const goToPage = (next: number) => {
+      page = next
+      apply()
+      list?.scrollIntoView({ block: 'start' })
     }
 
     for (const chip of chips) {
-      chip.addEventListener('click', () =>
-        apply(chip.dataset.filter ?? 'all:all')
-      )
+      chip.addEventListener('click', () => {
+        const field = chip.dataset.g ?? ''
+        const value = chip.dataset.v ?? ''
+        const wasOn = active.get(field) === value
+        /* single はどこか1つだけなので、他の軸の選択も落とす */
+        if (!isMulti) active.clear()
+        if (wasOn) active.delete(field)
+        else active.set(field, value)
+        page = 1
+        apply()
+      })
     }
+
+    reset?.addEventListener('click', () => {
+      active.clear()
+      page = 1
+      apply()
+    })
+
+    prevBtn?.addEventListener('click', () => {
+      if (page > 1) goToPage(page - 1)
+    })
+
+    nextBtn?.addEventListener('click', () => goToPage(page + 1))
+
+    toggle?.addEventListener('click', () => setOpen(!open))
+    window.addEventListener('resize', resize)
+
+    apply()
+    /* multi は畳んだ状態から始める（single は開いたまま） */
+    if (isMulti) setOpen(false)
   }
 
   document.querySelectorAll<HTMLElement>('[data-works]').forEach((root) => {

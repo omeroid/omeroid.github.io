@@ -96,6 +96,34 @@ export interface WorkStat {
 }
 
 /**
+ * WORKS の絞り込み1軸。field で WorkRow のどのフィールドを見るかを決め、
+ * チップの並びと件数はその値から自動生成する。
+ */
+export interface WorkFilterGroup {
+  /** 絞り込む WorkRow のフィールド */
+  field: 'industry' | 'phase' | 'dealFlow' | 'contract' | 'techs' | 'tags'
+  /** 見出しの通し番号（01, 02, …） */
+  no: string
+  label: string
+  en: string
+  /** チップの並びを固定する。省略すると件数の多い順に並ぶ */
+  order?: string[]
+}
+
+/** WORKS の絞り込みUIの文言 */
+export interface WorkFilterLabels {
+  lead: string
+  /** lead の後ろに小さく添える補足（mode="multi" のみ） */
+  leadNote?: string
+  /** 解除ボタン。mode="single" は「すべて表示」、multi は「条件をリセット」 */
+  all: string
+  /** 開閉ボタンの文言（mode="multi" のみ） */
+  open?: string
+  close?: string
+  groups: WorkFilterGroup[]
+}
+
+/**
  * 事例1件（WORKS の1件）。
  * 守秘義務のため取引先名は伏せ、業種・支援内容（と、期間を出す場合は期間）のみ掲載する。
  *
@@ -109,8 +137,23 @@ export interface WorkRow {
   client: string
   /** 絞り込みの「業種」 */
   industry: string
-  /** 絞り込みの「技術・テーマ」 */
+  /** 絞り込みの「テーマ」。行では塗りのチップで出す */
   tags: string[]
+  /**
+   * 以下4つは絞り込みの軸を増やすためのもので、IT・システム開発（layout="rows"）専用。
+   * コンサル（layout="cards"）は業種とテーマの2軸だけなので持たせない。
+   */
+  /**
+   * 絞り込みの「フェーズ」（構想・企画 / 要件定義 / 設計・開発 / 運用・改善）。
+   * 複数の工程にまたがる案件は並べて持たせる（工程の順に書く）。
+   */
+  phase?: string[]
+  /** 絞り込みの「商流」（プライム / サブコン） */
+  dealFlow?: string
+  /** 絞り込みの「契約形態」（請負 / 準委任） */
+  contract?: string
+  /** 絞り込みの「技術」。行では線のチップで出す */
+  techs?: string[]
   /**
    * 1文の概要。IT事業（layout="rows"）で使う。
    * コンサル（layout="cards"）で background/approach/outcome を持つ場合は、

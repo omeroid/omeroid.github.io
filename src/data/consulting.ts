@@ -5,6 +5,7 @@ import type {
   MenuRow,
   ProcessStep,
   SectionHeading,
+  WorkFilterLabels,
   WorkStat,
 } from '~/types'
 
@@ -140,11 +141,17 @@ export const consultingWorksListHeading = {
   range: '2019 — 2026',
 }
 
-export const consultingWorksFilterLabels = {
+/**
+ * 絞り込みUIのラベル。IT側は6軸・複数条件（mode="multi"）だが、
+ * コンサルは業種とテーマの2軸・単一選択（既定の mode="single"）のまま。
+ */
+export const consultingWorksFilterLabels: WorkFilterLabels = {
   lead: '分類から絞り込む',
   all: 'すべて表示',
-  industry: { no: '01', label: '業種', en: 'INDUSTRY' },
-  tag: { no: '02', label: 'テーマ', en: 'THEME' },
+  groups: [
+    { field: 'industry', no: '01', label: '業種', en: 'INDUSTRY' },
+    { field: 'tags', no: '02', label: 'テーマ', en: 'THEME' },
+  ],
 }
 
 // 一覧データは Notion 連携で自動生成される別ファイルに分離（上のコメント参照）
