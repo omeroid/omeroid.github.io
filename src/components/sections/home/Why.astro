@@ -140,6 +140,9 @@ import { why } from '~/data/home'
     position: absolute;
     left: 50%;
     top: 50%;
+    /* 中央寄せ。omeRipple / omeCore の各フレームにも同じ translate が入っているので、
+       アニメーションが動いている間はそちらが優先される（止めてもずれない）*/
+    transform: translate(-50%, -50%);
     width: 110px;
     height: 110px;
     border-radius: 50%;
@@ -156,6 +159,7 @@ import { why } from '~/data/home'
     position: absolute;
     left: 50%;
     top: 50%;
+    transform: translate(-50%, -50%);
     width: 120px;
     height: 120px;
     border-radius: 50%;
@@ -181,6 +185,21 @@ import { why } from '~/data/home'
     height: auto;
     color: var(--c-ink);
     animation: omeLogoPulse 5.2s ease-in-out infinite;
+  }
+
+  /*
+   * 「動きを減らす」設定では global.css が全アニメーションを1フレーム目で止めるが、
+   * omeLogoPulse の 0% は opacity 0.42 なのでロゴが薄いまま残る。濃い側に固定する。
+   */
+  @media (prefers-reduced-motion: reduce) {
+    .why__visual :global(.why__logo) {
+      opacity: 0.92;
+    }
+
+    /* 波紋は広がる動きそのものなので、止めるなら消す */
+    .why__ripple {
+      display: none;
+    }
   }
 
   .why__label {

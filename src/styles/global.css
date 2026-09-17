@@ -150,7 +150,7 @@ button {
 .note {
   font-size: var(--fs-sm);
   line-height: 2;
-  color: var(--ink-55);
+  color: var(--ink-66);
 }
 
 /* ============ グリッド ============ */
@@ -224,18 +224,47 @@ button {
 /*
  * 「動きを減らす」設定時の扱い。
  *
- * 出現演出・背景の漂う円・ティッカー・SCROLL誘導は、いずれもこのサイトの見た目そのものなので
- * OS/ブラウザの設定に関わらず動かす（デザイン側にも reduced-motion の分岐は無い）。
- * ここで抑えるのはページ内リンクのスムーススクロールだけ。
- *
- * ※ アクセシビリティ上は動きを抑える実装が定石だが、「動きが失われる」ことを避ける方針を
- *    優先している。設定を尊重したくなった場合は、この @media 内に
- *      .js [data-reveal]:not([data-revealed]) { transform: none; filter: none; }
- *    などを足せば段階的に弱められる。
+ * 既定ではサイトの演出（出現・色差し・背景ブロブ・ティッカー・SCROLL誘導など）を
+ * OS/ブラウザの設定に関わらず動かすが、利用者が明示的に「動きを減らす」を選んでいる場合は
+ * 尊重する（WCAG 2.3.3 / 2.2.2）。見た目そのものは残し、動きだけを取り除く方針:
+ *   ・出現演出とカードの色差しは「演出後の状態」を最初から見せる（内容は必ず読める）
+ *   ・無限ループするアニメーション（ブロブ・ティッカー・波紋・ロゴ明滅・SCROLL誘導）は
+ *     0% の状態で停止させる
+ * JS側（reveal / Works のカウントアップ・期間バー / ティッカーの再生停止）も同じ判定で揃えている。
  */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  /* 出現演出：移動・ぼかしを外して最初から表示する */
+  .js [data-reveal]:not([data-revealed]) {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    will-change: auto;
+  }
+
+  .js [data-reveal][data-revealed] {
+    transition: none;
+  }
+
+  /* 色差し：カバーを外してグラデーションを最初から見せる */
+  .js [data-tint]:not([data-revealed]) > .tint-layer {
+    opacity: 0;
+  }
+
+  .tint-layer {
+    transition: none;
+  }
+
+  /* キーフレームアニメーションは最初のフレームで止める */
+  *,
+  *::before,
+  *::after {
+    animation-delay: 0ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
 

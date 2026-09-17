@@ -411,7 +411,7 @@ const isMulti = filterMode === 'multi'
   .works__stat-label {
     font-size: 0.65625rem;
     letter-spacing: 0.2em;
-    color: var(--ink-45);
+    color: var(--ink-62);
   }
 
   .works__stat.is-featured .works__stat-label {
@@ -444,7 +444,7 @@ const isMulti = filterMode === 'multi'
 
   .works__stat-unit {
     font-size: 0.9375rem;
-    color: var(--ink-55);
+    color: var(--ink-66);
   }
 
   .works__stat.is-featured .works__stat-unit {
@@ -485,7 +485,7 @@ const isMulti = filterMode === 'multi'
     gap: 18px;
     font-size: 0.6875rem;
     letter-spacing: 0.14em;
-    color: var(--ink-45);
+    color: var(--ink-62);
   }
 
   .works__legend-item {
@@ -532,14 +532,14 @@ const isMulti = filterMode === 'multi'
   .works__filters-note {
     margin-left: 10px;
     font-size: var(--fs-xs);
-    color: var(--ink-45);
+    color: var(--ink-62);
   }
 
   .works__count {
     margin-left: 12px;
     font-size: 0.75rem;
     letter-spacing: 0.08em;
-    color: var(--ink-45);
+    color: var(--ink-62);
   }
 
   /* 枠を閉じているときだけ出す、選択中の条件の要約 */
@@ -594,7 +594,7 @@ const isMulti = filterMode === 'multi'
     gap: 14px;
     font-size: 0.65625rem;
     letter-spacing: 0.18em;
-    color: var(--ink-45);
+    color: var(--ink-62);
     white-space: nowrap;
   }
 
@@ -834,7 +834,7 @@ const isMulti = filterMode === 'multi'
     padding: 5px 9px;
     border: 1px solid var(--line-mid);
     border-radius: 3px;
-    color: var(--ink-55);
+    color: var(--ink-66);
   }
 
   /* フェーズ・商流・契約形態を本文の下に添える */
@@ -844,7 +844,7 @@ const isMulti = filterMode === 'multi'
     gap: 6px 14px;
     margin-top: 12px;
     font-size: 0.71875rem;
-    color: var(--ink-50);
+    color: var(--ink-66);
   }
 
   .works__meta > span {
@@ -873,7 +873,7 @@ const isMulti = filterMode === 'multi'
   .works__period {
     font-size: 0.6875rem;
     letter-spacing: 0.12em;
-    color: var(--ink-40);
+    color: var(--ink-62);
     white-space: nowrap;
   }
 
@@ -979,7 +979,7 @@ const isMulti = filterMode === 'multi'
     border-radius: var(--radius-sm);
     text-align: center;
     font-size: 0.875rem;
-    color: var(--ink-50);
+    color: var(--ink-66);
   }
 
   .works__empty[hidden] {
@@ -990,7 +990,7 @@ const isMulti = filterMode === 'multi'
     margin-top: 28px;
     font-size: 0.84375rem;
     line-height: 2;
-    color: var(--ink-50);
+    color: var(--ink-66);
     max-width: 44em;
   }
 
@@ -1050,8 +1050,15 @@ const isMulti = filterMode === 'multi'
    * ・perPage を渡している場合のページ送り
    * ・画面に入ったら数値のカウントアップと期間バーの伸長を1回だけ再生する
    */
+  /** 「動きを減らす」設定のときはカウントアップも期間バーも最終状態で出す */
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
   const play = (root: HTMLElement) => {
     root.querySelectorAll<HTMLElement>('[data-bar]').forEach((bar, i) => {
+      if (reduced) {
+        bar.style.width = `${bar.dataset.bar}%`
+        return
+      }
       setTimeout(() => {
         bar.style.width = `${bar.dataset.bar}%`
       }, 60 * i)
@@ -1059,6 +1066,10 @@ const isMulti = filterMode === 'multi'
 
     root.querySelectorAll<HTMLElement>('[data-countup]').forEach((el) => {
       const target = Number(el.dataset.countup)
+      if (reduced) {
+        el.textContent = String(target)
+        return
+      }
       const duration = 1200
       const start = performance.now()
       const tick = (now: number) => {

@@ -76,7 +76,13 @@ export const worksFilterLabels: WorkFilterLabels = {
       label: 'フェーズ',
       en: 'PHASE',
       /* フェーズは件数順ではなく工程の順に並べる */
-      order: ['構想・企画', '要件定義', '設計・開発', '運用・改善', 'パッケージ導入'],
+      order: [
+        '構想・企画',
+        '要件定義',
+        '設計・開発',
+        '運用・改善',
+        'パッケージ導入',
+      ],
     },
     { field: 'dealFlow', no: '03', label: '商流', en: 'DEAL FLOW' },
     { field: 'contract', no: '04', label: '契約形態', en: 'CONTRACT' },

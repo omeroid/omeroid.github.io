@@ -13,6 +13,8 @@ export const site = {
     'omeroid（オメロイド）株式会社は、戦略・業務コンサルティングとITコンサルティング・フルスクラッチのシステム開発を一気通貫で提供します。',
   url: 'https://www.omeroid.com',
   locale: 'ja_JP',
+  /** OGP画像（1200×630）。scripts/generate-ogp.mjs で生成して public/ に置く */
+  ogImage: '/ogp.png',
   /** Google Analytics 4 の測定ID。空にすると計測タグを出力しない */
   gaId: 'G-ECYH2GSXFH',
   email: 'inquiry@omeroid.com',

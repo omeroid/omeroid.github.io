@@ -1,12 +1,15 @@
 ---
 import { tickerWords } from '~/data/home'
 
-/** 事業キーワードが横に流れる帯。2セット並べて無限ループさせる */
+/**
+ * 事業キーワードが横に流れる帯。2セット並べて無限ループさせる。
+ * 5秒を超えて自動で動き続けるので、右端に停止／再生ボタンを添える（WCAG 2.2.2）。
+ */
 const words = tickerWords
 ---
 
-<section class="ticker" aria-hidden="true">
-  <div class="ticker__track">
+<section class="ticker" data-ticker>
+  <div class="ticker__track" aria-hidden="true">
     {
       [0, 1].map(() => (
         <div class="ticker__set">
@@ -20,15 +23,45 @@ const words = tickerWords
       ))
     }
   </div>
+
+  <div class="ticker__control">
+    <button
+      type="button"
+      class="ticker__btn"
+      data-ticker-toggle
+      aria-label="キーワードの流れを停止"
+    >
+      <svg
+        class="ticker__icon ticker__icon--pause"
+        viewBox="0 0 10 12"
+        aria-hidden="true"
+      >
+        <rect x="0" y="0" width="3.5" height="12" rx="1"></rect>
+        <rect x="6.5" y="0" width="3.5" height="12" rx="1"></rect>
+      </svg>
+      <svg
+        class="ticker__icon ticker__icon--play"
+        viewBox="0 0 10 12"
+        aria-hidden="true"
+      >
+        <path d="M0 0.6 L10 6 L0 11.4 Z"></path>
+      </svg>
+      <span class="ticker__btn-label" data-ticker-label>停止</span>
+    </button>
+  </div>
 </section>
 
 <style>
   .ticker {
+    /* 帯の地色。右端のボタン周りのフェードにも同じ色を使う */
+    --ticker-band: color-mix(in srgb, var(--c-ink) 2%, var(--c-bg));
+    position: relative;
     border-top: 1px solid rgba(22, 25, 28, 0.08);
     border-bottom: 1px solid rgba(22, 25, 28, 0.08);
     overflow: hidden;
     padding: 16px 0;
     background: rgba(22, 25, 28, 0.02);
+    background: var(--ticker-band);
   }
 
   .ticker__track {
@@ -38,7 +71,11 @@ const words = tickerWords
     font-family: var(--font-en);
     font-size: 0.78125rem;
     letter-spacing: 0.2em;
-    color: var(--ink-45);
+    color: var(--ink-62);
+  }
+
+  .ticker[data-paused] .ticker__track {
+    animation-play-state: paused;
   }
 
   .ticker__set {
@@ -46,4 +83,83 @@ const words = tickerWords
     gap: 40px;
     padding-right: 40px;
   }
+
+  .ticker__control {
+    position: absolute;
+    inset: 0 0 0 auto;
+    display: flex;
+    align-items: center;
+    padding-left: 96px;
+    padding-right: var(--gutter);
+    background: linear-gradient(90deg, transparent 0%, var(--ticker-band) 96px);
+  }
+
+  .ticker__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 12px;
+    border: 1px solid var(--line-mid);
+    border-radius: var(--radius-pill);
+    background: var(--c-bg);
+    color: var(--ink-70);
+    font-size: var(--fs-eyebrow);
+    letter-spacing: 0.1em;
+    line-height: 1;
+    transition:
+      border-color 200ms var(--ease),
+      color 200ms var(--ease);
+  }
+
+  .ticker__btn:hover {
+    border-color: var(--line-hover);
+    color: var(--c-ink);
+  }
+
+  .ticker__icon {
+    width: 8px;
+    height: 10px;
+    fill: currentColor;
+    flex: none;
+  }
+
+  /* 再生中はポーズ、停止中は再生のアイコンを出す */
+  .ticker__icon--play,
+  .ticker[data-paused] .ticker__icon--pause {
+    display: none;
+  }
+
+  .ticker[data-paused] .ticker__icon--play {
+    display: block;
+  }
 </style>
+
+<script>
+  /**
+   * ティッカーの停止／再生。
+   * 「動きを減らす」設定のときは停止状態で始める（CSS 側でも止めている）。
+   */
+  const setup = (root: HTMLElement) => {
+    const btn = root.querySelector<HTMLButtonElement>('[data-ticker-toggle]')
+    const label = root.querySelector<HTMLElement>('[data-ticker-label]')
+    if (!btn || !label) return
+
+    const setPaused = (paused: boolean) => {
+      root.toggleAttribute('data-paused', paused)
+      label.textContent = paused ? '再生' : '停止'
+      btn.setAttribute(
+        'aria-label',
+        `キーワードの流れを${paused ? '再生' : '停止'}`
+      )
+    }
+
+    setPaused(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+    btn.addEventListener('click', () =>
+      setPaused(!root.hasAttribute('data-paused'))
+    )
+  }
+
+  document
+    .querySelectorAll<HTMLElement>('[data-ticker]')
+    .forEach((root) => setup(root))
+</script>
