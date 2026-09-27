@@ -28,6 +28,7 @@ export const consultingWorks: WorkRow[] = [
     category: 'CONSULTING',
     client: '公共・地域振興分野の団体',
     industry: '公共・自治体',
+    scale: '公共・団体',
     tags: ['その他'],
     background:
       '地域のIT人材を育てる場をつくりたいという構想はあったが、企画の組み立てから当日の運営・技術面の準備までを担うノウハウとリソースが不足していた。',
@@ -74,6 +75,7 @@ export const consultingWorks: WorkRow[] = [
     category: 'STRATEGY',
     client: '人材・情報メディア分野の大手企業',
     industry: 'メディア',
+    scale: '大手企業',
     tags: ['経営戦略・事業戦略'],
     background:
       '事業計画づくりと、それを動かす推進体制・商品企画の運営に、外部の実行力を必要としていた。',
@@ -98,6 +100,7 @@ export const consultingWorks: WorkRow[] = [
     category: 'STRATEGY',
     client: '人材・情報メディア分野の大手企業',
     industry: 'メディア',
+    scale: '大手企業',
     tags: ['経営戦略・事業戦略'],
     background:
       '事業統合に伴い、営業推進の体制づくりと付帯業務の設計・実行を短期間で進める必要があった。',
@@ -267,6 +270,7 @@ export const consultingWorks: WorkRow[] = [
     category: 'NEW BUSINESS',
     client: '医薬品分野の大手流通企業',
     industry: '医薬・ヘルスケア',
+    scale: '東証プライム上場',
     tags: ['新規事業', 'PMO'],
     background:
       '卸事業を本業とするなか、美容医療の新製剤開発という新事業領域へ、他社と連携して踏み出す必要があった。',
@@ -315,6 +319,7 @@ export const consultingWorks: WorkRow[] = [
     category: 'STRATEGY',
     client: '製薬分野のグローバル企業',
     industry: '医薬・ヘルスケア',
+    scale: 'グローバル大手',
     tags: ['経営戦略・事業戦略'],
     background:
       '日本市場への新規参入にあたり、営業組織と各種規定をゼロから整える必要があった。',
@@ -351,6 +356,7 @@ export const consultingWorks: WorkRow[] = [
     category: 'DX / AI',
     client: '製薬分野のグローバル企業',
     industry: '医薬・ヘルスケア',
+    scale: 'グローバル大手',
     tags: ['IT/DX戦略'],
     background:
       'グローバルのブランドデザインに沿ったマーケティングと、営業担当（MR）の顧客コミュニケーション改善が求められていた。',
@@ -410,6 +416,7 @@ export const consultingWorks: WorkRow[] = [
     category: 'DX / AI',
     client: '製薬分野のグローバル企業',
     industry: '製造',
+    scale: 'グローバル大手',
     tags: ['IT/DX戦略'],
     background:
       '医師・患者の理解にもとづくデータドリブンなマーケティングと、それを支えるシステムが求められていた。',
@@ -422,6 +429,7 @@ export const consultingWorks: WorkRow[] = [
     category: 'PMO',
     client: '中央省庁',
     industry: '公共・自治体',
+    scale: '公共・団体',
     tags: ['PMO', 'その他'],
     background:
       '国際的な無線通信規格を、日本原案の規格として通す必要があった。',
@@ -433,6 +441,7 @@ export const consultingWorks: WorkRow[] = [
     category: 'STRATEGY',
     client: '人材サービス分野の大手企業',
     industry: 'サービス',
+    scale: '東証プライム上場',
     tags: ['経営戦略・事業戦略', '新規事業'],
     background:
       '人材派遣領域の事業拡大に向けて、市場・競合を踏まえた営業戦略と新事業開発が必要だった。',
@@ -468,6 +477,7 @@ export const consultingWorks: WorkRow[] = [
     category: 'DX / AI',
     client: '製薬分野のグローバル企業',
     industry: '製造',
+    scale: 'グローバル大手',
     tags: ['IT/DX戦略'],
     background:
       '希少製剤の拡販に向けて、データドリブンなマーケティングと医師・患者接点の最適化が求められていた。',
@@ -480,6 +490,7 @@ export const consultingWorks: WorkRow[] = [
     category: 'NEW BUSINESS',
     client: '製薬分野のグローバル企業',
     industry: '医薬・ヘルスケア',
+    scale: 'グローバル大手',
     tags: ['新規事業'],
     background:
       '企業内で新規アイディアが継続的に生まれる仕組みが求められていた。',
