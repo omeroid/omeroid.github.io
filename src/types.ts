@@ -137,6 +137,8 @@ export interface WorkRow {
   client: string
   /** 絞り込みの「業種」 */
   industry: string
+  /** 企業規模・社格タグ（東証プライム上場・グローバル大手 など）。cards で上部に表示 */
+  scale?: string
   /** 絞り込みの「テーマ」。行では塗りのチップで出す */
   tags: string[]
   /**

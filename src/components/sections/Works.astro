@@ -315,6 +315,7 @@ const isMulti = filterMode === 'multi'
           {works.map((row) => (
             <article class="works__card" data-work-row {...rowAttrs(row)}>
               <div class="en works__category">{row.category}</div>
+              {row.scale && <span class="works__scale">{row.scale}</span>}
               <h4 class="works__client">{row.client}</h4>
               {row.background || row.approach || row.outcome ? (
                 <div class="works__flow">
@@ -803,12 +804,30 @@ const isMulti = filterMode === 'multi'
     color: var(--c-accent);
   }
 
+  /* 企業規模・社格タグ（東証プライム上場 など）。カード上部に表示 */
+  .works__scale {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+    background: var(--c-accent);
+    color: var(--c-bg);
+  }
+
   .works__client {
     margin-top: 9px;
     font-size: 1.0625rem;
     font-weight: 700;
     letter-spacing: 0.02em;
     line-height: 1.5;
+  }
+
+  .works__scale + .works__client {
+    margin-top: 8px;
   }
 
   .works__tags {

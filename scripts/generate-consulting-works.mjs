@@ -51,6 +51,7 @@ const PROP = {
   hpFlag: 'HP掲載',
   alias: '呼称',
   industry: '業種',
+  scale: '規模',
   background: '背景・課題',
   approach: 'アプローチ',
   outcome: '成果',
@@ -229,6 +230,7 @@ async function main() {
       category,
       client: readProp(props, PROP.alias) ?? industry,
       industry,
+      scale: readProp(props, PROP.scale) || undefined,
       tags: tags.length ? tags : ['その他'],
       background: readProp(props, PROP.background) || undefined,
       approach: readProp(props, PROP.approach) || undefined,
@@ -328,6 +330,7 @@ function serializeWork(w) {
   lines.push(`    category: ${tsString(w.category)},`)
   lines.push(`    client: ${tsString(w.client)},`)
   lines.push(`    industry: ${tsString(w.industry)},`)
+  if (w.scale) lines.push(`    scale: ${tsString(w.scale)},`)
   lines.push(`    tags: [${w.tags.map(tsString).join(', ')}],`)
   if (w.background) lines.push(`    background: ${tsString(w.background)},`)
   if (w.approach) lines.push(`    approach: ${tsString(w.approach)},`)
