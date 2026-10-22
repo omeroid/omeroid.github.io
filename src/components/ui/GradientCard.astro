@@ -5,12 +5,10 @@ import ArrowLink from './ArrowLink.astro'
 import Dots from './Dots.astro'
 
 /**
- * アクセント色のグラデーションが差し込まれたカード。
+ * 上辺の枠線にアクセント色を差したカード。
  * 強み・哲学・支援メニュー・ブログなど、サイト内のカード全般に使う。
  */
 interface Props extends AccentCard {
-  /** グラデーションの濃さ */
-  strength?: number
   /** タイトルの大きさ */
   titleSize?: 'lg' | 'md' | 'sm'
   /** タイトルの見出しレベル。セクション見出し（h2）が無い場所では h2 にする */
@@ -31,7 +29,6 @@ const {
   href,
   linkLabel,
   dots = false,
-  strength = 0.22,
   titleSize = 'md',
   titleTag: TitleTag = 'h3',
   fill = false,
@@ -46,14 +43,12 @@ const pair: AccentKey | undefined = accentPair
 
 <Tag
   class:list={['gcard', href && 'is-link', fill && 'is-fill', className]}
-  style={`${accentStyle(accent, pair)};--tint:${strength}`}
+  style={accentStyle(accent, pair)}
   href={href}
   target={isExternal ? '_blank' : undefined}
   rel={isExternal ? 'noopener' : undefined}
   data-reveal={reveal}
-  data-tint
 >
-  <span class="tint-layer"></span>
   {dots && <Dots accent={accent} pair={pair} size={22} class="gcard__dots" />}
   {eyebrow && <div class="en gcard__eyebrow">{eyebrow}</div>}
   <TitleTag class:list={['gcard__title', `is-${titleSize}`]}>{title}</TitleTag>
@@ -78,18 +73,32 @@ const pair: AccentKey | undefined = accentPair
       clamp(1.5rem, 1rem + 1.8vw, 2.875rem);
     border-radius: var(--radius);
     border: 1px solid var(--line);
-    background: var(--c-card)
-      linear-gradient(
-        158deg,
-        rgb(var(--accent-rgb) / var(--tint)) 0%,
-        rgb(var(--accent-rgb) / 0) 56%
-      );
+    border-top: 4px solid var(--accent);
+    background: var(--c-card);
     color: inherit;
-    transition: border-color 300ms var(--ease);
+    transition:
+      border-color 300ms var(--ease),
+      border-top-color 1500ms var(--ease);
+  }
+
+  /* 色差し：画面に入るまで上辺も罫線の色にしておき、アクセント色が差してくるように見せる */
+  :global(.js) .gcard[data-reveal]:not([data-revealed]) {
+    border-top-color: var(--line);
   }
 
   .gcard:hover {
     border-color: var(--line-hover);
+    border-top-color: var(--accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) .gcard[data-reveal]:not([data-revealed]) {
+      border-top-color: var(--accent);
+    }
+
+    .gcard {
+      transition: none;
+    }
   }
 
   .gcard.is-link:hover {

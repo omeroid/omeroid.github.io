@@ -2,12 +2,11 @@
 import type { AccentCard } from '~/types'
 import GradientCard from './GradientCard.astro'
 
-/** グラデーションカードの並び */
+/** アクセントカードの並び */
 interface Props {
   cards: AccentCard[]
   cols?: 2 | 3 | 4
   titleSize?: 'lg' | 'md' | 'sm'
-  strength?: number
   /** data-reveal の開始インデックス（見出しの後に続ける） */
   revealFrom?: number
   class?: string
@@ -17,7 +16,6 @@ const {
   cards,
   cols = 3,
   titleSize = 'md',
-  strength = 0.22,
   revealFrom = 3,
   class: className,
 } = Astro.props
@@ -29,7 +27,6 @@ const {
       <GradientCard
         {...card}
         titleSize={titleSize}
-        strength={strength}
         reveal={revealFrom + i}
       />
     ))
