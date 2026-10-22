@@ -24,11 +24,7 @@ const {
 <div class:list={['grid', `grid--${cols}`, className]}>
   {
     cards.map((card, i) => (
-      <GradientCard
-        {...card}
-        titleSize={titleSize}
-        reveal={revealFrom + i}
-      />
+      <GradientCard {...card} titleSize={titleSize} reveal={revealFrom + i} />
     ))
   }
 </div>
